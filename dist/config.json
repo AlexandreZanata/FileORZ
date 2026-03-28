@@ -1,5 +1,6 @@
 {
     "Desenvolvimento": {
+        ".bin": true,
         ".htm": true,
         ".html": true,
         ".cfg": true,
@@ -18,9 +19,9 @@
         ".css": true,
         ".java": true,
         ".cpp": true,
+        ".cs": true,
         ".php": true,
         ".c": true,
-        ".cs": true,
         ".net": true,
         ".pyd": true,
         ".lexical": true,
@@ -39,12 +40,6 @@
         ".dotm": true,
         ".ponto": true,
         ".dotx": true,
-        ".htm": true,
-        ".html": true,
-        ".cfg": true,
-        ".alg": true,
-        ".md": true,
-        ".ftl": true,
         ".ppt": true
     },
     "videos": {
@@ -109,7 +104,6 @@
         ".cr2": true,
         ".exif": true,
         ".psd": true,
-        ".af": true,
         ".eps": true,
         ".ai": true,
         ".svg": true,
@@ -117,17 +111,19 @@
         ".heic": true,
         ".heif": true,
         ".raw": true,
+        ".af": true,
+        ".afpub": true,
         ".img": true
     },
     "timeverification": "20",
     "Startup": false,
-    "Folder": "c:/users/Thayn/downloads",
+    "Folder": "C:/Users/Thayn/Downloads",
     "AutoDelete": true,
     "Enviar Para Lixeira": true,
-    "Excluir permanentemente": true,
+    "Excluir permanentemente": false,
     "AutoDeleteConfig": {
-        "Por Data de Criação": true,
+        "Por Data de Criação": false,
         "Por Data de Modificação": true,
-        "Dias para Auto Deletar": "60"
+        "Dias para Auto Deletar": "30"
     }
 }

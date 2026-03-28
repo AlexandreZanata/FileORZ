@@ -2,10 +2,10 @@ import customtkinter
 import os
 import sys
 from ui.Centralizar_Janela import Centralizar_Janela
+from newUtils import delete, timeVerification
 
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from utils.model import load_config, save_config
-from utils.model import set_days_to_delete, set_autodelete_filter, get_type_of_delete, set_type_of_delete
 row = 0
 col = 6
 
@@ -31,10 +31,6 @@ COLORS = {
     "dropdown_bg": "#1A1A2E",
 }
 
-def save_config_autoDell(Boolean):
-    config["AutoDelete"] = Boolean
-    save_config(config)
-
 def Header_Title(Windows_cfg_autoDell):
     # Título
     Title = customtkinter.CTkLabel(
@@ -49,14 +45,15 @@ def Header_Title(Windows_cfg_autoDell):
 
 def Enable_Disable_AutoDelete(Windows_cfg_autoDell, ext_frame):
     # Cria a variável booleana associada ao estado da configuração
-    var_estado = customtkinter.BooleanVar(value=config["AutoDelete"])
+    value_var = customtkinter.BooleanVar(value=config["AutoDelete"])
     
     def on_checkbox_toggle():
         # Quando o usuário clicar, pega o novo valor da variável e salva
-        New_value = var_estado.get()
-        save_config_autoDell(New_value)
-        # Opcional: Se quiser que o texto mude dinamicamente:
-        if New_value:
+        new_value = value_var.get()
+        enable_obj = delete.AutoDelete(AutoDell=new_value)
+        enable_obj.AutoDelete = enable_obj.AutoDelete
+        # Altera de forma Dinâmica o texto de ativado e desativado
+        if new_value:
             checkbox.configure(text="Auto Deletar Ativado")
             # Se ativou, mostra as opções
             ext_frame.pack(fill="x", padx=22, pady=(20, 20))
@@ -71,7 +68,7 @@ def Enable_Disable_AutoDelete(Windows_cfg_autoDell, ext_frame):
     checkbox = customtkinter.CTkCheckBox(
             Windows_cfg_autoDell,
             text=texto_inicial,
-            variable=var_estado,
+            variable=value_var,
             font=customtkinter.CTkFont(family="Consolas", size=11),
             fg_color=COLORS["checkbox_fg"],
             hover_color=COLORS["checkbox_hover"],
@@ -96,6 +93,7 @@ def save_filter_choice(selected_filter):
     save_config(config)
 
 def Select_Filter(ext_frame):
+    filter_obj = delete.AutoDeleFilter().GetFilters()
     # Título da seção "Filtros de Exclusão"
     lbl_title_filter = customtkinter.CTkLabel(
         ext_frame,
@@ -116,7 +114,7 @@ def Select_Filter(ext_frame):
 
             # Identificando qual opção já estava como 'True' no JSON pra iniciar a RadioVar com ela
             selected_option_str = ""
-            for Filter_name, is_enabled in Filters.items():
+            for Filter_name, is_enabled in filter_obj.items():
                 if is_enabled:
                     selected_option_str = Filter_name
                     break
@@ -141,7 +139,7 @@ def Select_Filter(ext_frame):
                     hover_color=COLORS["checkbox_hover"],
                     border_color=COLORS["border"],
                     text_color=COLORS["text_primary"],
-                    command=lambda f=Filter: set_autodelete_filter(f, True)
+                    command=lambda f=Filter: delete.AutoDeleFilter.SetFilters(None, f, True)
                 )
                 radio.grid(row=row, column=col, padx=10, pady=2, sticky="w")
 
@@ -196,7 +194,7 @@ def Time_AutoDelete(ext_frame):
         dropdown_text_color=COLORS["text_primary"],
         dropdown_hover_color=COLORS["accent_hover"],
         variable=DropDownTimeValue,
-        command=lambda x: set_days_to_delete(x),
+        command=lambda x: timeVerification.DaysAutoDelete(x).Setdays(),
         values=["5", "10", "15", "20", "25", "30", "60", "120", "180", "240", "300", "360"],
         dynamic_resizing=False,
         corner_radius=8
@@ -214,7 +212,7 @@ def Time_AutoDelete(ext_frame):
 def type_of_delete(ext_frame):
     row = 4
     col = 0
-
+    filters_obj = delete.AutoDelete.GetFilters(None)
     Title_section = customtkinter.CTkLabel(
         ext_frame,
         text=f"Tipo de exclusão",
@@ -223,9 +221,8 @@ def type_of_delete(ext_frame):
     )
     Title_section.grid(row=3, column=0, padx=(10, 5), pady=5, sticky="sw")
 
-    config = load_config()
     selected_option_str = ""
-    for Filter_name, is_enabled in config.items():
+    for Filter_name, is_enabled in filters_obj.items():
         if Filter_name.startswith("Enviar Para Lixeira") or Filter_name.startswith("Excluir permanentemente"):
             print(is_enabled)
             if is_enabled:
@@ -233,8 +230,7 @@ def type_of_delete(ext_frame):
                 break
 
     radio_var = customtkinter.StringVar(value=selected_option_str)
-    for tipo in get_type_of_delete():
-
+    for tipo in filters_obj.keys():
         radio = customtkinter.CTkRadioButton(
             ext_frame,
             text=tipo,
@@ -245,7 +241,7 @@ def type_of_delete(ext_frame):
             hover_color=COLORS["checkbox_hover"],
             border_color=COLORS["border"],
             text_color=COLORS["text_primary"],
-            command=lambda f=tipo: set_type_of_delete(f, True)
+            command=lambda f=tipo: delete.AutoDelete.SetFilters(None, f, True)
         )
         radio.grid(row=row, column=col, padx=(10, 5), pady=5, sticky="nw")
 
