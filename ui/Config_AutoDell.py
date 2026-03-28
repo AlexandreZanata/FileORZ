@@ -1,7 +1,7 @@
 import customtkinter
 import os
 import sys
-from Centralizar_Janela import Centralizar_Janela
+from ui.Centralizar_Janela import Centralizar_Janela
 
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from utils.model import load_config, save_config

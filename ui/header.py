@@ -1,9 +1,5 @@
 import customtkinter
 import webbrowser
-import os 
-import sys
-import changelog
-sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from utils.model import get_startup, set_startup, is_startup_enabled, toggle_startup as toggle_startup_registry, load_config
 
 COLORS = {
@@ -34,7 +30,8 @@ def changelog_button(parent):
         hover_color=COLORS["button_hover"],
         text_color=COLORS["text_primary"]
     )
-    btn.bind("<Button-1>", lambda event: changelog.abrir_changelog())
+    btn.bind("<Button-1>", lambda event:
+    webbrowser.open("https://thainanviniciuskatchan.github.io/FileORZ/changelog.html"))
     return btn
 
 def git_button(parent):
