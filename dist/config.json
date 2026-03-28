@@ -119,16 +119,15 @@
         ".raw": true,
         ".img": true
     },
-    "timeverification": "5",
-    "Startup": false,
-    "Folder": "pasta de organização",
-    "AutoDelete": false,
-    "Enviar Para Lixeira": false,
-    "Excluir permanentemente": false,
+    "timeverification": "20",
+    "Startup": true,
+    "Folder": "c:/users/Thayn/downloads",
+    "AutoDelete": true,
+    "Enviar Para Lixeira": true,
+    "Excluir permanentemente": true,
     "AutoDeleteConfig": {
-        "Por Data de Criação": false,
-        "Por Data de Abertura": false,
-        "Por Data de Modificação": false,
-        "Dias para Auto Deletar": "15"
+        "Por Data de Criação": true,
+        "Por Data de Modificação": true,
+        "Dias para Auto Deletar": "60"
     }
 }
