@@ -22,6 +22,13 @@ class AutoDelete:
     def Permanente(self):
         return self._Permanently
 
+    def GetFilters(self):
+        items = dict()
+        for k, v in CONFIG.items():
+            if k == "Enviar Para Lixeira" or k == "Excluir permanentemente":
+                items[k] = v
+        return items
+
     @AutoDelete.getter
     def GetAutoDelete(self):
         return CONFIG["AutoDelete"]
@@ -49,6 +56,16 @@ class AutoDelete:
         CONFIG["Excluir permanentemente"] = Permanently
         save_config(CONFIG)
 
+    def SetFilters(self, filter: str, value: bool):
+        for C in  CONFIG:
+            if C in AutoDelete.GetFilters(None).keys():
+                if filter == C:
+                    CONFIG[filter] = value
+                else:
+                    CONFIG[C] = False
+                if filter == True and C == True:
+                    raise ValueError("Ambos os filtros não podem ser ativados ao mesmo tempo")
+        save_config(CONFIG)
 
 class AutoDeleFilter:
     def __init__(self, datacriacao: bool = False, datamodificacao: bool = False):
@@ -81,9 +98,24 @@ class AutoDeleFilter:
         CONFIG["AutoDeleteConfig"]["Por Data de Modificação"] = datamodificacao
         save_config(CONFIG)
 
+    def GetFilters(self):
+        items = dict()
+        for k, v in CONFIG["AutoDeleteConfig"].items():
+            if k == "Por Data de Criação" or k == "Por Data de Modificação":
+                items[k] = v
+        return items
+
+    def SetFilters(self, filter: str, value: bool):
+        for F in  CONFIG["AutoDeleteConfig"]:
+            if F in AutoDeleFilter.GetFilters(None).keys():
+                if filter == F:
+                    CONFIG["AutoDeleteConfig"][filter] = value
+                else:
+                    CONFIG["AutoDeleteConfig"][F] = False
+                if filter == True and F == True:
+                    raise ValueError("Ambos os filtros não podem ser ativados ao mesmo tempo")
+        save_config(CONFIG)
+
 if __name__ == "__main__":
-    Fitlers = AutoDeleFilter()
-    Fitlers.DataModificacao = True
-    Fitlers.DataCriacao = True
-    print(Fitlers.GetDataModificacao)
-    print(Fitlers.GetDataCriacao)
+    filters = AutoDeleFilter()
+    filters.SetFilters("Por Data de Modificação", True)
