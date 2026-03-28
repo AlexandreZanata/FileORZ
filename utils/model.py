@@ -169,56 +169,5 @@ def toggle_startup(enable):
         winreg.CloseKey(key)
     except Exception as e:
         print(f"Erro ao alterar registro/arquivos: {e}")
-
-# Recebe e envia os dados de dias para auto deletar
-def get_days_to_delete():
-    config = load_config()
-    return config.get(config["AutoDeleteConfig"]["Dias para Auto Deletar"], 30)
-
-def set_days_to_delete(days):
-    config = load_config()
-    config["AutoDeleteConfig"]["Dias para Auto Deletar"] = days
-    save_config(config)
-
-# Recebe e envia os valores dos filtros para auto deletar
-def get_autodelete_filter():
-    config = load_config()
-    cfg = config.get("AutoDeleteConfig", {})
-
-    return {k for k, v in cfg.items() if k != "Dias para Auto Deletar"}
-
-def set_autodelete_filter(filter_name, value):
-    config = load_config()
-    if filter_name == "Dias para Auto Deletar":
-        config['AutoDeleteConfig'][filter_name] = get_days_to_delete()
-    ignore_filter = get_autodelete_filter()
-
-    for k in ignore_filter:
-        if k != filter_name:
-            config['AutoDeleteConfig'][k] = False
-        else:
-            config['AutoDeleteConfig'][k] = value
-
-    save_config(config)
-
-# Recebe e envia os valores do tipo de exclusão
-def get_type_of_delete():
-    config = load_config()
-
-    return {k for k, v in config.items() if k.startswith("Enviar Para Lixeira") or k.startswith("Excluir permanentemente")}
-
-def set_type_of_delete(filter_name, value):
-    config = load_config()
-
-    for C in config:
-        if C in get_type_of_delete():
-            if filter_name == C:
-                config[filter_name] = value
-            else:
-                config[C] = False
-            if filter_name == True and C == True:
-                raise ValueError("Ambos os filtros não podem ser ativados ao mesmo tempo")
-    save_config(config)
-
 if __name__ == "__main__":
-    print(is_startup_enabled())
+    ...

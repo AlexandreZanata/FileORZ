@@ -52,6 +52,8 @@ def git_button(parent):
     btn.bind("<Button-1>", lambda event: webbrowser.open("https://github.com/ThainanViniciusKatchan/FileORZ"))
     return btn
 
+# Essa Função Controla a Inicialização da Aplicação no Windows, Alterando o Json de Configuração
+# e Criando o Registro de StartUp
 def startup_button(parent):
     startup_var = customtkinter.BooleanVar(value=get_startup())
     config_obj = StartUp.StartUpSys()
@@ -77,6 +79,7 @@ def startup_button(parent):
     )
     startup_switch.pack(side="left", padx=(0, 28))
 
+# Função Principal que cria o header na aplicação
 def header(root):
     header_frame = customtkinter.CTkFrame(
         root,
