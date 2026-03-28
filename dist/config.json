@@ -120,7 +120,7 @@
         ".img": true
     },
     "timeverification": "20",
-    "Startup": true,
+    "Startup": false,
     "Folder": "c:/users/Thayn/downloads",
     "AutoDelete": true,
     "Enviar Para Lixeira": true,
