@@ -1,6 +1,7 @@
 import customtkinter
 import webbrowser
-from utils.model import get_startup, set_startup, is_startup_enabled, toggle_startup as toggle_startup_registry, load_config
+from utils.model import get_startup, set_startup, toggle_startup as toggle_startup_registry, load_config
+from newUtils import StartUp
 
 COLORS = {
     "header_gradient_start": "#667eea",
@@ -53,11 +54,13 @@ def git_button(parent):
 
 def startup_button(parent):
     startup_var = customtkinter.BooleanVar(value=get_startup())
-    config = load_config()
+    config_obj = StartUp.StartUpSys()
+    print(f"config: {config_obj}")
 
     def toggle_startup():
         new_value = startup_var.get()
-        set_startup(new_value)
+        print(f"Novo valor: {new_value}")
+        config_obj.enabled = new_value
         toggle_startup_registry(new_value)
 
     startup_switch = customtkinter.CTkSwitch(
