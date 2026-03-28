@@ -2,15 +2,14 @@ import customtkinter
 from customtkinter import filedialog
 import os
 import sys
-from config import open_config_window
-from Config_AutoDell import open_Windows_CFG_autoDell
-from header import header
-from Centralizar_Janela import Centralizar_Janela
+from ui.config import open_config_window
+from ui.Config_AutoDell import open_Windows_CFG_autoDell
+from ui.header import header
+from ui.Centralizar_Janela import Centralizar_Janela
 import ctypes
 
-sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from utils.model import load_config, save_config, get_current_folder, get_time_verification, set_time_verification
-from utils.StartTask import start_task, check_if_running
+from utils.StartTask import start_task
 
 # Padrão de cores
 COLORS = {
