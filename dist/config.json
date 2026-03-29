@@ -115,15 +115,16 @@
         ".afpub": true,
         ".img": true
     },
-    "timeverification": "20",
+    "timeverification": "2",
     "Startup": false,
-    "Folder": "C:/Users/Thayn/Downloads",
+    "Folder": "C:/Users/Thayn/OneDrive/Área de Trabalho",
     "AutoDelete": true,
     "Enviar Para Lixeira": true,
     "Excluir permanentemente": false,
     "AutoDeleteConfig": {
         "Por Data de Criação": false,
-        "Por Data de Modificação": true,
+        "Por Data de Abertura": true,
+        "Por Data de Modificação": false,
         "Dias para Auto Deletar": "30"
     }
 }
