@@ -1,6 +1,5 @@
-from utils.model import json_path, load_config, save_config
+from utils.model import load_config, save_config
 
-JSON_PATH = json_path()
 CONFIG = load_config()
 
 class StartUpSys:
