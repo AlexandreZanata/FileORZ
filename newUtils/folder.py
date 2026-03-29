@@ -17,9 +17,16 @@ class Folder:
 
     @folder.setter
     def folder(self, folder: str):
-        CONFIG["Folder"] = folder
-        save_config(CONFIG)
-
+        if CONFIG["timeverification"]:
+            pass
+        if folder != "":
+            if folder != Folder.Getfolder:
+                CONFIG["Folder"] = folder
+                save_config(CONFIG)
+            else:
+                pass
+        else:
+            pass
 if __name__ == "__main__":
     folder = Folder()
     folder.folder = "c:/users/Thayn/downloads"

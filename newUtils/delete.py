@@ -3,7 +3,6 @@ from utils.model import json_path, load_config, save_config
 JSON_PATH = json_path()
 CONFIG = load_config()
 
-
 class AutoDelete:
     def __init__(self, AutoDell: bool = bool, Trash: bool = bool, Permanently: bool = bool):
         self._AutoDell = AutoDell

@@ -6,12 +6,15 @@ class TimeVerification:
     def __init__(self, time: str):
         self._time = time
 
+    def time(self):
+        if CONFIG["timeverification"] != self._time:
+            CONFIG["timeverification"] = self._time
+            save_config(CONFIG)
+        else:
+            pass
+
     def Gettime(self):
         return CONFIG["timeverification"]
-
-    def time(self):
-        CONFIG["timeverification"] = self._time
-        save_config(CONFIG)
 
 class DaysAutoDelete:
     def __init__(self, days: str):
@@ -24,7 +27,6 @@ class DaysAutoDelete:
     def GetDays(self):
         return CONFIG["AutoDeleteConfig"]["Dias para Auto Deletar"]
 
-if __name__ == "__main__":
-    DaysAutoDelete = DaysAutoDelete("20")
-    DaysAutoDelete.Setdays()
-    print(f"Dias: {DaysAutoDelete.GetDays()}")
+# if __name__ == "__main__":
+#     Time = TimeVerification("5")
+#     Time.time()
