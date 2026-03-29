@@ -3,7 +3,6 @@ import json
 import sys
 import winreg
 import shutil
-from tkinter.messagebox import IGNORE
 
 # Local installation path
 INSTALL_DIR = os.path.join(os.getenv('LOCALAPPDATA'), 'FileORZ')
@@ -41,6 +40,8 @@ def load_config(): # Function that loads the settings
         return json.load(f)
 
 def save_config(config): # Function that saves the settings
+    from newUtils import StartUp
+    Start = StartUp.StartUpSys()
     with open(json_path(), 'w', encoding='utf-8') as f:
         json.dump(config, f, indent=4, ensure_ascii=False)
     
@@ -48,7 +49,7 @@ def save_config(config): # Function that saves the settings
     # so the background service receives the updates
     local_config_path = os.path.join(INSTALL_DIR, "config.json")
     local_config_path_no_install = os.path.join(NoInstallDir, "dist\\config.json")
-    if os.path.exists(INSTALL_DIR) and get_startup() == True:
+    if os.path.exists(INSTALL_DIR) and Start.GetEnabled == True:
         try:
             with open(local_config_path, 'w', encoding='utf-8') as f:
                 json.dump(config, f, indent=4, ensure_ascii=False)
@@ -78,15 +79,6 @@ def set_time_verification(time):
     config = load_config()
     config["timeverification"] = time
     save_config(config)
-
-# Recebe e enviar o valor de startup
-def set_startup(var):
-    config = load_config()
-    config["Startup"] = var
-    save_config(config)
-    
-def get_startup():
-    return load_config().get("Startup", False)
 
 # Controla se o script está sendo executado como .exe ou .py
 def get_app_path():

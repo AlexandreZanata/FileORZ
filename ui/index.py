@@ -6,10 +6,18 @@ from ui.config import open_config_window
 from ui.Config_AutoDell import open_Windows_CFG_autoDell
 from ui.header import header
 from ui.Centralizar_Janela import Centralizar_Janela
+from ui.Select_Folder import folder_select
+from ui.Time_Select import time_select
 import ctypes
 
-from utils.model import load_config, save_config, get_current_folder, get_time_verification, set_time_verification
-from utils.StartTask import start_task
+# TODO:
+#   Descobrir por que quando mudo o valor do tempo de verificação o caminho da pasta no config volta para último.
+#   Descobrir por que o tempo não muda no arquivo de config.
+#   Descobrir por que quando desativo o auto deletar a incialização com o sistema também desativa.
+#   Finalizar a refatoração do código melhorando a escrita do front-end
+
+from newUtils import timeVerification, folder
+from utils.StartTask import start_organizer
 
 # Padrão de cores
 COLORS = {
@@ -32,6 +40,10 @@ COLORS = {
 ORZ = 'FLORZ'
 ctypes.windll.shell32.SetCurrentProcessExplicitAppUserModelID(ORZ)
 
+Time = timeVerification
+Folder = folder.Folder()
+
+# Busca a pasta de execução da aplicação
 if getattr(sys, "frozen", False):
     base_path = getattr(sys, "_MEIPASS", os.path.dirname(sys.executable))
 else:
@@ -42,6 +54,7 @@ icon_path = os.path.join(base_path, "icon", "IconApp.ico")
 root = customtkinter.CTk()
 root.title("File ORZ")
 
+# Busca o Icone da aplicação
 if os.path.exists(icon_path):
     root.iconbitmap(default=icon_path)
 else:
@@ -55,167 +68,26 @@ root.resizable(False, False)
 header(root)
 # Centralize window
 Centralizar_Janela(root, 700, 420)
-
 main_container = customtkinter.CTkFrame(root, fg_color="transparent")
 main_container.pack(fill="both", expand=True, padx=30, pady=20)
-
-folder_card = customtkinter.CTkFrame(
-    main_container,
-    fg_color=COLORS["bg_secondary"],
-    corner_radius=12,
-    border_width=1,
-    border_color=COLORS["border"]
-)
-folder_card.pack(fill="x", pady=(0, 15))
-
-folder_inner = customtkinter.CTkFrame(folder_card, fg_color="transparent")
-folder_inner.pack(fill="x", padx=20, pady=15)
-
-# Ícone e título
-folder_header = customtkinter.CTkFrame(folder_inner, fg_color="transparent")
-folder_header.pack(fill="x")
-
-folder_icon = customtkinter.CTkLabel(
-    folder_header,
-    text="📂",
-    font=customtkinter.CTkFont(size=18)
-)
-folder_icon.pack(side="left")
-
-folder_title = customtkinter.CTkLabel(
-    folder_header,
-    text="Pasta para Organizar",
-    font=customtkinter.CTkFont(family="Segoe UI", size=14, weight="bold"),
-    text_color=COLORS["text_primary"]
-)
-folder_title.pack(side="left", padx=(8, 0))
-
-# Botão selecionar pasta
-def select_path():
-    """Abre diálogo para selecionar pasta a ser organizada"""
-    current_folder = get_current_folder()
-    initial_dir = current_folder if os.path.exists(current_folder) else os.getcwd()
-    
-    selected_folder = filedialog.askdirectory(title="Selecione a pasta", initialdir=initial_dir)
-
-    if selected_folder:
-        config = load_config()
-        config["Folder"] = selected_folder
-        save_config(config)
-        # Atualiza o label com o caminho
-        folder_path_label.configure(text=selected_folder)
-        print(f'Pasta salva com sucesso: {selected_folder}')
-    else:
-        print('Nenhuma pasta selecionada')
-
-btn_Select_folder = customtkinter.CTkButton(
-    folder_header, 
-    text="Selecionar",
-    command=select_path, 
-    fg_color=COLORS["button_secondary"],
-    hover_color=COLORS["button_secondary_hover"],
-    border_width=0,
-    corner_radius=8, 
-    font=customtkinter.CTkFont(family="Segoe UI", size=12, weight="bold"),
-    width=120, 
-    height=32
-)
-btn_Select_folder.pack(side="right")
-
-# Label mostrando caminho atual
-current_folder = get_current_folder()
-folder_path_label = customtkinter.CTkLabel(
-    folder_inner,
-    text=current_folder if current_folder else "Nenhuma pasta selecionada",
-    font=customtkinter.CTkFont(family="Segoe UI", size=11),
-    text_color=COLORS["text_secondary"],
-    anchor="w"
-)
-folder_path_label.pack(fill="x", pady=(10, 0))
-
-time_card = customtkinter.CTkFrame(
-    main_container,
-    fg_color=COLORS["bg_secondary"],
-    corner_radius=12,
-    border_width=1,
-    border_color=COLORS["border"]
-)
-time_card.pack(fill="x", pady=(0, 15))
-
-time_inner = customtkinter.CTkFrame(time_card, fg_color="transparent")
-time_inner.pack(fill="x", padx=20, pady=15)
-
-# Header do card
-time_header = customtkinter.CTkFrame(time_inner, fg_color="transparent")
-time_header.pack(fill="x")
-
-time_icon = customtkinter.CTkLabel(
-    time_header,
-    text="⏱️",
-    font=customtkinter.CTkFont(size=18)
-)
-time_icon.pack(side="left")
-
-time_title = customtkinter.CTkLabel(
-    time_header,
-    text="Intervalo de Verificação (Minutos)",
-    font=customtkinter.CTkFont(family="Segoe UI", size=14, weight="bold"),
-    text_color=COLORS["text_primary"]
-)
-time_title.pack(side="left", padx=(8, 0))
-
-# Configuração do tempo de verificação
-time_value = get_time_verification()
-if time_value != "1" or not time_value:
-    DropDownTimeValue = customtkinter.StringVar(value=time_value)
-else:
-    DropDownTimeValue = customtkinter.StringVar(value="1")
-
-set_time_verification(time_value)
-
-# Dropdown do tempo
-DropDown_time = customtkinter.CTkOptionMenu(
-    time_header,
-    fg_color=COLORS["dropdown_bg"],
-    button_color=COLORS["accent_primary"],
-    button_hover_color=COLORS["accent_hover"],
-    text_color=COLORS["text_primary"],
-    height=32,
-    width=100,
-    font=customtkinter.CTkFont(family="Segoe UI", size=12, weight="bold"),
-    dropdown_fg_color=COLORS["dropdown_bg"],
-    dropdown_text_color=COLORS["text_primary"],
-    dropdown_hover_color=COLORS["accent_hover"],
-    variable=DropDownTimeValue,
-    command=lambda x: set_time_verification(x),
-    values=["1", "2", "3", "4", "5", "6", "7", "8", "9", "10"],
-    dynamic_resizing=False,
-    corner_radius=8
-)
-DropDown_time.pack(side="right")
-
-# Descrição
-time_desc = customtkinter.CTkLabel(
-    time_inner,
-    text="Tempo em minutos entre cada verificação automática de novos arquivos",
-    font=customtkinter.CTkFont(family="Segoe UI", size=11),
-    text_color=COLORS["text_secondary"],
-    anchor="w"
-)
-time_desc.pack(fill="x", pady=(10, 0))
+folder_select(main_container, COLORS)
+time_select(main_container, COLORS)
 
 actions_frame = customtkinter.CTkFrame(main_container, fg_color="transparent")
 actions_frame.pack(fill="x", pady=(10, 0))
 
+# Label de feedback
+feedback_label = None
+
 # Botão de configurações (esquerda)
 btn_config = customtkinter.CTkButton(
-    actions_frame, 
+    actions_frame,
     text="⚙️  Configurar Organizador",
     command=lambda: open_config_window(root),
     fg_color=COLORS["button_secondary"],
     hover_color=COLORS["button_secondary_hover"],
-    border_width=0, 
-    corner_radius=10, 
+    border_width=0,
+    corner_radius=10,
     font=customtkinter.CTkFont(family="Segoe UI", size=13, weight="bold"),
     width=160,
     height=48
@@ -223,75 +95,28 @@ btn_config = customtkinter.CTkButton(
 btn_config.pack(side="left")
 
 btn_config_autoDell = customtkinter.CTkButton(
-    actions_frame, 
+    actions_frame,
     text="⚙️  Configurar AutoDeletar",
     command=lambda: open_Windows_CFG_autoDell(root),
     fg_color=COLORS["button_secondary"],
     hover_color=COLORS["button_secondary_hover"],
-    border_width=0, 
-    corner_radius=10, 
+    border_width=0,
+    corner_radius=10,
     font=customtkinter.CTkFont(family="Segoe UI", size=13, weight="bold"),
     width=160,
     height=48
 )
 btn_config_autoDell.pack(side="left", padx=(29, 0))
 
-# Label de feedback
-feedback_label = None
-
-# Iniciar a organização
-def start_organizer():
-    global feedback_label
-    
-    config = load_config()
-    folder = config.get("Folder", "")
-
-    # Remove label anterior se existir
-    if feedback_label is not None:
-        feedback_label.destroy()
-
-    # verifica se a pasta foi selecionada
-    if not folder or folder == "pasta de organização":
-        feedback_label = customtkinter.CTkLabel(
-            main_container,
-            text="Selecione uma pasta primeiro!",
-            font=customtkinter.CTkFont(family="Segoe UI", size=13, weight="bold"),
-            text_color="red"
-        )
-        feedback_label.pack(pady=(15, 0))
-        root.after(3000, lambda: feedback_label.destroy() if feedback_label.winfo_exists() else None)
-        return
-    else:
-        if start_task():
-            feedback_label = customtkinter.CTkLabel(
-                main_container,
-                text="Organização concluída com sucesso!",
-                font=customtkinter.CTkFont(family="Segoe UI", size=13, weight="bold"),
-                text_color="green"
-            )
-            feedback_label.pack(pady=(15, 0))
-            root.after(3000, lambda: feedback_label.destroy() if feedback_label.winfo_exists() else None)
-        else:
-            feedback_label = customtkinter.CTkLabel(
-                main_container,
-                text="Erro ao iniciar o organizador!",
-                font=customtkinter.CTkFont(family="Segoe UI", size=13, weight="bold"),
-                text_color="red"
-            )
-            feedback_label.pack(pady=(15, 0))
-            root.after(3000, lambda: feedback_label.destroy() if feedback_label.winfo_exists() else None) 
-
-    # verifica se o processo do organizador já está funcionando
-    
 # Botão para iniciar a organização
 btn_Start_Organizer = customtkinter.CTkButton(
-    actions_frame, 
+    actions_frame,
     text="🚀  Iniciar Organização",
-    command=start_organizer, 
+    command=lambda:start_organizer,
     fg_color=COLORS["accent_success"],
     hover_color=COLORS["accent_success_hover"],
     corner_radius=10,
-    border_width=0, 
+    border_width=0,
     font=customtkinter.CTkFont(family="Segoe UI", size=14, weight="bold"),
     width=200,
     height=48
@@ -309,5 +134,5 @@ footer.pack(side="bottom", pady=10)
 root.resizable(False, False)
 root.mainloop()
 
-if __name__ == "__main__":
-    start_organizer()
+# if __name__ == "__main__":
+#     start_organizer()
