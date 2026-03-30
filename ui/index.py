@@ -2,12 +2,12 @@ import customtkinter
 from customtkinter import filedialog
 import os
 import sys
-from ui.config import open_config_window
-from ui.Config_AutoDell import open_Windows_CFG_autoDell
+
 from ui.header import header
 from ui.Centralizar_Janela import Centralizar_Janela
 from ui.Select_Folder import folder_select
 from ui.Time_Select import time_select
+from ui.btn import config_btn, start_btn
 import ctypes
 
 # TODO:
@@ -17,7 +17,6 @@ import ctypes
 #   Finalizar a refatoração do código melhorando a escrita do front-end
 
 from newUtils import timeVerification, folder
-from utils.StartTask import start_organizer
 
 # Padrão de cores
 COLORS = {
@@ -70,8 +69,9 @@ header(root)
 Centralizar_Janela(root, 700, 420)
 main_container = customtkinter.CTkFrame(root, fg_color="transparent")
 main_container.pack(fill="both", expand=True, padx=30, pady=20)
-folder_select(main_container, COLORS)
-time_select(main_container, COLORS)
+
+folder_select(main_container, COLORS) # Select Folder
+time_select(main_container, COLORS) # Select time
 
 actions_frame = customtkinter.CTkFrame(main_container, fg_color="transparent")
 actions_frame.pack(fill="x", pady=(10, 0))
@@ -79,50 +79,11 @@ actions_frame.pack(fill="x", pady=(10, 0))
 # Label de feedback
 feedback_label = None
 
-# Botão de configurações (esquerda)
-btn_config = customtkinter.CTkButton(
-    actions_frame,
-    text="⚙️  Configurar Organizador",
-    command=lambda: open_config_window(root),
-    fg_color=COLORS["button_secondary"],
-    hover_color=COLORS["button_secondary_hover"],
-    border_width=0,
-    corner_radius=10,
-    font=customtkinter.CTkFont(family="Segoe UI", size=13, weight="bold"),
-    width=160,
-    height=48
-)
-btn_config.pack(side="left")
+# btn
+config_btn(COLORS, actions_frame, root) # Config btn
+start_btn(COLORS, actions_frame) # Start btn
 
-btn_config_autoDell = customtkinter.CTkButton(
-    actions_frame,
-    text="⚙️  Configurar AutoDeletar",
-    command=lambda: open_Windows_CFG_autoDell(root),
-    fg_color=COLORS["button_secondary"],
-    hover_color=COLORS["button_secondary_hover"],
-    border_width=0,
-    corner_radius=10,
-    font=customtkinter.CTkFont(family="Segoe UI", size=13, weight="bold"),
-    width=160,
-    height=48
-)
-btn_config_autoDell.pack(side="left", padx=(29, 0))
-
-# Botão para iniciar a organização
-btn_Start_Organizer = customtkinter.CTkButton(
-    actions_frame,
-    text="🚀  Iniciar Organização",
-    command=lambda:start_organizer,
-    fg_color=COLORS["accent_success"],
-    hover_color=COLORS["accent_success_hover"],
-    corner_radius=10,
-    border_width=0,
-    font=customtkinter.CTkFont(family="Segoe UI", size=14, weight="bold"),
-    width=200,
-    height=48
-)
-btn_Start_Organizer.pack(side="right")
-
+# Rodapé
 footer = customtkinter.CTkLabel(
     root,
     text="File ORZ - Organize seus arquivos",
@@ -134,5 +95,5 @@ footer.pack(side="bottom", pady=10)
 root.resizable(False, False)
 root.mainloop()
 
-# if __name__ == "__main__":
-#     start_organizer()
+if __name__ == "__main__":
+    pass
