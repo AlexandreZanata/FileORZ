@@ -1,7 +1,4 @@
-from utils.model import json_path, load_config, save_config
-
-JSON_PATH = json_path()
-CONFIG = load_config()
+from utils.model import load_config, save_config
 
 class AutoDelete:
     def __init__(self, AutoDell: bool = bool, Trash: bool = bool, Permanently: bool = bool):
@@ -22,6 +19,7 @@ class AutoDelete:
         return self._Permanently
 
     def GetFilters(self):
+        CONFIG = load_config()
         items = dict()
         for k, v in CONFIG.items():
             if k == "Enviar Para Lixeira" or k == "Excluir permanentemente":
@@ -30,32 +28,39 @@ class AutoDelete:
 
     @AutoDelete.getter
     def GetAutoDelete(self):
+        CONFIG = load_config()
         return CONFIG["AutoDelete"]
 
     @AutoDelete.setter
     def AutoDelete(self, AutoDell: bool):
+        CONFIG = load_config()
         CONFIG["AutoDelete"] = AutoDell
         save_config(CONFIG)
 
     @Lixeira.getter
     def GetLixeira(self):
+        CONFIG = load_config()
         return CONFIG["Enviar Para Lixeira"]
 
     @Lixeira.setter
     def Lixeira(self, Trash: bool):
+        CONFIG = load_config()
         CONFIG["Enviar Para Lixeira"] = Trash
         save_config(CONFIG)
 
     @Permanente.getter
     def GetPermanente(self):
+        CONFIG = load_config()
         return CONFIG["Excluir permanentemente"]
 
     @Permanente.setter
     def Permanente(self, Permanently: bool):
+        CONFIG = load_config()
         CONFIG["Excluir permanentemente"] = Permanently
         save_config(CONFIG)
 
     def SetFilters(self, filter: str, value: bool):
+        CONFIG = load_config()
         for C in  CONFIG:
             if C in AutoDelete.GetFilters(None).keys():
                 if filter == C:
@@ -81,23 +86,28 @@ class AutoDeleFilter:
 
     @DataCriacao.getter
     def GetDataCriacao(self):
+        CONFIG = load_config()
         return CONFIG["AutoDeleteConfig"]["Por Data de Criação"]
 
     @DataCriacao.setter
     def DataCriacao(self, datacriacao: bool):
+        CONFIG = load_config()
         CONFIG["AutoDeleteConfig"]["Por Data de Criação"] = datacriacao
         save_config(CONFIG)
 
     @DataModificacao.getter
     def GetDataModificacao(self):
+        CONFIG = load_config()
         return CONFIG["AutoDeleteConfig"]["Por Data de Modificação"]
 
     @DataModificacao.setter
     def DataModificacao(self, datamodificacao: bool):
+        CONFIG = load_config()
         CONFIG["AutoDeleteConfig"]["Por Data de Modificação"] = datamodificacao
         save_config(CONFIG)
 
     def GetFilters(self):
+        CONFIG = load_config()
         items = dict()
         for k, v in CONFIG["AutoDeleteConfig"].items():
             if k == "Por Data de Criação" or k == "Por Data de Modificação":
@@ -105,6 +115,7 @@ class AutoDeleFilter:
         return items
 
     def SetFilters(self, filter: str, value: bool):
+        CONFIG = load_config()
         for F in  CONFIG["AutoDeleteConfig"]:
             if F in AutoDeleFilter.GetFilters(None).keys():
                 if filter == F:
