@@ -1,7 +1,5 @@
 from utils.model import load_config, save_config
 
-CONFIG = load_config()
-
 class StartUpSys:
     def __init__(self, value: bool = False):
         self._value = value
@@ -12,10 +10,12 @@ class StartUpSys:
 
     @enabled.getter
     def GetEnabled(self):
+        CONFIG = load_config()
         return CONFIG["Startup"]
 
     @enabled.setter
     def enabled(self, value: bool):
+        CONFIG = load_config()
         CONFIG["Startup"] = value
         save_config(CONFIG)
 

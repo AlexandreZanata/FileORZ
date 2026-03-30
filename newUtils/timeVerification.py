@@ -1,12 +1,11 @@
 from utils.model import load_config, save_config
 
-CONFIG = load_config()
-
 class TimeVerification:
     def __init__(self, time: str):
         self._time = time
 
     def time(self):
+        CONFIG = load_config()
         if CONFIG["timeverification"] != self._time:
             CONFIG["timeverification"] = self._time
             save_config(CONFIG)
@@ -14,6 +13,7 @@ class TimeVerification:
             pass
 
     def Gettime(self):
+        CONFIG = load_config()
         return CONFIG["timeverification"]
 
 class DaysAutoDelete:
@@ -21,10 +21,12 @@ class DaysAutoDelete:
         self._days = days
 
     def Setdays(self):
+        CONFIG = load_config()
         CONFIG["AutoDeleteConfig"]["Dias para Auto Deletar"] = self._days
         save_config(CONFIG)
 
     def GetDays(self):
+        CONFIG = load_config()
         return CONFIG["AutoDeleteConfig"]["Dias para Auto Deletar"]
 
 # if __name__ == "__main__":
