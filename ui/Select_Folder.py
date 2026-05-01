@@ -1,6 +1,6 @@
 import customtkinter
 from customtkinter import filedialog
-from newUtils import folder
+from utils import folder
 import os
 
 Folder = folder.Folder

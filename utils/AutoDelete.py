@@ -1,6 +1,4 @@
-from os import scandir, path
 from os import *
-import io
 from datetime import datetime
 import sys
 import os
@@ -19,14 +17,13 @@ def AutoDelete():
         cfg = data.get('AutoDeleteConfig', {})
 
         by_create_date = cfg.get('Por Data de Criação', False)
-        by_last_open_date = cfg.get('Por Data de Abertura', False)
         by_last_modified_date = cfg.get('Por Data de Modificação', False)
         days_to_auto_delete = cfg.get('Dias para Auto Deletar', "0")
 
-        return by_create_date, by_last_open_date, by_last_modified_date, days_to_auto_delete
+        return by_create_date, by_last_modified_date, days_to_auto_delete
 
-    def scan_files(PATH_FILES): # Escaneia os arquivos da pasta e trás as datas de criação, modificação e acesso
-        Dias_Config = int(GetConfig()[3])
+    def scan_files(PATH_FILES): # Escaneia os arquivos da pasta e trás as datas de criação e modificação
+        Dias_Config = int(GetConfig()[2])
         with scandir(PATH_FILES) as entries:
             for entry in entries:
                 if entry.is_file():
@@ -34,7 +31,6 @@ def AutoDelete():
                     File_Name = entry.name
                     CreateDate = datetime.fromtimestamp(entry.stat().st_birthtime)
                     ModifyDate = datetime.fromtimestamp(entry.stat().st_mtime)
-                    AccessDate = datetime.fromtimestamp(entry.stat().st_atime)
                 # Validação de exclusão
                 if CONFIG_AUTO_DELETE == True:
                     if (datetime.now() - CreateDate).days > Dias_Config: 
@@ -48,19 +44,7 @@ def AutoDelete():
                     else:
                         print(f"Nenhum arquivo está a mais de  {Dias_Config} dias para ser excluído\n Por data de criação")
 
-                    if (datetime.now() - AccessDate).days > Dias_Config:
-                        if GetConfig()[1] == True:
-                            if CONFIG["Enviar Para Lixeira"] == True:
-                                send2trash(entry.path)
-                            elif CONFIG["Excluir permanentemente"] == True:
-                                remove(entry.path)
-                            print(f"Arquivo {File_Name} excluído por data de acesso")
-                        else:
-                            print(f"Nenhum arquivo está a mais de  {Dias_Config} dias para ser excluído\n Por data de acesso")
-                    else:
-                        print(f"Configuração de data de acesso desativada")
-
-                    if GetConfig()[2] == True:
+                    if GetConfig()[1] == True:
                         if (datetime.now() - ModifyDate).days > Dias_Config:
                             if CONFIG["Enviar Para Lixeira"] == True:
                                 send2trash(entry.path)

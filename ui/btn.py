@@ -1,8 +1,6 @@
 import customtkinter
-from customtkinter import filedialog
 from ui.config import open_config_window
 from ui.Config_AutoDell import open_Windows_CFG_autoDell
-
 
 def config_btn(COLORS, actions_frame, root):
     # Botão de configurações (esquerda)
@@ -34,13 +32,23 @@ def config_btn(COLORS, actions_frame, root):
     )
     btn_config_autoDell.pack(side="left", padx=(29, 0))
 
-from utils.StartTask import start_organizer
+
+from utils import folder
+
+
 def start_btn(COLORS, actions_frame):
+    from ui.index import main_container, root, feedback_label
+    from utils.StartTask import start_organizer
+
+    main_container = main_container
+    root = root
+    feedback_label = feedback_label
+
     # Botão para iniciar a organização
     btn_Start_Organizer = customtkinter.CTkButton(
         actions_frame,
         text="🚀  Iniciar Organização",
-        command=lambda:start_organizer,
+        command=lambda: start_organizer(main_container, root, folder.Folder().Getfolder, feedback_label),
         fg_color=COLORS["accent_success"],
         hover_color=COLORS["accent_success_hover"],
         corner_radius=10,
