@@ -18,7 +18,8 @@ def load_extensions():
         
         extensions = {}
         # Lista negra de chaves que não são categorias de arquivos
-        ignored_keys = {"Folder", "timeverification", "Startup"}
+        ignored_keys = {"Folder", "timeverification", "Startup", "AutoDelete", "Enviar Para Lixeira",
+                        "Excluir permanentemente", "AutoDeleteConfig"}
 
         for category, exts in data.items():
             if category not in ignored_keys:

@@ -1,6 +1,5 @@
 import customtkinter
-from customtkinter import filedialog
-from newUtils import timeVerification
+from utils import timeVerification
 
 Time = timeVerification
 
