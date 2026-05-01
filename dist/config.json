@@ -40,7 +40,13 @@
         ".dotm": true,
         ".ponto": true,
         ".dotx": true,
-        ".ppt": true
+        ".htm": true,
+        ".html": true,
+        ".cfg": true,
+        ".alg": true,
+        ".ftl": true,
+        ".ppt": true,
+        ".md": true
     },
     "videos": {
         ".mov": true,
@@ -104,6 +110,7 @@
         ".cr2": true,
         ".exif": true,
         ".psd": true,
+        ".af": true,
         ".eps": true,
         ".ai": true,
         ".svg": true,
@@ -111,19 +118,17 @@
         ".heic": true,
         ".heif": true,
         ".raw": true,
-        ".af": true,
-        ".afpub": true,
         ".img": true
     },
-    "timeverification": "10",
+    "timeverification": "5",
     "Startup": false,
-    "Folder": "C:/Users/Thayn/Downloads",
+    "Folder": "C:\\Users\\Thayn\\Downloads",
     "AutoDelete": true,
-    "Enviar Para Lixeira": false,
-    "Excluir permanentemente": true,
+    "Enviar Para Lixeira": true,
+    "Excluir permanentemente": false,
     "AutoDeleteConfig": {
-        "Por Data de Criação": true,
-        "Por Data de Modificação": false,
+        "Por Data de Criação": false,
+        "Por Data de Modificação": true,
         "Dias para Auto Deletar": "30"
     }
 }

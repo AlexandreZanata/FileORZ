@@ -1,5 +1,4 @@
 import customtkinter
-from customtkinter import filedialog
 import os
 import sys
 
@@ -11,12 +10,9 @@ from ui.btn import config_btn, start_btn
 import ctypes
 
 # TODO:
-#   Descobrir por que quando mudo o valor do tempo de verificação o caminho da pasta no config volta para último.
-#   Descobrir por que o tempo não muda no arquivo de config.
-#   Descobrir por que quando desativo o auto deletar a incialização com o sistema também desativa.
 #   Finalizar a refatoração do código melhorando a escrita do front-end
 
-from newUtils import timeVerification, folder
+from utils import folder, timeVerification
 
 # Padrão de cores
 COLORS = {

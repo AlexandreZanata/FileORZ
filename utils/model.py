@@ -40,7 +40,7 @@ def load_config(): # Function that loads the settings
         return json.load(f)
 
 def save_config(config): # Function that saves the settings
-    from newUtils import StartUp
+    from utils import StartUp
     Start = StartUp.StartUpSys()
     with open(json_path(), 'w', encoding='utf-8') as f:
         json.dump(config, f, indent=4, ensure_ascii=False)
@@ -61,24 +61,6 @@ def save_config(config): # Function that saves the settings
                 json.dump(config, f, indent=4, ensure_ascii=False)
         except Exception as e:
             print(f"Erro ao sincronizar config: {e}")
-
-# Recebe e enviar o valor de pasta atual de organização
-def get_current_folder():
-    return load_config().get("Folder", "")
-
-def set_current_folder(folder):
-    config = load_config()
-    config["Folder"] = folder
-    save_config(config)
-
-# Recebe e enviar o valor de tempo de verificação
-def get_time_verification():
-    return load_config().get("timeverification", "5")
-
-def set_time_verification(time):
-    config = load_config()
-    config["timeverification"] = time
-    save_config(config)
 
 # Controla se o script está sendo executado como .exe ou .py
 def get_app_path():
@@ -106,51 +88,53 @@ def toggle_startup(enable):
     """Enables or disables automatic startup, moving files to AppData."""
     key_path = r"Software\Microsoft\Windows\CurrentVersion\Run"
     app_name = "FileORZ"
-    
-    # Destination paths
-    target_exe = os.path.join(INSTALL_DIR, "FileORZ.exe")
-    target_config = os.path.join(INSTALL_DIR, "config.json")
 
     try:
         key = winreg.OpenKey(winreg.HKEY_CURRENT_USER, key_path, 0, winreg.KEY_ALL_ACCESS)
-        
+
         if enable:
-            # 1. Create folder if it doesn't exist
+            # 1. Cria a pasta local (FileORZ) caso não exista
             if not os.path.exists(INSTALL_DIR):
                 os.makedirs(INSTALL_DIR)
-            
-            # 2. Copy Executable
+
+            # 2. Definir a origem da pasta dist
             if getattr(sys, 'frozen', False):
-                # If running from the executable
-                source_exe = sys.executable
+                # Se for compilado, script_dir() retorna a pasta onde o executável está
+                source_dir = script_dir()
+                if os.path.basename(source_dir).lower() == "dist":
+                    source_dist = source_dir
+                else:
+                    source_dist = os.path.join(source_dir, "dist")
             else:
-                # If running from the script, get from the dist folder
-                source_exe = os.path.join(script_dir(), "dist", "FileORZ.exe")
-                if not os.path.exists(source_exe):
-                    print(f"Erro: Executável não encontrado em {source_exe}")
-                    return
+                # Se for script (.py), a pasta dist estará no diretório base
+                source_dist = os.path.join(script_dir(), "dist")
 
-            # Only copy if we are not running from the destination itself
-            if os.path.normpath(source_exe) != os.path.normpath(target_exe):
-                shutil.copy2(source_exe, target_exe)
-            
-            # 3. Copy Config
-            current_config = json_path()
-            shutil.copy2(current_config, target_config)
+            target_dist = os.path.join(INSTALL_DIR, "dist")
+            target_exe = os.path.join(target_dist, "FileORZ.exe")
 
-            # 4. Register in Windows pointing to the file in AppData
+            if not os.path.exists(source_dist):
+                print(f"Erro: Pasta dist não encontrada em {source_dist}")
+                return
+
+            # 3. Copia a pasta inteira
+            if os.path.normpath(source_dist) != os.path.normpath(target_dist):
+                if os.path.exists(target_dist):
+                    shutil.rmtree(target_dist)  # Remove para substituir por versão atualizada
+                shutil.copytree(source_dist, target_dist)
+
+            # 4. Registra no Windows apontando para o executável dentro da nova pasta dist copiada
             winreg.SetValueEx(key, app_name, 0, winreg.REG_SZ, target_exe)
             print(f"Instalado e registrado em: {target_exe}")
-            
+
         else:
-            # remove registry key on Windows
+            # Remove a chave do registro no Windows
             try:
                 winreg.DeleteValue(key, app_name)
                 print("Registro removido.")
             except FileNotFoundError:
-                pass 
-            
-            # Remove files and folder from AppData
+                pass
+
+                # Remove os arquivos e a pasta dist do AppData
             if os.path.exists(INSTALL_DIR):
                 try:
                     shutil.rmtree(INSTALL_DIR)
@@ -161,5 +145,6 @@ def toggle_startup(enable):
         winreg.CloseKey(key)
     except Exception as e:
         print(f"Erro ao alterar registro/arquivos: {e}")
+
 if __name__ == "__main__":
     ...

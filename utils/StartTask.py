@@ -1,10 +1,10 @@
 import os
 import ctypes
 import psutil
-import customtkinter as ctk
 import customtkinter
 from tkinter import messagebox
-from utils.model import load_config
+from utils import StartUp
+
 
 def check_if_running(TaskName):
     for proc in psutil.process_iter(['name']):
@@ -13,17 +13,16 @@ def check_if_running(TaskName):
     return False
 
 def start_task():
-    config = load_config()
-    Startup = config["Startup"]
+    Startup = StartUp.StartUpSys().GetEnabled
 
     STATUS = check_if_running("FileORZ.exe")
 
-    if Startup == False:
+    if not Startup:
        SCRIPT_DIR = os.path.join(os.getcwd(), "dist", "FileORZ.exe")
-    elif Startup == True:
-        SCRIPT_DIR = os.path.join(os.getenv('LOCALAPPDATA'), 'FileORZ', 'FileORZ.exe')
+    elif Startup:
+        SCRIPT_DIR = os.path.join(os.getenv('LOCALAPPDATA'), 'FileORZ', 'dist', 'FileORZ.exe')
 
-    if STATUS == False:
+    if not STATUS:
         if os.path.exists(SCRIPT_DIR):
             ctypes.windll.shell32.ShellExecuteW(
                 None,
@@ -34,12 +33,13 @@ def start_task():
             1
             )
             return True
+        return None
     else:
         messagebox.showinfo("Erro", "FileORZ.exe ja esta em execução")
         return False
 
 # Iniciar a organização
-def start_organizer(main_container, root, folder, feedback_label):
+def start_organizer(main_container, root, folder , feedback_label):
     # Remove label anterior se existir
     if feedback_label is not None:
         feedback_label.destroy()

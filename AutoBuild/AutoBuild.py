@@ -170,6 +170,7 @@ def reorganizar_estrutura():
 def Criar_Config_Padrao():
     config = {
     "Desenvolvimento": {
+        ".bin": True,
         ".htm": True,
         ".html": True,
         ".cfg": True,
@@ -188,13 +189,13 @@ def Criar_Config_Padrao():
         ".css": True,
         ".java": True,
         ".cpp": True,
+        ".cs": True,
         ".php": True,
         ".c": True,
-        ".cs": True,
         ".net": True,
         ".pyd": True,
         ".lexical": True,
-        ".dll": True,
+        ".dll": True
     },
     "documentos": {
         ".pdf": True,
@@ -213,9 +214,9 @@ def Criar_Config_Padrao():
         ".html": True,
         ".cfg": True,
         ".alg": True,
-        ".md": True,
         ".ftl": True,
-        ".ppt": True
+        ".ppt": True,
+        ".md": True
     },
     "videos": {
         ".mov": True,
@@ -297,7 +298,6 @@ def Criar_Config_Padrao():
     "Excluir permanentemente": False,
     "AutoDeleteConfig": {
         "Por Data de Criação": False,
-        "Por Data de Abertura": False,
         "Por Data de Modificação": False,
         "Dias para Auto Deletar": "15"
     }

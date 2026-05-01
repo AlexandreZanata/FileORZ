@@ -1,7 +1,7 @@
 import customtkinter
 import webbrowser
-from utils.model import toggle_startup as toggle_startup_registry, load_config
-from newUtils import StartUp
+from utils.model import toggle_startup as toggle_startup_registry
+from utils import StartUp
 
 COLORS = {
     "header_gradient_start": "#667eea",
