@@ -120,7 +120,7 @@
         ".raw": true,
         ".img": true
     },
-    "timeverification": "5",
+    "timeverification": "10",
     "Startup": false,
     "Folder": "C:\\Users\\Thayn\\Downloads",
     "AutoDelete": true,
