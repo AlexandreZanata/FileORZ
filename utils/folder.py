@@ -11,18 +11,18 @@ class Folder:
 
     @folder.getter
     def Getfolder(self) -> str:
-        CONFIG = load_config()
+        CONFIG = load_config("dist", "config")
         return CONFIG["Folder"]
 
     @folder.setter
     def folder(self, folder: str):
-        CONFIG = load_config()
+        CONFIG = load_config("dist", "config")
         if CONFIG["timeverification"]:
             pass
         if folder != "":
             if folder != Folder.Getfolder:
                 CONFIG["Folder"] = folder.replace("/", "\\")
-                save_config(CONFIG)
+                save_config("dist", "config", CONFIG)
             else:
                 pass
         else:

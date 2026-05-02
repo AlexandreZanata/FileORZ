@@ -7,7 +7,7 @@ sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from utils.model import json_path
 from utils.AutoDelete import AutoDelete
 
-CONFIG_PATH = json_path()
+CONFIG_PATH = json_path("dist", "config")
 
 # Carregar as extensões do arquivo config.json
 def load_extensions():

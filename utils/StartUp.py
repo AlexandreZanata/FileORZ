@@ -10,14 +10,14 @@ class StartUpSys:
 
     @enabled.getter
     def GetEnabled(self):
-        CONFIG = load_config()
+        CONFIG = load_config("dist", "config")
         return CONFIG["Startup"]
 
     @enabled.setter
     def enabled(self, value: bool):
-        CONFIG = load_config()
+        CONFIG = load_config("dist", "config")
         CONFIG["Startup"] = value
-        save_config(CONFIG)
+        save_config("dist", "config", CONFIG)
 
 if __name__ == "__main__":
     # StartUp = StartUpSys()

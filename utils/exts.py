@@ -1,7 +1,7 @@
 from utils.model import json_path, load_config, save_config
 
-JSON_PATH = json_path()
-CONFIG = load_config()
+JSON_PATH = json_path("dist", "config")
+CONFIG = load_config("dist", "config")
 
 class Extensions:
     def __init__(self, category: str = "" ,name: str = "", value: bool = bool):
@@ -33,7 +33,7 @@ class Extensions:
     @value.setter
     def value(self, value: bool):
             CONFIG[self._category][self._name] = value
-            save_config(CONFIG)
+            save_config("dist", "config", CONFIG)
             return f" [✔] {self._name} foi {self._value} com sucesso!"
 
     # def add_ext(self, name: str, category: str, value: bool = bool):
@@ -47,7 +47,7 @@ class Extensions:
         for ext in CONFIG[category]:
             try:
                 CONFIG[category][ext] = value
-                save_config(CONFIG)
+                save_config("dist", "config", CONFIG)
             except Exception as e:
                 print(f"[X] Erro ao mudar a Chave {ext}: {e}")
         return f"Todas as chaves Foram Alteradas com Sucesso!"

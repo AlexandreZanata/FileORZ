@@ -2,7 +2,6 @@ import os
 import sys
 import subprocess
 import io
-import shutil
 
 # Força o encoding do stdout para utf-8
 sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8')
