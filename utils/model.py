@@ -20,35 +20,48 @@ def script_dir(): # find the path of the script
 
 NoInstallDir = os.path.join(script_dir()) # Receives the path of the current script 
 
-def json_path(): # Performs a search to find the config.json file regardless of location
-    search_path = [script_dir(), os.path.join(script_dir(), "dist")]
+def json_path(folder, file): # Performs a search to find the config.json file regardless of location
+    """
+    Precisa passar o parametro folder, contendo a pasta onde o arquivo .json está
+    """
+    search_path = [script_dir(), os.path.join(script_dir(), folder)]
 
     for path in search_path:
-        path = os.path.join(path, "config.json")
+        path = os.path.join(path, f"{file}.json")
         if os.path.exists(path):
-            print("config.json encontrado em: " + path)
+            print(f"{file}.json encontrado em: " + path)
             return os.path.abspath(path)
 
     raise FileNotFoundError(
-        "config.json não encontrado em nenhuma das pastas de busca."
+        f"o arquivo {file}.json não encontrado em nenhuma das pastas de busca."
         "Verifique se o arquivo está presente em uma das seguintes pastas:"
         f"\n{search_path}"
     )
 
-def load_config(): # Function that loads the settings
-    with open(json_path(), 'r', encoding='utf-8') as f:
+def load_config(folder, file): # Function that loads the settings
+    """
+    Precisa passar o parametro folder, contendo a pasta onde o arquivo .json está
+    """
+    with open(json_path(folder, file), 'r', encoding='utf-8') as f:
         return json.load(f)
 
-def save_config(config): # Function that saves the settings
+def save_config(folder, file ,config): # Function that saves the settings
+    """
+    Precisa passar os seguintes parametros na seguinte ordem:
+    folder, file, config
+    folder = pasta onde o json está
+    file = nome do json, não precisa do .json
+    config = Qual configuração será alterada
+    """
     from utils import StartUp
     Start = StartUp.StartUpSys()
-    with open(json_path(), 'w', encoding='utf-8') as f:
+    with open(json_path("dist"), 'w', encoding='utf-8') as f:
         json.dump(config, f, indent=4, ensure_ascii=False)
     
     # If installed in AppData, sync the config there too
     # so the background service receives the updates
-    local_config_path = os.path.join(INSTALL_DIR, "config.json")
-    local_config_path_no_install = os.path.join(NoInstallDir, "dist\\config.json")
+    local_config_path = os.path.join(INSTALL_DIR, f"{file}")
+    local_config_path_no_install = os.path.join(NoInstallDir, f"{folder}\\{file}.json")
     if os.path.exists(INSTALL_DIR) and Start.GetEnabled == True:
         try:
             with open(local_config_path, 'w', encoding='utf-8') as f:
