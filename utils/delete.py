@@ -19,7 +19,7 @@ class AutoDelete:
         return self._Permanently
 
     def GetFilters(self):
-        CONFIG = load_config()
+        CONFIG = load_config("dist", "config")
         items = dict()
         for k, v in CONFIG.items():
             if k == "Enviar Para Lixeira" or k == "Excluir permanentemente":
@@ -28,39 +28,39 @@ class AutoDelete:
 
     @AutoDelete.getter
     def GetAutoDelete(self):
-        CONFIG = load_config()
+        CONFIG = load_config("dist", "config")
         return CONFIG["AutoDelete"]
 
     @AutoDelete.setter
     def AutoDelete(self, AutoDell: bool):
-        CONFIG = load_config()
+        CONFIG = load_config("dist", "config")
         CONFIG["AutoDelete"] = AutoDell
-        save_config(CONFIG)
+        save_config("dist", "config", CONFIG)
 
     @Lixeira.getter
     def GetLixeira(self):
-        CONFIG = load_config()
+        CONFIG = load_config("dist", "config")
         return CONFIG["Enviar Para Lixeira"]
 
     @Lixeira.setter
     def Lixeira(self, Trash: bool):
-        CONFIG = load_config()
+        CONFIG = load_config("dist", "config")
         CONFIG["Enviar Para Lixeira"] = Trash
-        save_config(CONFIG)
+        save_config("dist", "config", CONFIG)
 
     @Permanente.getter
     def GetPermanente(self):
-        CONFIG = load_config()
+        CONFIG = load_config("dist", "config")
         return CONFIG["Excluir permanentemente"]
 
     @Permanente.setter
     def Permanente(self, Permanently: bool):
-        CONFIG = load_config()
+        CONFIG = load_config("dist", "config")
         CONFIG["Excluir permanentemente"] = Permanently
-        save_config(CONFIG)
+        save_config("dist", "config", CONFIG)
 
     def SetFilters(self, filter: str, value: bool):
-        CONFIG = load_config()
+        CONFIG = load_config("dist", "config")
         for C in  CONFIG:
             if C in AutoDelete.GetFilters(None).keys():
                 if filter == C:
@@ -69,7 +69,7 @@ class AutoDelete:
                     CONFIG[C] = False
                 if filter == True and C == True:
                     raise ValueError("Ambos os filtros não podem ser ativados ao mesmo tempo")
-        save_config(CONFIG)
+        save_config("dist", "config", CONFIG)
 
 class AutoDeleFilter:
     def __init__(self, datacriacao: bool = False, datamodificacao: bool = False):
@@ -86,28 +86,28 @@ class AutoDeleFilter:
 
     @DataCriacao.getter
     def GetDataCriacao(self):
-        CONFIG = load_config()
+        CONFIG = load_config("dist", "config")
         return CONFIG["AutoDeleteConfig"]["Por Data de Criação"]
 
     @DataCriacao.setter
     def DataCriacao(self, datacriacao: bool):
-        CONFIG = load_config()
+        CONFIG = load_config("dist", "config")
         CONFIG["AutoDeleteConfig"]["Por Data de Criação"] = datacriacao
-        save_config(CONFIG)
+        save_config("dist", "config", CONFIG)
 
     @DataModificacao.getter
     def GetDataModificacao(self):
-        CONFIG = load_config()
+        CONFIG = load_config("dist", "config")
         return CONFIG["AutoDeleteConfig"]["Por Data de Modificação"]
 
     @DataModificacao.setter
     def DataModificacao(self, datamodificacao: bool):
-        CONFIG = load_config()
+        CONFIG = load_config("dist", "config")
         CONFIG["AutoDeleteConfig"]["Por Data de Modificação"] = datamodificacao
-        save_config(CONFIG)
+        save_config("dist", "config", CONFIG)
 
     def GetFilters(self):
-        CONFIG = load_config()
+        CONFIG = load_config("dist", "config")
         items = dict()
         for k, v in CONFIG["AutoDeleteConfig"].items():
             if k == "Por Data de Criação" or k == "Por Data de Modificação":
@@ -115,7 +115,7 @@ class AutoDeleFilter:
         return items
 
     def SetFilters(self, filter: str, value: bool):
-        CONFIG = load_config()
+        CONFIG = load_config("dist", "config")
         for F in  CONFIG["AutoDeleteConfig"]:
             if F in AutoDeleFilter.GetFilters(None).keys():
                 if filter == F:
@@ -124,7 +124,7 @@ class AutoDeleFilter:
                     CONFIG["AutoDeleteConfig"][F] = False
                 if filter == True and F == True:
                     raise ValueError("Ambos os filtros não podem ser ativados ao mesmo tempo")
-        save_config(CONFIG)
+        save_config("dist", "config", CONFIG)
 
 if __name__ == "__main__":
     filters = AutoDeleFilter()

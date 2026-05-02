@@ -9,7 +9,7 @@ from utils.model import load_config, save_config
 row = 0
 col = 6
 
-config = load_config()
+config = load_config("dist", "config")
 
 COLORS = {
     "bg_primary": "#0D0D0D",
@@ -90,7 +90,7 @@ def save_filter_choice(selected_filter):
     if selected_filter == "Dias para Auto Deletar":
         pass
     config["AutoDeleteConfig"][selected_filter] = True
-    save_config(config)
+    save_config("dist", "config", config)
 
 def Select_Filter(ext_frame):
     filter_obj = delete.AutoDeleFilter().GetFilters()
@@ -249,7 +249,7 @@ def type_of_delete(ext_frame):
 
 def open_Windows_CFG_autoDell(parent):
     global config
-    config = load_config()
+    config = load_config("dist", "config")
     icon_dir = os.path.join(os.path.dirname(__file__), "icon")
     icon_path = os.path.join(icon_dir, "IconApp.ico")
 
@@ -289,7 +289,7 @@ def open_Windows_CFG_autoDell(parent):
     except Exception:
         pass
 
-    config = load_config()
+    config = load_config("dist", "config")
 
 if __name__ == "__main__":
     open_Windows_CFG_autoDell(None)

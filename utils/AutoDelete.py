@@ -7,7 +7,7 @@ from send2trash import send2trash
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from utils.model import load_config
 
-CONFIG = load_config()
+CONFIG = load_config("dist", "config")
 CONFIG_AUTO_DELETE = CONFIG['AutoDelete']
 
 def AutoDelete():
