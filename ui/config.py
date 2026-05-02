@@ -43,7 +43,7 @@ def open_config_window(parent):
     except Exception:
         pass
     
-    config = load_config()
+    config = load_config("dist", "config")
     
     extension_vars = {}
     
@@ -236,14 +236,14 @@ def open_config_window(parent):
     
     # Função para salvar as alterações
     def save_changes():
-        config = load_config()
+        config = load_config("dist", "config")
         
         for category, exts in extension_vars.items():
             if category in config:
                 for ext, var in exts.items():
                     config[category][ext] = var.get()
         
-        save_config(config)
+        save_config("dist", "config", config)
         
         # Mostra mensagem de sucesso
         success_label = customtkinter.CTkLabel(

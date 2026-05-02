@@ -5,15 +5,15 @@ class TimeVerification:
         self._time = time
 
     def time(self):
-        CONFIG = load_config()
+        CONFIG = load_config("dist", "config")
         if CONFIG["timeverification"] != self._time:
             CONFIG["timeverification"] = self._time
-            save_config(CONFIG)
+            save_config("dist", "config", CONFIG)
         else:
             pass
 
     def Gettime(self):
-        CONFIG = load_config()
+        CONFIG = load_config("dist", "config")
         return CONFIG["timeverification"]
 
 class DaysAutoDelete:
@@ -21,12 +21,12 @@ class DaysAutoDelete:
         self._days = days
 
     def Setdays(self):
-        CONFIG = load_config()
+        CONFIG = load_config("dist", "config")
         CONFIG["AutoDeleteConfig"]["Dias para Auto Deletar"] = self._days
-        save_config(CONFIG)
+        save_config("dist", "config", CONFIG)
 
     def GetDays(self):
-        CONFIG = load_config()
+        CONFIG = load_config("dist", "config")
         return CONFIG["AutoDeleteConfig"]["Dias para Auto Deletar"]
 
 # if __name__ == "__main__":
