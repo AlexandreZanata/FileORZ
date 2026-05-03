@@ -1,6 +1,5 @@
 {
   "Boleto": [
-    "VENCIMENTO",
     "Beneficiário",
     "NÃO RECEBER APÓS O VENCIMENTO",
     "Pagador",
@@ -11,21 +10,25 @@
     "Agência/Código",
     "Data Processamento",
     "Data do Processamento",
-    "Vencimento",
     "Local de pagamento"
   ],
   "Nota Fiscal": [
-    "Nota",
-    "Fiscal",
     "Nota Fiscal",
-    "Data",
-    "Emissão",
-    "Valor",
-    "Total",
+    "NÚMERO DA NOTA",
+    "NUMERO DA NOTA",
+    "SIMPLES NACIONAL",
+    "NOTA FISCAL DE SERVIÇOS ELETRÔNICA",
+    "NOTA FISCAL DE SERVIÇOS ELETRONICA,",
+    "Nota Fiscal Eletrônica",
+    "Nota Fiscal Eletronica",
+    "NFS-e",
+    "NFS",
+    "DANFE",
     "Série",
-    "Código",
+    "Serie",
     "PIS",
     "COFINS",
-    "Serviço"
+    "Serviço",
+    "Servico"
   ]
 }
