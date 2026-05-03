@@ -20,11 +20,11 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # alter config.json
 def alterar_Config():
     print("\nAlterando config.json...")
-    config = load_config()
+    config = load_config("dist", "config")
     config["timeverification"] = "5"
     config['Startup'] = False
     config['Folder'] = 'pasta de organização'
-    save_config(config)
+    save_config("dist", "config", config)
     print("\nConfig.json alterado com sucesso")
 
 # clean previus build
