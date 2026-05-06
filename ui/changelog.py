@@ -1,9 +1,4 @@
-import customtkinter as ctk
-from tkinter import filedialog
-import os
-import sys
 import webbrowser
-from CTkMessagebox import CTkMessagebox
 
 # open changelog
 def abrir_changelog():
