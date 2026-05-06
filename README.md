@@ -161,3 +161,7 @@ python ui/index.py
 
 </div>
 
+<p style="text-align: center"> LICENSE: <br>
+PT-BR: Este projeto está licenciado sob a GNU General Public License v3.0 - veja o arquivo LICENSE para detalhes. <br>
+EN: This project is licensed under the GNU General Public License v3.0 - see the LICENSE file for details.
+</p>
