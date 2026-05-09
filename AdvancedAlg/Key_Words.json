@@ -27,8 +27,16 @@
     "Série",
     "Serie",
     "PIS",
-    "COFINS",
-    "Serviço",
-    "Servico"
+    "COFINS"
+  ],
+  "Contratos": [
+    "Contrato",
+    "contrato",
+    "Assinatura",
+    "Cláusula",
+    "Documento",
+    "documento",
+    "Fiador",
+    "fiador"
   ]
 }
