@@ -1,12 +1,14 @@
-import pymupdf
+import pypdf
 from pathlib import Path
 import shutil
 import os
 from utils.model import load_config
+from utils import folder
 
 CONFIG = load_config("AdvancedAlg", "Key_Words")
 
-diretorio_base: str ="C:\\Users\\Thayn\\OneDrive\\Área de Trabalho\\Teste\\"
+diretorio_base: str = folder.Folder().Getfolder
+print(diretorio_base)
 
 def processar_texto():
     # 2. Procura as palavras-chave
@@ -15,7 +17,7 @@ def processar_texto():
         caminho_completo = os.path.join(diretorio_base, file)
         if not file.endswith(".pdf"):
             continue
-        with pymupdf.open(diretorio_base+file) as pdf:
+        with pypdf.PdfReader(diretorio_base+file) as pdf:
             try:
                 for pagina in pdf:
                     # Pega o texto e joga pra maiúsculo pra não ter erro de case

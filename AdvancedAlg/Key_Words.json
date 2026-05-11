@@ -25,5 +25,14 @@
         "documento",
         "Fiador",
         "fiador"
+    ],
+    "Boleto": [
+        "Data de validade",
+        "Código de barras",
+        "nome do beneficiário",
+        "Boleto",
+        "Vencimento",
+        "quantidade de parcela",
+        "parcela"
     ]
 }
