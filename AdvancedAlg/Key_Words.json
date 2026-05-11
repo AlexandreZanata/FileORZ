@@ -1,0 +1,42 @@
+{
+    "Boleto": [
+        "Beneficiário",
+        "NÃO RECEBER APÓS O VENCIMENTO",
+        "Pagador",
+        "Valor documento",
+        "Agência / Código",
+        "Agencia / Codigo",
+        "Agencia/Codigo",
+        "Agência/Código",
+        "Data Processamento",
+        "Data do Processamento",
+        "Local de pagamento"
+    ],
+    "Nota Fiscal": [
+        "Nota Fiscal",
+        "NÚMERO DA NOTA",
+        "NUMERO DA NOTA",
+        "SIMPLES NACIONAL",
+        "NOTA FISCAL DE SERVIÇOS ELETRÔNICA",
+        "NOTA FISCAL DE SERVIÇOS ELETRONICA,",
+        "Nota Fiscal Eletrônica",
+        "Nota Fiscal Eletronica",
+        "NFS-e",
+        "NFS",
+        "DANFE",
+        "Série",
+        "Serie",
+        "PIS",
+        "COFINS"
+    ],
+    "Contratos": [
+        "Contrato",
+        "contrato",
+        "Assinatura",
+        "Cláusula",
+        "Documento",
+        "documento",
+        "Fiador",
+        "fiador"
+    ]
+}
