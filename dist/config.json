@@ -120,15 +120,16 @@
         ".raw": true,
         ".img": true
     },
-    "timeverification": "10",
+    "timeverification": "5",
     "Startup": false,
-    "Folder": "C:\\Users\\Thayn\\Downloads",
-    "AutoDelete": true,
-    "Enviar Para Lixeira": true,
+    "Folder": "pasta de organização",
+    "AutoDelete": false,
+    "Enviar Para Lixeira": false,
     "Excluir permanentemente": false,
+    "AdvancedOrganize": false,
     "AutoDeleteConfig": {
         "Por Data de Criação": false,
-        "Por Data de Modificação": true,
-        "Dias para Auto Deletar": "30"
+        "Por Data de Modificação": false,
+        "Dias para Auto Deletar": "15"
     }
 }
