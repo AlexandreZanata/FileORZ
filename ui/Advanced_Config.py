@@ -20,7 +20,6 @@
 import customtkinter
 import os
 import sys
-import json
 from ui.Centralizar_Janela import Centralizar_Janela
 
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
@@ -143,7 +142,8 @@ def open_Advanced_Config_window(parent):
     # Descrição
     description = customtkinter.CTkLabel(
         window,
-        text="Defina o nome do grupo e as palavras-chave (separadas por vírgula) para organizar seus PDFs.\nClique no ícone de salvar em cada card para aplicar as alterações.",
+        text="Defina o nome do grupo e as palavras-chave (separadas por vírgula) para organizar seus PDFs.\n"
+             "Clique no ícone de salvar em cada card para aplicar as alterações.",
         font=customtkinter.CTkFont(family="Segoe UI", size=12),
         text_color=COLORS["text_secondary"],
         justify="left"
