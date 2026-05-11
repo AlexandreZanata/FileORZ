@@ -19,12 +19,18 @@
 
 import json
 import os
-from utils.model import load_config, save_config, script_dir
+from utils.model import load_config, save_config, script_dir, json_path
+
+run_script = os.path.join("dist", "Key_Words.json")
 
 class AdvancedConfig:
     def __init__(self):
         self.config = load_config("dist", "config")
-        self.keywords_path = os.path.join(script_dir(), "AdvancedAlg", "Key_Words.json")
+        try:
+            self.keywords_path = run_script
+        except FileNotFoundError:
+            # Fallback para o local padrão se não encontrado durante a inicialização
+            self.keywords_path = run_script
 
     def get_enabled(self):
         return self.config.get("AdvancedOrganize", False)
@@ -35,11 +41,22 @@ class AdvancedConfig:
 
     def load_keywords(self):
         try:
+            # Tenta encontrar o caminho novamente caso tenha mudado
+            try:
+                self.keywords_path = json_path("dist", "Key_Words")
+            except:
+                pass
+
             if not os.path.exists(self.keywords_path):
-                # Se não existir, cria um arquivo vazio ou com estrutura básica
+                # Se não existir, garante que temos um caminho válido para salvar
+                if not self.keywords_path:
+                    self.keywords_path = run_script
+                
+                # Cria um arquivo básico se não existir
                 with open(self.keywords_path, 'w', encoding='utf-8') as f:
                     json.dump({}, f, indent=2, ensure_ascii=False)
                 return {}
+            
             with open(self.keywords_path, 'r', encoding='utf-8') as f:
                 return json.load(f)
         except Exception as e:
@@ -48,6 +65,10 @@ class AdvancedConfig:
 
     def save_keywords(self, keywords_data):
         try:
+            # Garante que temos um caminho
+            if not self.keywords_path:
+                self.keywords_path = os.path.join(script_dir() + "\\dist", "Key_Words.json")
+                
             with open(self.keywords_path, 'w', encoding='utf-8') as f:
                 json.dump(keywords_data, f, indent=4, ensure_ascii=False)
             return True
