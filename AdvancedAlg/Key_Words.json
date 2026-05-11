@@ -1,17 +1,4 @@
 {
-    "Boleto": [
-        "Beneficiário",
-        "NÃO RECEBER APÓS O VENCIMENTO",
-        "Pagador",
-        "Valor documento",
-        "Agência / Código",
-        "Agencia / Codigo",
-        "Agencia/Codigo",
-        "Agência/Código",
-        "Data Processamento",
-        "Data do Processamento",
-        "Local de pagamento"
-    ],
     "Nota Fiscal": [
         "Nota Fiscal",
         "NÚMERO DA NOTA",
