@@ -19,10 +19,9 @@
 
 import customtkinter
 import os
-import sys
 from ui.Centralizar_Janela import Centralizar_Janela
 
-sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+
 from utils.AdvancedConfig import AdvancedConfig
 
 COLORS = {
@@ -44,10 +43,12 @@ COLORS = {
     "checkbox_hover": "#7B2CBF",
 }
 
-def open_Advanced_Config_window(parent):
-    adv_config = AdvancedConfig()
-    
-    icon_dir = os.path.join(os.path.dirname(__file__), "icon")
+adv_config = AdvancedConfig()
+keywords_data = adv_config.load_keywords()
+
+def open_advanced_config_window(parent):
+
+    icon_dir = os.path.join(str(os.path.dirname(__file__)), "icon")
     icon_path = os.path.join(icon_dir, "IconApp.ico")
     
     window = customtkinter.CTkToplevel(parent)
@@ -61,7 +62,7 @@ def open_Advanced_Config_window(parent):
     try:
         if os.path.exists(icon_path):
             window.after(200, lambda: window.iconbitmap(icon_path))
-    except Exception:
+    except Warning:
         pass
 
     # Header
@@ -114,10 +115,8 @@ def open_Advanced_Config_window(parent):
         text_color=COLORS["text_primary"]
     )
     checkbox.pack(side="left")
-
     # Botão Adicionar Grupo
     def add_group():
-        keywords_data = adv_config.load_keywords()
         # Adiciona um grupo temporário vazio no início se não houver um em edição
         if "" not in keywords_data:
             # Criamos um dicionário novo para colocar o vazio no topo
@@ -198,14 +197,17 @@ def open_Advanced_Config_window(parent):
                 placeholder_text="Nome do Grupo (ex: Boletos)",
                 font=customtkinter.CTkFont(family="Segoe UI", size=14, weight="bold"),
                 fg_color="transparent",
-                border_width=0,
+                border_width=1,
+                border_color=COLORS["border"],
                 text_color=COLORS["accent_primary"],
                 width=300
             )
-            name_entry.insert(0, category)
+            if category:
+                name_entry.insert(0, category)
             name_entry.pack(side="left")
 
             def delete_group(cat=category):
+                global keywords_data
                 keywords_data = adv_config.load_keywords()
                 if cat in keywords_data:
                     del keywords_data[cat]
@@ -214,8 +216,8 @@ def open_Advanced_Config_window(parent):
 
             btn_del = customtkinter.CTkButton(
                 card_header,
-                text="🗑️",
-                width=30,
+                text="🗑️".replace('\ufe0f', '').replace('\u200b', '').strip(),
+                width=35,
                 height=30,
                 fg_color=COLORS["accent_danger"],
                 hover_color=COLORS["accent_danger_hover"],
@@ -237,7 +239,8 @@ def open_Advanced_Config_window(parent):
                 border_color=COLORS["border"],
                 height=35
             )
-            words_entry.insert(0, words_text)
+            if words_text:
+                words_entry.insert(0, words_text)
             words_entry.pack(side="left", fill="x", expand=True, padx=(0, 10))
 
             def save_group(old_cat=category, n_entry=name_entry, w_entry=words_entry):
@@ -280,4 +283,4 @@ def open_Advanced_Config_window(parent):
     window.mainloop()
 
 if __name__ == "__main__":
-    open_Advanced_Config_window(None)
+    open_advanced_config_window(None)
