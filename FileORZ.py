@@ -21,8 +21,6 @@ import os
 import time
 import json
 import sys
-import shutil
-from pathlib import Path
 from utils import AdvancedConfig
 
 # Adiciona o diretório raiz ao path para importações
@@ -33,24 +31,17 @@ if BASE_DIR not in sys.path:
 from utils.model import json_path
 from utils.AutoDelete import AutoDelete
 from utils.AdvancedConfig import AdvancedConfig
-
-# Importação condicional do pymupdf (fitz)
-try:
-    import pymupdf
-except ImportError:
-    try:
-        import fitz as pymupdf
-    except ImportError:
-        pymupdf = None
+from AdvancedAlg import Alg
 
 CONFIG_PATH = json_path("dist", "config")
-
+WORKS_PATH = json_path("dist", "Key_Words")
 
 # Carregar as extensões do arquivo config.json
 def load_extensions():
     # Lê o config.json e retorna dicionário com tratamento de erros.
     try:
         with open(CONFIG_PATH, "r", encoding="utf-8") as f:
+            global f, data
             data = json.load(f)
 
         extensions = {}
@@ -85,67 +76,11 @@ def load_extensions():
         return {}
 
 
-def advanced_organize(original_path):
-    """Realiza a organização avançada baseada em conteúdo de texto (PDFs)."""
-    adv_config = AdvancedConfig()
-    if not adv_config.get_enabled() or pymupdf is None:
-        if pymupdf is None and adv_config.get_enabled():
-            print("[AVISO] pymupdf não instalado. Organização avançada desativada.")
-        return
-
-    keywords_data = adv_config.load_keywords()
-    if not keywords_data:
-        return
-
-    print("\nExecutando organização avançada...")
-
-    try:
-        for file in os.listdir(original_path):
-            if not file.lower().endswith(".pdf"):
-                continue
-
-            caminho_completo = os.path.join(original_path, file)
-            texto_completo = ""
-
-            try:
-                with pymupdf.open(caminho_completo) as pdf:
-                    for pagina in pdf:
-                        texto_completo += pagina.get_text().upper()
-            except Exception as e:
-                print(f"  [ERRO] Não foi possível ler o PDF {file}: {e}")
-                continue
-
-            movido = False
-            for tipo, palavras in keywords_data.items():
-                if movido:
-                    break
-                for palavra in palavras:
-                    if palavra.upper() in texto_completo:
-                        print(f"  Encontrado: '{palavra}' -> Grupo: {tipo}")
-
-                        pasta_destino = os.path.join(original_path, tipo)
-                        os.makedirs(pasta_destino, exist_ok=True)
-
-                        destino_arquivo = os.path.join(pasta_destino, file)
-
-                        if os.path.exists(destino_arquivo):
-                            print(f"  [AVISO] {file} já existe em {tipo}")
-                        else:
-                            try:
-                                shutil.move(caminho_completo, destino_arquivo)
-                                movido = True
-                                print(f"  [OK] {file} movido para {tipo}")
-                                break
-                            except Exception as e:
-                                print(f"  [ERRO] Falha ao mover {file}: {e}")
-    except Exception as e:
-        print(f"Erro na organização avançada: {e}")
-
-
 # pasta para organizar e extenssão de arquivos
 def organize_files():
     try:
         with open(CONFIG_PATH, "r", encoding="utf-8") as f:
+            global f, data
             data = json.load(f)
     except Exception as e:
         print(f"Erro ao carregar config: {e}")
@@ -166,7 +101,7 @@ def organize_files():
 
     # 1. Executa organização avançada primeiro (se habilitada)
     if AdvancedConfig().get_enabled():
-        advanced_organize(original_path)
+        Alg.processar_texto()
     else:
         print("[INFO] Organização avançada desabilitada.")
 
@@ -220,7 +155,7 @@ def organize_files():
         print(f"Erro ao ler diretório: {e}")
 
 
-# verificar a pasta a com o tempo determinado pelo usuário
+# verificar a pasta com o tempo determinado pelo usuário
 if __name__ == "__main__":
     print("Iniciando FileORZ Organizer...")
     while True:
