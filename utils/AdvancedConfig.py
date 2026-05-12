@@ -19,7 +19,7 @@
 
 import json
 import os
-from utils.model import load_config, save_config, script_dir, json_path
+from utils.model import load_config, save_config, json_path
 
 run_script = os.path.join("dist", "Key_Words.json")
 
@@ -67,7 +67,7 @@ class AdvancedConfig:
         try:
             # Garante que temos um caminho
             if not self.keywords_path:
-                self.keywords_path = os.path.join(script_dir() + "\\dist", "Key_Words.json")
+                self.keywords_path = os.path.join("dist", "Key_Words.json")
                 
             with open(self.keywords_path, 'w', encoding='utf-8') as f:
                 json.dump(keywords_data, f, indent=4, ensure_ascii=False)
