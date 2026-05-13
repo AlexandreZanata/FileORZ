@@ -21,7 +21,7 @@ import customtkinter
 import os
 import sys
 from ui.Centralizar_Janela import Centralizar_Janela
-from ui.Advanced_Config import open_Advanced_Config_window
+from ui.Advanced_Config import open_advanced_config_window
 
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from utils.model import load_config, save_config
@@ -279,7 +279,7 @@ def open_config_window(parent):
     advanced_button = customtkinter.CTkButton(
         footer_inner,
         text="🧠  Organização Avançada",
-        command=lambda: open_Advanced_Config_window(window),
+        command=lambda: open_advanced_config_window(window),
         fg_color=COLORS["bg_card"],
         hover_color=COLORS["accent_hover"],
         font=customtkinter.CTkFont(family="Segoe UI", size=14, weight="bold"),
