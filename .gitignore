@@ -1,5 +1,6 @@
 .gitignore
 .venv
+.Venv
 __pycache__
 build_ui
 build
