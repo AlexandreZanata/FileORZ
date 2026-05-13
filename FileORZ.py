@@ -38,10 +38,10 @@ WORKS_PATH = json_path("dist", "Key_Words")
 
 # Carregar as extensões do arquivo config.json
 def load_extensions():
+    global f, data
     # Lê o config.json e retorna dicionário com tratamento de erros.
     try:
         with open(CONFIG_PATH, "r", encoding="utf-8") as f:
-            global f, data
             data = json.load(f)
 
         extensions = {}
@@ -78,9 +78,9 @@ def load_extensions():
 
 # pasta para organizar e extenssão de arquivos
 def organize_files():
+    global f, data
     try:
         with open(CONFIG_PATH, "r", encoding="utf-8") as f:
-            global f, data
             data = json.load(f)
     except Exception as e:
         print(f"Erro ao carregar config: {e}")

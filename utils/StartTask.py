@@ -6,9 +6,9 @@ from tkinter import messagebox
 from utils import StartUp
 
 
-def check_if_running(TaskName):
+def check_if_running(taskname):
     for proc in psutil.process_iter(['name']):
-        if proc.info['name'] == TaskName:
+        if proc.info['name'] == taskname:
             return True
     return False
 
@@ -20,7 +20,7 @@ def start_task():
     if not Startup:
        SCRIPT_DIR = os.path.join(os.getcwd(), "dist", "FileORZ.exe")
     elif Startup:
-        SCRIPT_DIR = os.path.join(os.getenv('LOCALAPPDATA'), 'FileORZ', 'dist', 'FileORZ.exe')
+        SCRIPT_DIR = os.path.join(str(os.getenv('LOCALAPPDATA')), 'FileORZ', 'dist', 'FileORZ.exe')
 
     if not STATUS:
         if os.path.exists(SCRIPT_DIR):
