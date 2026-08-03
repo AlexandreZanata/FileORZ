@@ -78,6 +78,14 @@ Clear via `.local/tasks/01-baseline-quality-debt/`. Never expand exemptions.
 
 ---
 
+## Architecture decisions
+
+Accepted ADRs: [`docs/adr/`](docs/adr/README.md) (Rust, iced, Fluent, XDG, file times).  
+Regression registry: [`docs/REGRESSION-LOG.md`](docs/REGRESSION-LOG.md).  
+Fixture drafts: `tests/fixtures/`. ADR gate: `npm run check:adr` (also in `verify`).
+
+---
+
 ## Local workspace (gitignored)
 
 ```text
@@ -85,9 +93,15 @@ Clear via `.local/tasks/01-baseline-quality-debt/`. Never expand exemptions.
   OFFICIAL-REFERENCE.md
   README.md
   TASK.md
+
+.local/phases/<NN-slug>/
+  OFFICIAL-REFERENCE.md
+  README.md
+  TASKS.md
 ```
 
-See `.local/README.md`. **Never commit `.local/`.**
+See `.local/README.md` and `.local/IMPLEMENTATION-PLAN.md` for the **i18n + Rust Linux**
+program (phases 02–20). **Never commit `.local/`.**
 
 ---
 

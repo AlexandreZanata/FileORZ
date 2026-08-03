@@ -9,6 +9,7 @@
     "check:size": "python3 scripts/check_size_complexity.py --root .",
     "check:lint": "bash scripts/check-lint.sh",
     "check:system": "bash scripts/check-system.sh",
+    "check:adr": "python3 scripts/check_adr.py",
     "hooks:install": "bash scripts/install-hooks.sh"
   },
   "engines": {

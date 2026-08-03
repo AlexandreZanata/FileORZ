@@ -1,0 +1,23 @@
+{
+  "_comment": "Placeholder legacy Portuguese / mixed keys — expand in phase 03",
+  "Folder": "/tmp/fileorz-fixture-tiny",
+  "timeverification": "5",
+  "Startup": false,
+  "AutoDelete": false,
+  "Enviar Para Lixeira": true,
+  "Excluir permanentemente": false,
+  "AdvancedOrganize": false,
+  "AutoDeleteConfig": {
+    "Por Data de Criação": false,
+    "Por Data de Modificação": true,
+    "Dias para Auto Deletar": "15"
+  },
+  "imagens": {
+    ".jpg": true,
+    ".png": false
+  },
+  "documentos": {
+    ".pdf": true,
+    ".txt": true
+  }
+}
