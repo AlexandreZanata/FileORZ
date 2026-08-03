@@ -1,5 +1,6 @@
 import webbrowser
 
+
 # open changelog
 def abrir_changelog():
     url = "https://thainanviniciuskatchan.github.io/FileORZ/changelog.html"

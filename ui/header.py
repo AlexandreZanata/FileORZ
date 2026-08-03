@@ -17,10 +17,12 @@
     along with FileORZ.  If not, see <https://www.gnu.org/licenses/
 """
 
-import customtkinter
 import webbrowser
-from utils.model import toggle_startup as toggle_startup_registry
+
+import customtkinter
+
 from utils import StartUp
+from utils.model import toggle_startup as toggle_startup_registry
 
 COLORS = {
     "header_gradient_start": "#667eea",

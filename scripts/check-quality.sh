@@ -1,0 +1,39 @@
+#!/usr/bin/env bash
+# Full quality gate used by Lefthook pre-commit and `npm run verify`.
+# Caps: file ≤200, function ≤80, cyclomatic ≤10, lint 0/0, compile 0 errors.
+set -euo pipefail
+
+ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+cd "$ROOT"
+
+GATE_START=$(date +%s)
+
+step() {
+  local num="$1"
+  local label="$2"
+  shift 2
+  local started ended elapsed
+  started=$(date +%s)
+  echo ""
+  echo "${num}/3 ${label}"
+  "$@"
+  ended=$(date +%s)
+  elapsed=$((ended - started))
+  echo "  → ${elapsed}s"
+}
+
+echo "=== FileORZ quality gate ==="
+
+step 1 "Size + complexity (file≤200, function≤80, cyclomatic≤10)" \
+  python3 "$ROOT/scripts/check_size_complexity.py" --root "$ROOT" "$@"
+
+step 2 "Lint (0 errors, 0 warnings)" \
+  bash "$ROOT/scripts/check-lint.sh"
+
+step 3 "System / compile (0 errors)" \
+  bash "$ROOT/scripts/check-system.sh"
+
+GATE_END=$(date +%s)
+GATE_ELAPSED=$((GATE_END - GATE_START))
+echo ""
+echo "=== All quality gates passed (${GATE_ELAPSED}s) ==="

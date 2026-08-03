@@ -1,5 +1,6 @@
 from utils.model import load_config, save_config
 
+
 class TimeVerification:
     def __init__(self, time: str):
         self._time = time

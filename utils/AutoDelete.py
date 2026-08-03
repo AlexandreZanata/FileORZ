@@ -17,10 +17,11 @@ You should have received a copy of the GNU General Public License
 along with FileORZ.  If not, see <https://www.gnu.org/licenses/
 """
 
-from os import *
-from datetime import datetime
-import sys
 import os
+import sys
+from datetime import datetime
+from os import path, remove, scandir
+
 from send2trash import send2trash
 
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
@@ -46,12 +47,11 @@ def AutoDelete():
         PATH_FILES,
     ):  # Escaneia os arquivos da pasta e trás as datas de criação e modificação
         Dias_Config = int(GetConfig()[2])
-        File_Name = str()
+        File_Name = ""
 
-        from typing import Optional
 
-        CreateDate: Optional[datetime] = None
-        ModifyDate: Optional[datetime] = None
+        CreateDate: datetime | None = None
+        ModifyDate: datetime | None = None
         with scandir(PATH_FILES) as entries:
             for entry in entries:
                 if entry.is_file():
@@ -59,41 +59,43 @@ def AutoDelete():
                     CreateDate = datetime.fromtimestamp(entry.stat().st_birthtime)
                     ModifyDate = datetime.fromtimestamp(entry.stat().st_mtime)
                     # Validação de exclusão
-                    if CONFIG_AUTO_DELETE == True:
+                    if CONFIG_AUTO_DELETE:
                         if (datetime.now() - CreateDate).days > Dias_Config:
-                            if GetConfig()[0] == True:
-                                if CONFIG["Enviar Para Lixeira"] == True:
+                            if GetConfig()[0]:
+                                if CONFIG["Enviar Para Lixeira"]:
                                     send2trash(entry.path)
                                     print(
                                         f"O arquivo {File_Name} foi enviado para a lixeira"
                                     )
-                                elif CONFIG["Excluir permanentemente"] == True:
+                                elif CONFIG["Excluir permanentemente"]:
                                     remove(entry.path)
                                     print(
                                         f"O arquivo {File_Name} foi excluído permanentemente"
                                     )
                             else:
-                                print(f"Configuração de data de criação desativada")
+                                print("Configuração de data de criação desativada")
                         else:
                             print(
-                                f"Nenhum arquivo está a mais de  {Dias_Config} dias para ser excluído\n Por data de criação"
+                                f"Nenhum arquivo está a mais de {Dias_Config} dias "
+                                "para ser excluído\n Por data de criação"
                             )
 
-                    if GetConfig()[1] == True:
+                    if GetConfig()[1]:
                         if (datetime.now() - ModifyDate).days > Dias_Config:
-                            if CONFIG["Enviar Para Lixeira"] == True:
+                            if CONFIG["Enviar Para Lixeira"]:
                                 send2trash(entry.path)
                                 print(
                                     f"O arquivo {File_Name} foi enviado para a lixeira"
                                 )
-                            elif CONFIG["Excluir permanentemente"] == True:
+                            elif CONFIG["Excluir permanentemente"]:
                                 remove(entry.path)
                                 print(
                                     f"O arquivo {File_Name} foi excluído permanentemente"
                                 )
                         else:
                             print(
-                                f"Nenhum arquivo está a mais de  {Dias_Config} dias para ser excluído\n Por data de modificação"
+                                f"Nenhum arquivo está a mais de {Dias_Config} dias "
+                                "para ser excluído\n Por data de modificação"
                             )
                     else:
                         print("Configuração de data de modificação desativada")
@@ -111,7 +113,7 @@ def AutoDelete():
         "AdvancedOrganize",
     ]
 
-    if CONFIG_AUTO_DELETE == True:
+    if CONFIG_AUTO_DELETE:
         for key in CONFIG:
             if key in Ignore_Config:
                 pass

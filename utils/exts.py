@@ -50,7 +50,7 @@ class Extensions:
                 save_config("dist", "config", CONFIG)
             except Exception as e:
                 print(f"[X] Erro ao mudar a Chave {ext}: {e}")
-        return f"Todas as chaves Foram Alteradas com Sucesso!"
+        return "Todas as chaves Foram Alteradas com Sucesso!"
 
 if __name__ == "__main__":
     EXT = Extensions()

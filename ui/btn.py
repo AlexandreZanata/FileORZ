@@ -17,10 +17,10 @@ You should have received a copy of the GNU General Public License
 along with FileORZ.  If not, see <https://www.gnu.org/licenses/
 """
 
-import customtkinter
-
-import sys
 import os
+import sys
+
+import customtkinter
 
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from ui.config import open_config_window
@@ -46,7 +46,7 @@ from utils import folder
 
 
 def start_btn(COLORS, actions_frame):
-    from ui.index import main_container, root, feedback_label
+    from ui.index import feedback_label, main_container, root
     from utils.StartTask import start_organizer
 
     main_container = main_container

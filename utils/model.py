@@ -17,12 +17,11 @@ You should have received a copy of the GNU General Public License
 along with FileORZ.  If not, see <https://www.gnu.org/licenses/
 """
 
-from ast import arguments
-import os
 import json
+import os
+import shutil
 import sys
 import winreg
-import shutil
 
 if getattr(sys, "frozen", False):
     INSTALL_DIR = os.path.dirname(sys.executable)
@@ -76,7 +75,7 @@ def load_config(folder, file):
     folder = pasta onde o json está
     file = nome do json, não precisa do .json
     """
-    with open(json_path(folder, file), "r", encoding="utf-8") as f:
+    with open(json_path(folder, file), encoding="utf-8") as f:
         return json.load(f)
 
 
@@ -96,7 +95,7 @@ def save_config(folder, file, config):
 
     local_config_path = os.path.join(INSTALL_DIR, folder, f"{file}.json")
     local_config_path_no_install = os.path.join(NoInstallDir, f"{folder}\\{file}.json")
-    if os.path.exists(INSTALL_DIR) and Start.GetEnabled == True:
+    if os.path.exists(INSTALL_DIR) and Start.GetEnabled:
         try:
             with open(local_config_path, "w", encoding="utf-8") as f:
                 json.dump(config, f, indent=4, ensure_ascii=False)

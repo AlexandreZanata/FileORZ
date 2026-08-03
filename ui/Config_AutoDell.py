@@ -17,10 +17,10 @@ You should have received a copy of the GNU General Public License
 along with FileORZ.  If not, see <https://www.gnu.org/licenses/
 """
 
-import customtkinter
 import os
 import sys
 
+import customtkinter
 
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from ui.Centralizar_Janela import Centralizar_Janela
@@ -109,7 +109,7 @@ def Enable_Disable_AutoDelete(Windows_cfg_autoDell, ext_frame):
 
 def save_filter_choice(selected_filter):
     # Reseta todos para false primeiro e true apenas pro selecionado
-    for k, v in config["AutoDeleteConfig"].items():
+    for k, _v in config["AutoDeleteConfig"].items():
         if k == "Dias para Auto Deletar":
             pass
         config["AutoDeleteConfig"][k] = False
@@ -155,7 +155,7 @@ def Select_Filter(ext_frame):
             # Variável de Radio controla as opções em formato de string
             radio_var = customtkinter.StringVar(value=selected_option_str)
 
-            for Filter, enabled in Filters.items():
+            for Filter, _enabled in Filters.items():
                 if Filter == "Dias para Auto Deletar":
                     continue
                 radio = customtkinter.CTkRadioButton(
@@ -278,7 +278,7 @@ def type_of_delete(ext_frame):
     filters_obj = delete.AutoDelete.GetFilters(None)
     Title_section = customtkinter.CTkLabel(
         ext_frame,
-        text=f"Tipo de exclusão",
+        text="Tipo de exclusão",
         font=customtkinter.CTkFont(family="Consolas", size=15, weight="bold"),
         text_color=COLORS["accent_primary"],
     )

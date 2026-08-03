@@ -1,0 +1,17 @@
+{
+  "name": "fileorz",
+  "private": true,
+  "version": "0.0.0",
+  "description": "FileORZ fork — Agent Harness + Lefthook quality gates.",
+  "scripts": {
+    "prepare": "bash scripts/install-hooks.sh || true",
+    "verify": "bash scripts/check-quality.sh",
+    "check:size": "python3 scripts/check_size_complexity.py --root .",
+    "check:lint": "bash scripts/check-lint.sh",
+    "check:system": "bash scripts/check-system.sh",
+    "hooks:install": "bash scripts/install-hooks.sh"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}

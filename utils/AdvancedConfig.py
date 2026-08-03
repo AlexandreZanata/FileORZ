@@ -19,7 +19,8 @@
 
 import json
 import os
-from utils.model import load_config, save_config, json_path
+
+from utils.model import json_path, load_config, save_config
 
 run_script = os.path.join("dist", "Key_Words.json")
 
@@ -44,7 +45,7 @@ class AdvancedConfig:
             # Tenta encontrar o caminho novamente caso tenha mudado
             try:
                 self.keywords_path = json_path("dist", "Key_Words")
-            except:
+            except Exception:
                 pass
 
             if not os.path.exists(self.keywords_path):
@@ -57,7 +58,7 @@ class AdvancedConfig:
                     json.dump({}, f, indent=2, ensure_ascii=False)
                 return {}
             
-            with open(self.keywords_path, 'r', encoding='utf-8') as f:
+            with open(self.keywords_path, encoding='utf-8') as f:
                 return json.load(f)
         except Exception as e:
             print(f"Erro ao carregar Key_Words.json: {e}")

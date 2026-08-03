@@ -1,12 +1,13 @@
 import os
-import psutil
-import customtkinter
 import subprocess
 import sys
 
+import customtkinter
+import psutil
+
 SCRIPT_DIR = os.path.dirname(os.path.realpath(__file__))
 sys.path.append(os.path.dirname(SCRIPT_DIR))
-from FileORZ import organize_files, loop_verification
+from FileORZ import loop_verification
 
 
 def check_if_running(taskname):
@@ -17,11 +18,11 @@ def check_if_running(taskname):
 
 
 def start_task():
-    import json
-    from utils.model import json_path
     import threading
 
-    CONFIG_PATH = json_path("dist", "config")
+    from utils.model import json_path
+
+    json_path("dist", "config")
     try:
         print("Iniciando a organização...")
         thread = threading.Thread(target=loop_verification, daemon=True)

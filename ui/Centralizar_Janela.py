@@ -1,4 +1,3 @@
-import customtkinter as ctk
 
 # centralize window
 def Centralizar_Janela(window, width, height):

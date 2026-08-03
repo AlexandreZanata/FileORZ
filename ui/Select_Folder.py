@@ -17,10 +17,12 @@
     along with FileORZ.  If not, see <https://www.gnu.org/licenses/
 """
 
+import os
+
 import customtkinter
 from customtkinter import filedialog
+
 from utils import folder
-import os
 
 Folder = folder.Folder
 

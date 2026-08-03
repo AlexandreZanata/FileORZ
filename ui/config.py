@@ -17,16 +17,16 @@ You should have received a copy of the GNU General Public License
 along with FileORZ.  If not, see <https://www.gnu.org/licenses/
 """
 
-import customtkinter
 import os
 import sys
 
+import customtkinter
+
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-from utils.AdvancedConfig import AdvancedConfig
-from ui.Centralizar_Janela import Centralizar_Janela
-from ui.ext_config import ext_config_window
 from ui.Advanced_Config import open_advanced_config_window
+from ui.Centralizar_Janela import Centralizar_Janela
 from ui.Config_AutoDell import open_Windows_CFG_autoDell
+from ui.ext_config import ext_config_window
 
 COLORS = {
     "bg_primary": "#0D0D0D",

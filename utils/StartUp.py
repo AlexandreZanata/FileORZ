@@ -1,5 +1,6 @@
 from utils.model import load_config, save_config
 
+
 class StartUpSys:
     def __init__(self, value: bool = False):
         self._value = value

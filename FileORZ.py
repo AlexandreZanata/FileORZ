@@ -17,11 +17,11 @@ You should have received a copy of the GNU General Public License
 along with FileORZ.  If not, see <https://www.gnu.org/licenses/
 """
 
-import os
-import time
 import json
+import os
 import sys
-from utils import AdvancedConfig
+import time
+
 from utils import delete
 
 # Adiciona o diretório raiz ao path para importações
@@ -29,10 +29,10 @@ BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 if BASE_DIR not in sys.path:
     sys.path.insert(0, BASE_DIR)
 
-from utils.model import json_path
-from utils.AutoDelete import AutoDelete
-from utils.AdvancedConfig import AdvancedConfig
 from AdvancedAlg import Alg
+from utils.AdvancedConfig import AdvancedConfig
+from utils.AutoDelete import AutoDelete
+from utils.model import json_path
 
 CONFIG_PATH = json_path("dist", "config")
 WORKS_PATH = json_path("dist", "Key_Words")
@@ -43,7 +43,7 @@ def load_extensions():
     global f, data
     # Lê o config.json e retorna dicionário com tratamento de erros.
     try:
-        with open(CONFIG_PATH, "r", encoding="utf-8") as f:
+        with open(CONFIG_PATH, encoding="utf-8") as f:
             data = json.load(f)
 
         extensions = {}
@@ -82,7 +82,7 @@ def load_extensions():
 def organize_files():
     global f, data
     try:
-        with open(CONFIG_PATH, "r", encoding="utf-8") as f:
+        with open(CONFIG_PATH, encoding="utf-8") as f:
             data = json.load(f)
     except Exception as e:
         print(f"Erro ao carregar config: {e}")
@@ -103,7 +103,7 @@ def organize_files():
 
     autodelete = delete.AutoDelete().GetAutoDelete
 
-    if autodelete == True:
+    if autodelete:
         AutoDelete()
     else:
         print("[INFO] AutoDelete desabilitado.")
@@ -172,7 +172,7 @@ def loop_verification():
 
         # Ler o tempo de verificação a cada ciclo para permitir atualizações em tempo real
         try:
-            with open(CONFIG_PATH, "r", encoding="utf-8") as f:
+            with open(CONFIG_PATH, encoding="utf-8") as f:
                 data = json.load(f)
             time_verification = float(data.get("timeverification", 5))
         except (FileNotFoundError, json.JSONDecodeError, ValueError):

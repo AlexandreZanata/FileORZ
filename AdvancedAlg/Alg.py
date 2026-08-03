@@ -1,9 +1,11 @@
-import pypdf
-from pathlib import Path
-import shutil
 import os
-from utils.model import load_config
+import shutil
+from pathlib import Path
+
+import pypdf
+
 from utils import folder
+from utils.model import load_config
 
 CONFIG = load_config("dist", "Key_Words")
 
@@ -40,7 +42,8 @@ def processar_texto():
                         print(f"Arquivo {file} não movido pois já existe na pasta {tipo}")
                     else:
                         try:
-                            shutil.move(str(caminho_completo), str(destino_arquivo))  # Move o arquivo para a pasta nova
+                            # Move the file into the destination folder.
+                            shutil.move(str(caminho_completo), str(destino_arquivo))
                             movido = True
                             print(f"Sucesso: Arquivo {file} movido para {pasta_destino}")
                         except Exception as e:

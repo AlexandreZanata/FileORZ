@@ -1,6 +1,6 @@
-from os import path, listdir, rmdir
-import sys
 import os
+import sys
+from os import listdir, path, rmdir
 
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from utils import folder
@@ -15,7 +15,7 @@ def delete_folder():
 
     has_deleted = False
     try:
-        for root, dirs, files in os.walk(main_folder, topdown=False):
+        for root, dirs, _files in os.walk(main_folder, topdown=False):
             for d in dirs:
                 dir_path = path.join(root, d)
                 try:

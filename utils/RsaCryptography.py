@@ -1,6 +1,8 @@
+import os
+
 from cryptography.hazmat.primitives import hashes, serialization
 from cryptography.hazmat.primitives.asymmetric import padding, rsa
-import os
+
 
 def generate_keys(private_key_path="private_key.pem", public_key_path="public_key.pem"):
     

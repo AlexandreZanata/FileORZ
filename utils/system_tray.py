@@ -1,9 +1,12 @@
-from PIL import Image
-
-# pyrefly: ignore [missing-import]
-from pystray import MenuItem as item, Icon as icon_class, Menu as menu
 import queue
 from os import path
+
+from PIL import Image
+from pystray import Icon as icon_class
+from pystray import Menu as menu
+
+# pyrefly: ignore [missing-import]
+from pystray import MenuItem as item
 
 fila_comandos = queue.Queue()
 

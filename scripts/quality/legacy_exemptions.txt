@@ -1,0 +1,11 @@
+# Upstream brownfield debt — size/complexity ONLY (lint + compile still apply).
+# Remove a path from this list when that file is touched or split.
+# Tracked by: .local/tasks/01-baseline-quality-debt/
+AutoBuild/AutoBuild.py
+FileORZ.py
+ui/Advanced_Config.py
+ui/Config_AutoDell.py
+ui/config.py
+ui/ext_config.py
+utils/AutoDelete.py
+utils/delete.py

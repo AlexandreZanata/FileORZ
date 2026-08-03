@@ -1,10 +1,10 @@
-import os
-import sys
-import subprocess
 import io
-import shutil
 import json
+import os
+import shutil
 import stat
+import subprocess
+import sys
 from time import sleep
 
 # Força o encoding do stdout para utf-8
@@ -445,7 +445,7 @@ def alterar_config_build():
         # Carrega e salva usando as funções de utils para garantir consistência
         config_path = os.path.join(BASE_DIR, OUTPUT_DIR, "dist", "config.json")
         if os.path.exists(config_path):
-            with open(config_path, "r", encoding="utf-8") as f:
+            with open(config_path, encoding="utf-8") as f:
                 config = json.load(f)
 
             config["timeverification"] = "5"
@@ -575,7 +575,7 @@ def gravar_nova_versao(type_version):
 
 def criar_iss_temp(v):
 
-    with open(os.path.join(os.getcwd(), "Setup.iss"), "r") as file:
+    with open(os.path.join(os.getcwd(), "Setup.iss")) as file:
         content = file.read()
     content = content.replace("{{VERSION}}", v)
 

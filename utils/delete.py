@@ -1,5 +1,5 @@
-import sys
 import os
+import sys
 
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from utils.model import load_config, save_config
@@ -74,7 +74,7 @@ class AutoDelete:
                     CONFIG[filter] = value
                 else:
                     CONFIG[C] = False
-                if filter == True and C == True:
+                if filter and C:
                     raise ValueError(
                         "Ambos os filtros não podem ser ativados ao mesmo tempo"
                     )
@@ -132,7 +132,7 @@ class AutoDeleFilter:
                     CONFIG["AutoDeleteConfig"][filter] = value
                 else:
                     CONFIG["AutoDeleteConfig"][F] = False
-                if filter == True and F == True:
+                if filter and F:
                     raise ValueError(
                         "Ambos os filtros não podem ser ativados ao mesmo tempo"
                     )

@@ -1,41 +1,55 @@
-# Project Files
-.gitignore
-.venv
-.Venv
-./ISCC.exe
-./FileORZ_Install.exe
-FileORZ_Install.exe
-ISCC.exe
-./Setup.iss
-__pycache__
-build_ui
-build
-FileORZ-UI.spec
-FileORZ.spec
-Vemv
-dist
-.dist
-FileORZ
-.venv12
-tests
-nuitka-crash-report.xml
-FileORZ.zip
+# Local workspace (plans, notes, temp — never commit)
+.local/
+.cursor/rules/_task-active.mdc
+.lefthook-local.yml
+
+# Environment and secrets
+.env
+.env.*
+!.env.example
 *.pem
 private_key.pem
 public_key.pem
-utils/watchdo_file.py
 key_base64.txt
-ui/LiveReload.py
-.idea
-*.iss
+
+# OS and IDE
+.DS_Store
+.idea/
+*.iml
+*.swp
+*.swo
+.vscode/
+
+# Python
+__pycache__/
+.venv/
+venv/
+.venv12/
+Vemv/
+*.pyc
+.ruff_cache/
+.pytest_cache/
+
+# Node / lefthook
+node_modules/
+
+# Build / packaging artifacts
+build/
+build_ui/
+dist/
+.dist/
+*.spec
 *.exe
+ISCC.exe
+FileORZ_Install.exe
+FileORZ.zip
+nuitka-crash-report.xml
+*.iss
 Setup.iss
-.vscode
+
+# Project-local ignore (upstream)
+utils/watchdo_file.py
+ui/LiveReload.py
 debug_app.py
 ModFile.md
-<<<<<<< HEAD
-.github
-./AdvancedAlg/Key_Words.json
-=======
-.github
->>>>>>> 94584eb92e6849e8ef21489a014b9202786de970
+.github/

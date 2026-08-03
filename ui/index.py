@@ -17,19 +17,20 @@ You should have received a copy of the GNU General Public License
 along with FileORZ.  If not, see <https://www.gnu.org/licenses/
 """
 
-import customtkinter
-import os
-import sys
-import subprocess
 import ctypes
+import os
+import subprocess
+import sys
+
+import customtkinter
 
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
-from ui.header import header
+from ui.btn import config_btn, start_btn
 from ui.Centralizar_Janela import Centralizar_Janela
+from ui.header import header
 from ui.Select_Folder import folder_select
 from ui.Time_Select import time_select
-from ui.btn import config_btn, start_btn
 from utils import folder, timeVerification
 
 Aplication_patch = os.path.dirname(sys.executable)
@@ -154,9 +155,10 @@ def close_app():
 
 root.protocol("WM_DELETE_WINDOW", close_app)
 # Icone no SysTray do Windows
-from utils.system_tray import fila_comandos, meu_icone, image_icon
 import queue
+
 from ui.index import actions_frame
+from utils.system_tray import fila_comandos, meu_icone
 
 
 def verificar_fila():

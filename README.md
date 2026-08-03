@@ -1,4 +1,16 @@
-﻿<div align="center">
+﻿> **Fork notice / Aviso de fork**
+>
+> This repository is a **fork** of the original FileORZ project for agent-harness
+> and quality-gate work. Application code is **third-party** upstream software
+> (GNU GPL v3.0). See [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md).
+>
+> - **Original (upstream):** https://github.com/ThainanViniciusKatchan/FileORZ
+> - **This fork:** https://github.com/AlexandreZanata/FileORZ
+>
+> Este repositório é um **fork** do FileORZ original. O código da aplicação é de
+> **terceiros** (upstream). Não apresente este fork como o projeto original.
+
+<div align="center">
 
 # 📁 FileORZ
 
@@ -11,7 +23,7 @@
 ![OpenSource](https://img.shields.io/badge/OpenSource%20-20B2AA?style=for-the-badge)
 
 
-**Desenvolvido por Thainan Vinicius Katchan**
+**Desenvolvido por Thainan Vinicius Katchan** (upstream) · fork mantido em AlexandreZanata/FileORZ
 # DESENVOLVIDO NO BRASIL 💚💛
 
 ### 🌐 Idiomas | Languages
