@@ -22,6 +22,7 @@ FUN_START_RE = re.compile(
       | (?:async\s+)?function\s+
       | (?:export\s+)?(?:async\s+)?function\s+
       | def\s+
+      | (?:pub(?:\([^)]*\))?\s+)?(?:async\s+)?fn\s+
     )
     """
 )
@@ -34,6 +35,7 @@ METHOD_LIKE_RE = re.compile(
         fun\s+(?:[`\w.]+\.)?[`\w]+
       | (?:export\s+)?(?:async\s+)?function\s+[\w$]+
       | def\s+[\w]+
+      | (?:pub(?:\([^)]*\))?\s+)?(?:async\s+)?fn\s+[\w]+
       | (?:export\s+)?(?:const|let|var)\s+[\w$]+\s*=\s*(?:async\s*)?\(
     )
     """
@@ -112,7 +114,7 @@ def c_like_function_ranges(lines: list[str]) -> list[tuple[str, int, int]]:
             i += 1
             continue
         name_match = re.search(
-            r"(?:fun|function|def)\s+(?:[`\w.]+\.)?([`\w]+)", line
+            r"(?:fun|function|def|fn)\s+(?:[`\w.]+\.)?([`\w]+)", line
         ) or re.search(r"(?:const|let|var)\s+([\w$]+)\s*=", line)
         name = name_match.group(1) if name_match else f"block@{i + 1}"
         brace_line = i

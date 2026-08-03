@@ -13,6 +13,7 @@
     "characterize": "bash scripts/characterize-python.sh",
     "check:i18n": "python3 scripts/check_i18n_ids.py",
     "check:config-keys": "python3 scripts/check_config_key_map.py",
+    "check:rust": "bash scripts/check-rust.sh",
     "hooks:install": "bash scripts/install-hooks.sh"
   },
   "engines": {

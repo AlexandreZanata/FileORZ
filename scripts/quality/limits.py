@@ -15,6 +15,7 @@ SOURCE_SUFFIXES = {
     ".mjs",
     ".cjs",
     ".py",
+    ".rs",
 }
 
 SKIP_DIR_NAMES = {
@@ -24,6 +25,7 @@ SKIP_DIR_NAMES = {
     "build",
     "node_modules",
     "dist",
+    "target",
     "coverage",
     ".venv",
     "venv",

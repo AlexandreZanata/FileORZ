@@ -1,0 +1,11 @@
+[package]
+name = "fileorz-linux"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+repository.workspace = true
+rust-version.workspace = true
+description = "FileORZ Linux: XDG paths, autostart, trash, notifications"
+
+[lints]
+workspace = true

@@ -15,7 +15,7 @@ step() {
   local started ended elapsed
   started=$(date +%s)
   echo ""
-  echo "${num}/7 ${label}"
+  echo "${num}/8 ${label}"
   "$@"
   ended=$(date +%s)
   elapsed=$((ended - started))
@@ -44,6 +44,9 @@ step 6 "i18n Fluent ID parity (en ↔ pt-BR)" \
 
 step 7 "Config key map vs utils/*.py" \
   python3 "$ROOT/scripts/check_config_key_map.py"
+
+step 8 "Rust fmt + clippy + test" \
+  bash "$ROOT/scripts/check-rust.sh"
 
 GATE_END=$(date +%s)
 GATE_ELAPSED=$((GATE_END - GATE_START))

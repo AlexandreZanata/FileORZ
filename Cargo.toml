@@ -1,0 +1,21 @@
+[workspace]
+resolver = "2"
+members = [
+    "crates/fileorz",
+    "crates/fileorz-core",
+    "crates/fileorz-i18n",
+    "crates/fileorz-linux",
+    "crates/fileorz-ui",
+    "crates/fileorz-parity",
+    "crates/fileorz-e2e",
+]
+
+[workspace.package]
+version = "0.1.0"
+edition = "2021"
+license = "GPL-3.0-or-later"
+repository = "https://github.com/AlexandreZanata/FileORZ"
+rust-version = "1.80"
+
+[workspace.lints.rust]
+unsafe_code = "forbid"

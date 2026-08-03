@@ -34,6 +34,7 @@ Vemv/
 node_modules/
 
 # Build / packaging artifacts
+target/
 build/
 build_ui/
 dist/

@@ -1,0 +1,18 @@
+[package]
+name = "fileorz"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+repository.workspace = true
+rust-version.workspace = true
+description = "FileORZ Linux desktop binary (scaffold)"
+
+[[bin]]
+name = "fileorz"
+path = "src/main.rs"
+
+[dependencies]
+fileorz-core = { path = "../fileorz-core" }
+
+[lints]
+workspace = true
