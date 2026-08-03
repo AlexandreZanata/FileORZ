@@ -1,5 +1,6 @@
 //! Domain logic for organize / auto-delete / advanced PDF.
 
+pub mod advanced_pdf;
 pub mod autodelete;
 pub mod config;
 pub mod organize;

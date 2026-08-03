@@ -56,6 +56,7 @@ Rules encoded:
 - Auto-delete: permanent + mtime `>` days; scans capitalized category folders (Linux-normalized Windows case-fold).
 
 Oracle: `scripts/characterization/` (needs `pypdf` from `requirements-dev.txt`).
+Rust parity: `cargo test -p fileorz-core advanced_pdf` (see `docs/ADVANCED-PDF.md`).
 
 
 ## Refreshing goldens

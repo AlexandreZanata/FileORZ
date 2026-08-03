@@ -13,6 +13,7 @@ Template: `agent-rules/11-documentation-and-glossary/adr-template.md`.
 | [0003](0003-i18n-fluent.md) | i18n: Fluent | Accepted |
 | [0004](0004-xdg-config-layout.md) | XDG config layout | Accepted |
 | [0005](0005-linux-file-times.md) | Linux file times for auto-delete | Accepted |
+| [0006](0006-pdf-text-extract.md) | PDF text extraction: lopdf | Accepted |
 
 ## Rules
 

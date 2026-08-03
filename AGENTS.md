@@ -80,7 +80,7 @@ Clear via `.local/tasks/01-baseline-quality-debt/`. Never expand exemptions.
 
 ## Architecture decisions
 
-Accepted ADRs: [`docs/adr/`](docs/adr/README.md) (Rust, iced, Fluent, XDG, file times).  
+Accepted ADRs: [`docs/adr/`](docs/adr/README.md) (Rust, iced, Fluent, XDG, file times, PDF extract).  
 Regression registry: [`docs/REGRESSION-LOG.md`](docs/REGRESSION-LOG.md).  
 Characterization: [`docs/CHARACTERIZATION.md`](docs/CHARACTERIZATION.md), `tests/fixtures/`.  
 i18n catalog: [`docs/I18N-CATALOG.md`](docs/I18N-CATALOG.md), locales in [`i18n/`](i18n/) (move to crates in phase 05/10).  
