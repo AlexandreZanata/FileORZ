@@ -13,6 +13,7 @@ path = "src/main.rs"
 
 [dependencies]
 fileorz-core = { path = "../fileorz-core" }
+fileorz-i18n = { version = "0.1.0", path = "../fileorz-i18n" }
 
 [lints]
 workspace = true

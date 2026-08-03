@@ -6,7 +6,7 @@ Workspace members match `.local/ARCHITECTURE-LINUX-RUST.md`.
 |-------|------|
 | `fileorz` | Binary (`--help`, `--version`, reserved `--tray` / `--locale`) |
 | `fileorz-core` | Domain: config, organize, autodelete, advanced PDF |
-| `fileorz-i18n` | Fluent runtime (phase 10); catalogs still in `/i18n` |
+| `fileorz-i18n` | Fluent runtime + embedded locales |
 | `fileorz-linux` | XDG paths (phase 06); desktop later |
 | `fileorz-ui` | iced UI (phase 13+) |
 | `fileorz-parity` | Golden parity |

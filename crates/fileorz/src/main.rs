@@ -1,5 +1,6 @@
-//! FileORZ binary — CLI entry (scaffold).
+//! FileORZ binary — CLI entry (scaffold + locale demo).
 
+use fileorz_i18n::{resolve_locale_from_env, Localization};
 use std::env;
 use std::process::ExitCode;
 
@@ -11,13 +12,21 @@ fn print_help() {
            -h, --help       Print help\n\
            -V, --version    Print version\n\
            --tray           Start hidden in tray (reserved)\n\
-           --locale <TAG>   Locale override (reserved)\n",
+           --locale <TAG>   Locale override (en, pt-BR)\n\
+           --demo-i18n      Print sample strings for resolved locale\n",
         env!("CARGO_PKG_VERSION")
     );
 }
 
 fn print_version() {
     println!("fileorz {}", env!("CARGO_PKG_VERSION"));
+}
+
+fn locale_arg(args: &[String]) -> Option<&str> {
+    args.iter()
+        .position(|a| a == "--locale")
+        .and_then(|i| args.get(i + 1))
+        .map(String::as_str)
 }
 
 fn main() -> ExitCode {
@@ -30,12 +39,35 @@ fn main() -> ExitCode {
         print_version();
         return ExitCode::SUCCESS;
     }
+    if args.iter().any(|a| a == "--demo-i18n") {
+        return demo_i18n(locale_arg(&args));
+    }
     println!(
         "fileorz {} — scaffold ({})",
         env!("CARGO_PKG_VERSION"),
         fileorz_core::crate_name()
     );
     ExitCode::SUCCESS
+}
+
+fn demo_i18n(cli_locale: Option<&str>) -> ExitCode {
+    let tag = resolve_locale_from_env(cli_locale, None);
+    match Localization::embed(&tag) {
+        Ok(loc) => {
+            println!("locale={}", loc.locale());
+            println!("app-title={}", loc.message("app-title"));
+            println!("main-btn-start={}", loc.message("main-btn-start"));
+            println!(
+                "error-folder-missing={}",
+                loc.message("error-folder-missing")
+            );
+            ExitCode::SUCCESS
+        }
+        Err(e) => {
+            eprintln!("i18n error: {e}");
+            ExitCode::FAILURE
+        }
+    }
 }
 
 #[cfg(test)]

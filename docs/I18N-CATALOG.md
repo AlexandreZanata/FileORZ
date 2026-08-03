@@ -1,7 +1,7 @@
 # i18n catalog — message IDs
 
-> Phase 04 inventory. Runtime wiring is phase 10.  
-> Locales live under [`i18n/`](../i18n/) until moved to `crates/fileorz-i18n/locales/` (phase 05/10).  
+> Phase 04 inventory. Runtime: phase 10 (`docs/I18N-RUNTIME.md`).  
+> Locales: [`crates/fileorz-i18n/locales/`](../crates/fileorz-i18n/locales/).  
 > Strategy: `.local/I18N-STRATEGY.md` · ADR-0003.
 
 **ID syntax:** Fluent files use hyphenated identifiers (`main-btn-start`). Dotted

@@ -83,7 +83,7 @@ Clear via `.local/tasks/01-baseline-quality-debt/`. Never expand exemptions.
 Accepted ADRs: [`docs/adr/`](docs/adr/README.md) (Rust, iced, Fluent, XDG, file times, PDF extract).  
 Regression registry: [`docs/REGRESSION-LOG.md`](docs/REGRESSION-LOG.md).  
 Characterization: [`docs/CHARACTERIZATION.md`](docs/CHARACTERIZATION.md), `tests/fixtures/`.  
-i18n catalog: [`docs/I18N-CATALOG.md`](docs/I18N-CATALOG.md), locales in [`i18n/`](i18n/) (move to crates in phase 05/10).  
+i18n catalog: [`docs/I18N-CATALOG.md`](docs/I18N-CATALOG.md), runtime [`docs/I18N-RUNTIME.md`](docs/I18N-RUNTIME.md), locales in [`crates/fileorz-i18n/locales/`](crates/fileorz-i18n/locales/).  
 Config keys: [`docs/CONFIG-KEY-MAP.md`](docs/CONFIG-KEY-MAP.md), domain notes [`docs/CONFIG-DOMAIN.md`](docs/CONFIG-DOMAIN.md).  
 Organize API: [`docs/ORGANIZE.md`](docs/ORGANIZE.md).  
 Auto-delete: [`docs/AUTODELETE.md`](docs/AUTODELETE.md).  

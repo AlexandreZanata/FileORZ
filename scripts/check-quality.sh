@@ -40,7 +40,7 @@ step 5 "Characterization goldens + corrupt self-test" \
   bash "$ROOT/scripts/characterize-python.sh"
 
 step 6 "i18n Fluent ID parity (en ↔ pt-BR)" \
-  python3 "$ROOT/scripts/check_i18n_ids.py"
+  bash "$ROOT/scripts/check-i18n.sh"
 
 step 7 "Config key map vs utils/*.py" \
   python3 "$ROOT/scripts/check_config_key_map.py"

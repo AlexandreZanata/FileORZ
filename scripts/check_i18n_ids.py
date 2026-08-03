@@ -17,7 +17,12 @@ def ids_in(path: Path) -> set[str]:
 
 
 def main() -> int:
-    root = Path(__file__).resolve().parents[1] / "i18n"
+    root = (
+        Path(__file__).resolve().parents[1]
+        / "crates"
+        / "fileorz-i18n"
+        / "locales"
+    )
     failed = 0
     for name in FILES:
         sets = {loc: ids_in(root / loc / name) for loc in LOCALES}

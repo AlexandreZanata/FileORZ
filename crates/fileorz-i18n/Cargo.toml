@@ -9,3 +9,8 @@ description = "FileORZ Fluent locale load and message lookup"
 
 [lints]
 workspace = true
+
+[dependencies]
+fluent = "0.17.0"
+thiserror = "2.0.19"
+unic-langid = "0.9.6"
