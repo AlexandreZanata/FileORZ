@@ -80,6 +80,12 @@ redistribute binaries (`.deb`, tarball, or other):
 Source for this fork: https://github.com/AlexandreZanata/FileORZ  
 Upstream project: https://github.com/ThainanViniciusKatchan/FileORZ
 
+## Legacy Python UI
+
+Python CustomTkinter sources are **not** the Linux product path (phase 19 /
+ADR-0001). Use them only as a characterization oracle. Parity matrix:
+[`PARITY-REPORT.md`](PARITY-REPORT.md).
+
 ## Desktop / tray
 
 See [LINUX-DESKTOP.md](LINUX-DESKTOP.md) for XDG autostart and StatusNotifier tray.

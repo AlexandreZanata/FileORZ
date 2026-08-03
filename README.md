@@ -10,6 +10,27 @@
 > Este repositório é um **fork** do FileORZ original. O código da aplicação é de
 > **terceiros** (upstream). Não apresente este fork como o projeto original.
 
+## Linux product (this fork)
+
+The **supported Linux ship path** is the Rust binary (iced + Fluent), not the
+Python CustomTkinter UI. Install guide: [`docs/INSTALL-LINUX.md`](docs/INSTALL-LINUX.md).
+Parity / regression gate: [`docs/PARITY-REPORT.md`](docs/PARITY-REPORT.md).
+
+```bash
+cargo build -p fileorz --release
+./target/release/fileorz --version
+./target/release/fileorz            # iced main shell
+# or package:
+bash scripts/package-linux.sh
+sudo apt install ./dist/linux/fileorz_*_amd64.deb
+```
+
+Python sources (`ui/`, `FileORZ.py`, `utils/`, …) remain **legacy upstream
+reference / characterization oracle** (ADR-0001). They are **not** launched by
+the `.deb` or the documented Linux install path.
+
+Locales: **en** + **pt-BR** via Fluent (`crates/fileorz-i18n`).
+
 <div align="center">
 
 # 📁 FileORZ
@@ -32,9 +53,13 @@
 
 </div>
 
-> ⚠️ **Nota:** Atualmente o projeto só tem suporte para o idioma português-br, estou trabalhando internamente na padronização dos textos, para facilitar a tradução, mas no momento não está disponível para tradução. Obrigado pela compreensão!
+> ⚠️ **Nota (fork Linux):** o caminho de produto é o binário Rust — ver
+> [docs/INSTALL-LINUX.md](docs/INSTALL-LINUX.md). A UI Python abaixo é
+> **legado / referência upstream**.
 
-> ⚠️ **Note:** Currently, the project only supports Brazilian Portuguese. I am working internally on standardizing the text to facilitate translation, but it is not available for translation at the moment. Thank you for your understanding!
+> ⚠️ **Note (Linux fork):** the product path is the Rust binary — see
+> [docs/INSTALL-LINUX.md](docs/INSTALL-LINUX.md). The Python UI below is
+> **legacy / upstream reference**.
 
 # 🇧🇷 Português
 
@@ -44,14 +69,22 @@ O **FileORZ** surgiu para solucionar um problema comum: a desorganização de ar
 
 ## ⚙️ Como Executar
 
+### Linux (produto — Rust)
+
 ```bash
-# 1. Clone o repositório
-git clone https://github.com/seu-usuario/FileORZ.git
+git clone https://github.com/AlexandreZanata/FileORZ.git
+cd FileORZ
+cargo build -p fileorz --release
+./target/release/fileorz
+```
 
-# 2. Instale as dependências
+Detalhes e `.deb`: [docs/INSTALL-LINUX.md](docs/INSTALL-LINUX.md).
+
+### Legacy — Python UI (upstream / oracle)
+
+```bash
+# Referência histórica — não é o caminho de release Linux deste fork
 pip install -r requirements.txt
-
-# 3. Execute o aplicativo
 python ui/index.py
 ```
 
@@ -106,14 +139,22 @@ python ui/index.py
 
 ## ⚙️ How to Run
 
+### Linux (product — Rust)
+
 ```bash
-# 1. Clone the repository
-git clone https://github.com/your-username/FileORZ.git
+git clone https://github.com/AlexandreZanata/FileORZ.git
+cd FileORZ
+cargo build -p fileorz --release
+./target/release/fileorz
+```
 
-# 2. Install dependencies
+Details and `.deb`: [docs/INSTALL-LINUX.md](docs/INSTALL-LINUX.md).
+
+### Legacy — Python UI (upstream / oracle)
+
+```bash
+# Historical reference — not this fork's Linux release path
 pip install -r requirements.txt
-
-# 3. Run the application
 python ui/index.py
 ```
 

@@ -4,6 +4,8 @@ How to refresh and interpret golden filesystem manifests for organize /
 auto-delete / advanced PDF parity (phase 03).
 
 Catalog: `.local/BEHAVIOR-CATALOG.md` (B-10..B-23). Strategy: `.local/TEST-STRATEGY.md`.
+Committed matrix: [`PARITY-REPORT.md`](PARITY-REPORT.md) (phase 19). Python oracle
+is **not** the Linux product path.
 
 ## Layout
 

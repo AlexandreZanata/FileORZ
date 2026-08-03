@@ -9,7 +9,7 @@ Workspace members match `.local/ARCHITECTURE-LINUX-RUST.md`.
 | `fileorz-i18n` | Fluent runtime + embedded locales |
 | `fileorz-linux` | XDG paths, autostart, tray (ksni), trash |
 | `fileorz-ui` | iced main shell + settings hub/editors |
-| `fileorz-parity` | Golden parity |
+| `fileorz-parity` | Golden fixture presence + optional matrix lock (`docs/PARITY-REPORT.md`) |
 | `fileorz-e2e` | Linux e2e helpers + Xvfb scenarios (`docs/E2E-LINUX.md`) |
 
 ```bash
@@ -19,4 +19,6 @@ cargo build -p fileorz --release   # → target/release/fileorz (strip=symbols)
 bash scripts/check-rust.sh
 bash scripts/package-linux.sh      # → dist/linux/*.deb (see docs/INSTALL-LINUX.md)
 bash scripts/e2e-linux.sh          # Xvfb e2e (see docs/E2E-LINUX.md)
+python3 scripts/check_parity_report.py
+cargo test -p fileorz-parity -- --include-ignored
 ```

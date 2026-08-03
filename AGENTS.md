@@ -93,12 +93,14 @@ Linux install / `.deb`: [`docs/INSTALL-LINUX.md`](docs/INSTALL-LINUX.md),
 `scripts/package-linux.sh`, `packaging/linux/`. 
 Rust crate licenses: [`docs/THIRD_PARTY_RUST.md`](docs/THIRD_PARTY_RUST.md). 
 Linux E2E (Xvfb): [`docs/E2E-LINUX.md`](docs/E2E-LINUX.md), `scripts/e2e-linux.sh`. 
+Parity / regressions: [`docs/PARITY-REPORT.md`](docs/PARITY-REPORT.md),
+[`docs/REGRESSION-LOG.md`](docs/REGRESSION-LOG.md). 
 UI tokens: [`docs/UI-TOKENS.md`](docs/UI-TOKENS.md). 
 UI main shell: [`docs/UI-SHELL.md`](docs/UI-SHELL.md). 
 UI settings: [`docs/UI-SETTINGS.md`](docs/UI-SETTINGS.md). 
 UI a11y / polish: [`docs/UI-A11Y.md`](docs/UI-A11Y.md). 
 Gates: `check:adr`, `characterize`, `check:i18n`, `check:config-keys`, `check:rust`,
-`check:package` (also in `verify`). 
+`check:package`, `check:parity` (also in `verify`). 
 Rust workspace: [`crates/`](crates/README.md) (`cargo test --workspace`).
 
 ---

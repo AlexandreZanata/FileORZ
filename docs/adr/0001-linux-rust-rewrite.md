@@ -22,8 +22,9 @@ Official references:
 Rewrite the product as a **Cargo workspace** Rust binary for Linux
 (`x86_64-unknown-linux-gnu` primary). Domain logic lives in `fileorz-core`; UI,
 i18n, and Linux integration are separate crates. Python sources remain a
-**parity oracle / historical reference** until phase 19, then retire from the
-production ship path (not from attribution / GPL notices).
+**parity oracle / historical reference**. Phase 19 retires Python from the
+**production ship path** (not from attribution / GPL notices): release docs and
+`.deb` launch only the Rust `fileorz` binary — see `docs/PARITY-REPORT.md`.
 
 ## Consequences
 

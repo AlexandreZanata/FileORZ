@@ -15,7 +15,7 @@ step() {
   local started ended elapsed
   started=$(date +%s)
   echo ""
-  echo "${num}/9 ${label}"
+  echo "${num}/10 ${label}"
   "$@"
   ended=$(date +%s)
   elapsed=$((ended - started))
@@ -50,6 +50,9 @@ step 8 "Rust fmt + clippy + test" \
 
 step 9 "Linux packaging assets (desktop + icons + docs)" \
   python3 "$ROOT/scripts/check_package_linux.py"
+
+step 10 "Parity report covers all B-* catalog IDs" \
+  python3 "$ROOT/scripts/check_parity_report.py"
 
 GATE_END=$(date +%s)
 GATE_ELAPSED=$((GATE_END - GATE_START))
