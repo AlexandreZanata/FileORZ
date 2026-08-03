@@ -50,13 +50,11 @@ fn xdg_dir(env_key: &str, fallback_under_home: &str) -> PathBuf {
 #[cfg(test)]
 mod tests {
     use super::*;
-    use std::sync::Mutex;
-
-    static ENV_LOCK: Mutex<()> = Mutex::new(());
+    use crate::test_env::lock_env;
 
     #[test]
     fn config_dir_respects_xdg_config_home() {
-        let _guard = ENV_LOCK.lock().unwrap();
+        let _guard = lock_env();
         let tmp = tempfile::tempdir().unwrap();
         env::set_var("XDG_CONFIG_HOME", tmp.path());
         assert_eq!(config_dir(), tmp.path().join("fileorz"));
@@ -66,7 +64,7 @@ mod tests {
 
     #[test]
     fn data_dir_respects_xdg_data_home() {
-        let _guard = ENV_LOCK.lock().unwrap();
+        let _guard = lock_env();
         let tmp = tempfile::tempdir().unwrap();
         env::set_var("XDG_DATA_HOME", tmp.path());
         assert_eq!(data_dir(), tmp.path().join("fileorz"));
@@ -75,7 +73,7 @@ mod tests {
 
     #[test]
     fn keywords_and_autostart_paths() {
-        let _guard = ENV_LOCK.lock().unwrap();
+        let _guard = lock_env();
         let tmp = tempfile::tempdir().unwrap();
         env::set_var("XDG_CONFIG_HOME", tmp.path());
         assert_eq!(

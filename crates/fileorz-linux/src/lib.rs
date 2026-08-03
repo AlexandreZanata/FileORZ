@@ -1,6 +1,10 @@
 //! Linux desktop integration helpers.
 
+pub mod trash;
 pub mod xdg;
+
+#[cfg(test)]
+pub(crate) mod test_env;
 
 /// Crate package name (smoke helper for workspace wiring).
 #[must_use]

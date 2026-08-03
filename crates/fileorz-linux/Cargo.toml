@@ -7,6 +7,9 @@ repository.workspace = true
 rust-version.workspace = true
 description = "FileORZ Linux: XDG paths, autostart, trash, notifications"
 
+[dependencies]
+fileorz-core = { path = "../fileorz-core" }
+
 [dev-dependencies]
 tempfile = "3"
 

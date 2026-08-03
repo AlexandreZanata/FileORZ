@@ -59,6 +59,7 @@ version = "0.1.0"
 name = "fileorz-linux"
 version = "0.1.0"
 dependencies = [
+ "fileorz-core",
  "tempfile",
 ]
 
