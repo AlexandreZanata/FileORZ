@@ -16,6 +16,13 @@ if ! command -v rustc >/dev/null || ! command -v cargo >/dev/null; then
   exit 1
 fi
 
+# Drop dead local SOCKS proxies that break crates.io (common in some sandboxes).
+case "${ALL_PROXY:-}${all_proxy:-}${HTTPS_PROXY:-}" in
+  *127.0.0.1:11080*|*localhost:11080*)
+    unset http_proxy https_proxy HTTP_PROXY HTTPS_PROXY ALL_PROXY all_proxy
+    ;;
+esac
+
 echo "[rust] cargo fmt --check"
 cargo fmt --all -- --check
 

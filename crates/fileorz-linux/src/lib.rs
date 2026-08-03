@@ -1,4 +1,6 @@
-//! Linux desktop integration helpers (scaffold).
+//! Linux desktop integration helpers.
+
+pub mod xdg;
 
 /// Crate package name (smoke helper for workspace wiring).
 #[must_use]

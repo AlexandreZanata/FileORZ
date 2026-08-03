@@ -84,7 +84,7 @@ Accepted ADRs: [`docs/adr/`](docs/adr/README.md) (Rust, iced, Fluent, XDG, file 
 Regression registry: [`docs/REGRESSION-LOG.md`](docs/REGRESSION-LOG.md).  
 Characterization: [`docs/CHARACTERIZATION.md`](docs/CHARACTERIZATION.md), `tests/fixtures/`.  
 i18n catalog: [`docs/I18N-CATALOG.md`](docs/I18N-CATALOG.md), locales in [`i18n/`](i18n/) (move to crates in phase 05/10).  
-Config keys: [`docs/CONFIG-KEY-MAP.md`](docs/CONFIG-KEY-MAP.md).  
+Config keys: [`docs/CONFIG-KEY-MAP.md`](docs/CONFIG-KEY-MAP.md), domain notes [`docs/CONFIG-DOMAIN.md`](docs/CONFIG-DOMAIN.md).  
 Gates: `check:adr`, `characterize`, `check:i18n`, `check:config-keys`, `check:rust` (also in `verify`).  
 Rust workspace: [`crates/`](crates/README.md) (`cargo test --workspace`).
 

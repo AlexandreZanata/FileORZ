@@ -1,0 +1,32 @@
+{
+  "folder": null,
+  "interval_minutes": 5,
+  "autostart": false,
+  "locale": "en",
+  "advanced_organize": false,
+  "auto_delete": {
+    "enabled": false,
+    "to_trash": false,
+    "permanent": false,
+    "by_created": false,
+    "by_modified": false,
+    "max_age_days": 15
+  },
+  "folder_delete": {
+    "enabled": false,
+    "to_trash": false,
+    "permanent": false,
+    "orz_folders_only": false,
+    "everything": false
+  },
+  "categories": {
+    "documentos": { ".txt": true, ".pdf": true, ".doc": true, ".docx": true },
+    "imagens": { ".jpg": true, ".jpeg": true, ".png": true, ".gif": true },
+    "audios": { ".mp3": true, ".wav": true, ".flac": true },
+    "videos": { ".mp4": true, ".mkv": true, ".avi": true },
+    "compactos": { ".zip": true, ".rar": true, ".7z": true, ".tar": true },
+    "fontes": { ".ttf": true, ".woff": true, ".woff2": true },
+    "setups": { ".exe": true, ".msi": true, ".AppImage": true, ".deb": true },
+    "Desenvolvimento": { ".rs": true, ".py": true, ".js": true, ".json": true, ".md": true }
+  }
+}

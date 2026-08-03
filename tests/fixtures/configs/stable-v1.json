@@ -1,9 +1,9 @@
 {
-  "_comment": "Placeholder stable v1 English keys — expand in phase 06",
   "folder": "/tmp/fileorz-fixture-tiny",
   "interval_minutes": 5,
   "autostart": false,
   "locale": "en",
+  "advanced_organize": false,
   "auto_delete": {
     "enabled": false,
     "to_trash": true,
@@ -12,7 +12,13 @@
     "by_modified": true,
     "max_age_days": 15
   },
-  "advanced_organize": false,
+  "folder_delete": {
+    "enabled": false,
+    "to_trash": false,
+    "permanent": false,
+    "orz_folders_only": false,
+    "everything": false
+  },
   "categories": {
     "imagens": { ".jpg": true, ".png": false },
     "documentos": { ".pdf": true, ".txt": true }
