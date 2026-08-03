@@ -17,7 +17,7 @@ pub enum ApplyError {
 }
 
 /// Backend for FreeDesktop (or test) trash.
-pub trait TrashSink {
+pub trait TrashSink: Send + Sync {
     /// # Errors
     /// Returns an error if the trash operation fails.
     fn trash_file(&self, path: &Path) -> Result<(), String>;

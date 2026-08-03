@@ -5,7 +5,7 @@ Workspace members match `.local/ARCHITECTURE-LINUX-RUST.md`.
 | Crate | Role |
 |-------|------|
 | `fileorz` | Binary (`--help`, `--version`, reserved `--tray` / `--locale`) |
-| `fileorz-core` | Domain: config, organize, autodelete, advanced PDF |
+| `fileorz-core` | Domain: config, organize, autodelete, advanced PDF, scheduler |
 | `fileorz-i18n` | Fluent runtime + embedded locales |
 | `fileorz-linux` | XDG paths (phase 06); desktop later |
 | `fileorz-ui` | iced UI (phase 13+) |

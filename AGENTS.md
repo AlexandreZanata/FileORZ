@@ -87,6 +87,7 @@ i18n catalog: [`docs/I18N-CATALOG.md`](docs/I18N-CATALOG.md), runtime [`docs/I18
 Config keys: [`docs/CONFIG-KEY-MAP.md`](docs/CONFIG-KEY-MAP.md), domain notes [`docs/CONFIG-DOMAIN.md`](docs/CONFIG-DOMAIN.md).  
 Organize API: [`docs/ORGANIZE.md`](docs/ORGANIZE.md).  
 Auto-delete: [`docs/AUTODELETE.md`](docs/AUTODELETE.md).  
+Scheduler: [`docs/SCHEDULER.md`](docs/SCHEDULER.md).  
 Gates: `check:adr`, `characterize`, `check:i18n`, `check:config-keys`, `check:rust` (also in `verify`).  
 Rust workspace: [`crates/`](crates/README.md) (`cargo test --workspace`).
 

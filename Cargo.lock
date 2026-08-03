@@ -291,6 +291,7 @@ version = "0.1.0"
 dependencies = [
  "fileorz-core",
  "fileorz-i18n",
+ "fileorz-linux",
 ]
 
 [[package]]

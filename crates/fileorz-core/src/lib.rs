@@ -1,9 +1,10 @@
-//! Domain logic for organize / auto-delete / advanced PDF.
+//! Domain logic for organize / auto-delete / advanced PDF / scheduler.
 
 pub mod advanced_pdf;
 pub mod autodelete;
 pub mod config;
 pub mod organize;
+pub mod scheduler;
 
 /// Crate package name (smoke helper for workspace wiring).
 #[must_use]
