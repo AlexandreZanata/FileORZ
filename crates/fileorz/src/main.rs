@@ -4,6 +4,7 @@ mod autostart_cmd;
 mod exit_code;
 mod organize_cmd;
 mod tray_cmd;
+mod ui_cmd;
 
 use fileorz_i18n::{resolve_locale_from_env, Localization};
 use std::env;
@@ -19,12 +20,13 @@ fn print_help() {
          Options:\n\
            -h, --help       Print help\n\
            -V, --version    Print version\n\
+           --ui             Open iced main shell (default when no other command)\n\
            --tray           Start StatusNotifier tray (B-02)\n\
            --locale <TAG>   Locale override (en, pt-BR)\n\
            --demo-i18n      Print sample strings for resolved locale\n\n\
          Exit codes:\n\
            0  ok\n\
-           1  organize / runtime error\n\
+           1  organize / runtime / UI error\n\
            2  config or keywords error\n\
            3  folder missing / not writable\n\
            4  usage error\n",
@@ -65,12 +67,8 @@ fn main() -> ExitCode {
     if args.iter().any(|a| a == "--demo-i18n") {
         return demo_i18n(locale_arg(&args));
     }
-    println!(
-        "fileorz {} — scaffold ({})",
-        env!("CARGO_PKG_VERSION"),
-        fileorz_core::crate_name()
-    );
-    ExitCode::SUCCESS
+    // Default / --ui: iced shell (phase 13).
+    ui_cmd::run(locale_arg(&args))
 }
 
 fn demo_i18n(cli_locale: Option<&str>) -> ExitCode {

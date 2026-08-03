@@ -9,3 +9,7 @@ description = "FileORZ iced UI screens and widgets"
 
 [lints]
 workspace = true
+
+[dependencies]
+fileorz-i18n = { version = "0.1.0", path = "../fileorz-i18n" }
+iced = "0.13.1"

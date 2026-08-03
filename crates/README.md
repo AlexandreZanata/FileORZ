@@ -8,7 +8,7 @@ Workspace members match `.local/ARCHITECTURE-LINUX-RUST.md`.
 | `fileorz-core` | Domain: config, organize, autodelete, advanced PDF, scheduler |
 | `fileorz-i18n` | Fluent runtime + embedded locales |
 | `fileorz-linux` | XDG paths, autostart, tray (ksni), trash |
-| `fileorz-ui` | iced UI (phase 13+) |
+| `fileorz-ui` | iced theme tokens + main shell skeleton |
 | `fileorz-parity` | Golden parity |
 | `fileorz-e2e` | Linux e2e helpers |
 
