@@ -88,6 +88,7 @@ Config keys: [`docs/CONFIG-KEY-MAP.md`](docs/CONFIG-KEY-MAP.md), domain notes [`
 Organize API: [`docs/ORGANIZE.md`](docs/ORGANIZE.md).  
 Auto-delete: [`docs/AUTODELETE.md`](docs/AUTODELETE.md).  
 Scheduler: [`docs/SCHEDULER.md`](docs/SCHEDULER.md).  
+Linux desktop: [`docs/LINUX-DESKTOP.md`](docs/LINUX-DESKTOP.md).  
 Gates: `check:adr`, `characterize`, `check:i18n`, `check:config-keys`, `check:rust` (also in `verify`).  
 Rust workspace: [`crates/`](crates/README.md) (`cargo test --workspace`).
 

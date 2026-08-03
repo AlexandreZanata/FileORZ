@@ -1,7 +1,9 @@
 //! FileORZ binary — CLI entry.
 
+mod autostart_cmd;
 mod exit_code;
 mod organize_cmd;
+mod tray_cmd;
 
 use fileorz_i18n::{resolve_locale_from_env, Localization};
 use std::env;
@@ -12,11 +14,12 @@ fn print_help() {
         "fileorz {}\n\n\
          Usage:\n\
            fileorz [OPTIONS]\n\
-           fileorz organize --once --config <path> --folder <path> [--keywords <path>]\n\n\
+           fileorz organize --once --config <path> --folder <path> [--keywords <path>]\n\
+           fileorz autostart <enable|disable|status|print>\n\n\
          Options:\n\
            -h, --help       Print help\n\
            -V, --version    Print version\n\
-           --tray           Start hidden in tray (reserved)\n\
+           --tray           Start StatusNotifier tray (B-02)\n\
            --locale <TAG>   Locale override (en, pt-BR)\n\
            --demo-i18n      Print sample strings for resolved locale\n\n\
          Exit codes:\n\
@@ -52,6 +55,12 @@ fn main() -> ExitCode {
     }
     if args.first().map(String::as_str) == Some("organize") {
         return organize_cmd::run(&args[1..]);
+    }
+    if args.first().map(String::as_str) == Some("autostart") {
+        return autostart_cmd::run(&args[1..]);
+    }
+    if args.iter().any(|a| a == "--tray") {
+        return tray_cmd::run(locale_arg(&args));
     }
     if args.iter().any(|a| a == "--demo-i18n") {
         return demo_i18n(locale_arg(&args));

@@ -1,6 +1,8 @@
 //! Linux desktop integration helpers.
 
+pub mod autostart;
 pub mod trash;
+pub mod tray;
 pub mod xdg;
 
 #[cfg(test)]

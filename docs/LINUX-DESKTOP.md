@@ -1,0 +1,54 @@
+# Linux desktop integration
+
+XDG autostart + StatusNotifier tray (`fileorz-linux`, phase 12).
+
+## Autostart
+
+Path: `$XDG_CONFIG_HOME/autostart/fileorz.desktop` (default `~/.config/autostart/`).
+
+```bash
+fileorz autostart enable    # write Exec=fileorz --tray
+fileorz autostart disable   # remove file
+fileorz autostart status
+fileorz autostart print      # dry-run: print .desktop body + path
+```
+
+API: `fileorz_linux::autostart::{enable, disable, is_enabled, desktop_entry}`.
+
+## Tray (`--tray`)
+
+StatusNotifierItem via **ksni** (menu: Open / Quit, i18n `tray-*`).
+
+| Action | Behavior |
+|--------|----------|
+| Open | Stub until iced UI (phase 14); prints `tray: open` |
+| Quit | Stops `OrganizerHandle` (if running) then shuts tray and exits |
+| Left-click | Same as Open |
+
+If config exists with a valid `folder`, the organizer loop starts in the background.
+
+Smoke without blocking forever:
+
+```bash
+FILEORZ_TRAY_SMOKE=1 fileorz --tray
+```
+
+## GNOME / desktop caveats
+
+| Environment | Notes |
+|-------------|--------|
+| **KDE Plasma** | Native SNI — tray works out of the box |
+| **GNOME Shell** | No built-in StatusNotifier; install an AppIndicator / tray extension (e.g. “AppIndicator and KStatusNotifierItem Support”) or the icon will not appear |
+| **Cosmic / others** | Depends on SNI watcher availability |
+| **Headless CI** | No watcher → spawn fails; unit tests cover autostart files and skip live tray |
+
+Official specs:
+
+- https://specifications.freedesktop.org/desktop-entry-spec/latest/
+- https://specifications.freedesktop.org/basedir-spec/latest/
+- https://www.freedesktop.org/wiki/Specifications/StatusNotifierItem/
+
+```bash
+cargo test -p fileorz-linux
+npm run verify
+```
