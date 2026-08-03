@@ -17,7 +17,7 @@ REQUIRED_DESKTOP_KEYS = (
     "Icon=fileorz",
     "Categories=Utility;Filesystem;",
 )
-ICON_SIZES = (48, 128, 256)
+ICON_SIZES = (48, 128, 256, 512)
 
 
 def fail(msg: str) -> None:

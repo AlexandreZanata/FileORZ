@@ -61,7 +61,8 @@ mkdir -p \
   "$STAGE/usr/share/doc/fileorz" \
   "$STAGE/usr/share/icons/hicolor/48x48/apps" \
   "$STAGE/usr/share/icons/hicolor/128x128/apps" \
-  "$STAGE/usr/share/icons/hicolor/256x256/apps"
+  "$STAGE/usr/share/icons/hicolor/256x256/apps" \
+  "$STAGE/usr/share/icons/hicolor/512x512/apps"
 
 install -m 0755 "$BIN_SRC" "$STAGE/usr/bin/fileorz"
 install -m 0644 "$ROOT/packaging/linux/fileorz.desktop" \
@@ -72,6 +73,8 @@ install -m 0644 "$ROOT/packaging/linux/icons/hicolor/128x128/apps/fileorz.png" \
   "$STAGE/usr/share/icons/hicolor/128x128/apps/fileorz.png"
 install -m 0644 "$ROOT/packaging/linux/icons/hicolor/256x256/apps/fileorz.png" \
   "$STAGE/usr/share/icons/hicolor/256x256/apps/fileorz.png"
+install -m 0644 "$ROOT/packaging/linux/icons/hicolor/512x512/apps/fileorz.png" \
+  "$STAGE/usr/share/icons/hicolor/512x512/apps/fileorz.png"
 install -m 0644 "$ROOT/LICENSE" "$STAGE/usr/share/doc/fileorz/copyright"
 install -m 0644 "$ROOT/THIRD_PARTY_NOTICES.md" \
   "$STAGE/usr/share/doc/fileorz/THIRD_PARTY_NOTICES.md"

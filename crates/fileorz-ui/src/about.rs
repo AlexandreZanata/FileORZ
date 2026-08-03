@@ -1,6 +1,6 @@
 //! About dialog — version, GPL-3.0, upstream + fork notices.
 
-use crate::links::{FORK_URL, GITHUB_URL};
+use crate::links::{FORK_URL, UPSTREAM_URL};
 use crate::message::Message;
 use crate::settings::chrome;
 use crate::shell::ShellApp;
@@ -40,7 +40,7 @@ pub fn view(app: &ShellApp) -> Element<'_, Message> {
                 .spacing(SPACE_1),
                 Space::with_height(SPACE_2),
                 text(scale).size(FONT_BODY_SM).color(TEXT_MUTED),
-                text(format!("Upstream · {GITHUB_URL}"))
+                text(format!("Upstream · {UPSTREAM_URL}"))
                     .size(FONT_BODY_SM)
                     .color(TEXT_MUTED),
                 text(format!("Fork · {FORK_URL}"))

@@ -1,6 +1,6 @@
 //! Message handling for the main shell.
 
-use crate::links::{self, CHANGELOG_URL, FORK_URL, GITHUB_URL};
+use crate::links::{self, CHANGELOG_URL, FORK_URL, GITHUB_URL, NOTICES_URL, UPSTREAM_URL};
 use crate::message::Message;
 use crate::organizer::{self, StartOutcome, StartReject};
 use crate::persist;
@@ -41,9 +41,11 @@ pub fn update(app: &mut ShellApp, message: Message) -> Task<Message> {
             app.apply_locale(&tag);
             Task::none()
         }
-        Message::OpenGithub | Message::OpenUpstream => open(GITHUB_URL),
+        Message::OpenGithub => open(GITHUB_URL),
         Message::OpenChangelog => open(CHANGELOG_URL),
-        Message::OpenFork | Message::OpenNotices => open(FORK_URL),
+        Message::OpenUpstream => open(UPSTREAM_URL),
+        Message::OpenFork => open(FORK_URL),
+        Message::OpenNotices => open(NOTICES_URL),
         Message::ShowAbout => {
             app.settings = SettingsScreen::About;
             app.motion.kick_screen();
