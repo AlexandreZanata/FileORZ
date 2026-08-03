@@ -1,6 +1,7 @@
 //! Domain logic for organize / auto-delete / advanced PDF.
 
 pub mod config;
+pub mod organize;
 
 /// Crate package name (smoke helper for workspace wiring).
 #[must_use]
