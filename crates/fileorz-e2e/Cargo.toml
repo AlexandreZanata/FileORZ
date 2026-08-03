@@ -7,5 +7,10 @@ repository.workspace = true
 rust-version.workspace = true
 description = "FileORZ Linux e2e helpers (temp dirs, xvfb)"
 
+[dependencies]
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+tempfile = "3"
+
 [lints]
 workspace = true

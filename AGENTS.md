@@ -92,6 +92,7 @@ Linux desktop: [`docs/LINUX-DESKTOP.md`](docs/LINUX-DESKTOP.md).
 Linux install / `.deb`: [`docs/INSTALL-LINUX.md`](docs/INSTALL-LINUX.md),
 `scripts/package-linux.sh`, `packaging/linux/`. 
 Rust crate licenses: [`docs/THIRD_PARTY_RUST.md`](docs/THIRD_PARTY_RUST.md). 
+Linux E2E (Xvfb): [`docs/E2E-LINUX.md`](docs/E2E-LINUX.md), `scripts/e2e-linux.sh`. 
 UI tokens: [`docs/UI-TOKENS.md`](docs/UI-TOKENS.md). 
 UI main shell: [`docs/UI-SHELL.md`](docs/UI-SHELL.md). 
 UI settings: [`docs/UI-SETTINGS.md`](docs/UI-SETTINGS.md). 

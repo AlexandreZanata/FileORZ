@@ -16,6 +16,7 @@
     "check:rust": "bash scripts/check-rust.sh",
     "check:package": "python3 scripts/check_package_linux.py",
     "package:linux": "bash scripts/package-linux.sh",
+    "e2e:linux": "bash scripts/e2e-linux.sh",
     "hooks:install": "bash scripts/install-hooks.sh"
   },
   "engines": {

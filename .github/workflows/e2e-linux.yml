@@ -1,0 +1,83 @@
+# Linux CI — verify + e2e (Ubuntu LTS)
+
+# Failures on this workflow should be required checks on `main` (branch protection).
+name: e2e-linux
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+concurrency:
+  group: e2e-linux-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  CARGO_TERM_COLOR: always
+
+jobs:
+  verify-harness:
+    name: verify-harness
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install Python / Node tooling
+        run: |
+          python -m pip install -r requirements-dev.txt
+          npm install
+      - name: npm run verify
+        run: npm run verify
+
+  cargo-ubuntu:
+    name: cargo-ubuntu
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@stable
+        with:
+          components: rustfmt, clippy
+      - uses: Swatinem/rust-cache@v2
+      - name: fmt + clippy + test
+        run: bash scripts/check-rust.sh
+
+  e2e-xvfb:
+    name: e2e-xvfb
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@stable
+        with:
+          components: rustfmt, clippy
+      - uses: Swatinem/rust-cache@v2
+      - name: Install Xvfb + screenshot tools
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq xvfb imagemagick
+      - name: E2E under Xvfb
+        run: bash scripts/e2e-linux.sh
+      - name: Upload e2e artifacts on failure
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: e2e-artifacts
+          path: .local/tmp/e2e/
+          if-no-files-found: ignore
+
+  package-smoke:
+    name: package-smoke
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@stable
+      - uses: Swatinem/rust-cache@v2
+      - name: Release binary --help / --version
+        run: |
+          cargo build -p fileorz --release
+          ./target/release/fileorz --version
+          ./target/release/fileorz --help | head -5

@@ -53,4 +53,7 @@ utils/watchdo_file.py
 ui/LiveReload.py
 debug_app.py
 ModFile.md
-.github/
+# Upstream ignored all of .github/; this fork tracks CI workflows.
+.github/*
+!.github/workflows/
+!.github/workflows/**

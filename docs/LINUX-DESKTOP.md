@@ -59,3 +59,4 @@ npm run verify
 ```
 
 Install / `.deb` packaging: [`INSTALL-LINUX.md`](INSTALL-LINUX.md).
+E2E under Xvfb: [`E2E-LINUX.md`](E2E-LINUX.md).
