@@ -1,6 +1,0 @@
-{
-  "_comment": "Placeholder golden — fill expected moves in phase 03",
-  "fixture": "trees/tiny-mixed",
-  "config": "configs/legacy-pt.json",
-  "expected_moves": []
-}

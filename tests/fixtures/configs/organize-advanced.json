@@ -1,0 +1,27 @@
+{
+  "documentos": {
+    ".txt": true,
+    ".pdf": true
+  },
+  "imagens": {
+    ".png": true
+  },
+  "audios": {
+    ".mp3": true
+  },
+  "compactos": {
+    ".zip": true
+  },
+  "timeverification": "5",
+  "Startup": false,
+  "Folder": "PLACEHOLDER",
+  "AutoDelete": false,
+  "Enviar Para Lixeira": false,
+  "Excluir permanentemente": false,
+  "AdvancedOrganize": true,
+  "AutoDeleteConfig": {
+    "Por Data de Criação": false,
+    "Por Data de Modificação": false,
+    "Dias para Auto Deletar": "15"
+  }
+}

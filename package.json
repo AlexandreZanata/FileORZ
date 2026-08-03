@@ -10,6 +10,7 @@
     "check:lint": "bash scripts/check-lint.sh",
     "check:system": "bash scripts/check-system.sh",
     "check:adr": "python3 scripts/check_adr.py",
+    "characterize": "bash scripts/characterize-python.sh",
     "hooks:install": "bash scripts/install-hooks.sh"
   },
   "engines": {

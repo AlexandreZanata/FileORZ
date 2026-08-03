@@ -3,8 +3,8 @@
 Registry of bugs that must not return. Every fix that closes a user-visible or
 parity defect adds a row **and** an automated test when feasible.
 
-Linked strategy: `.local/TEST-STRATEGY.md`. Commands: `npm run verify`, later
-`cargo test --workspace`.
+Linked strategy: `.local/TEST-STRATEGY.md`. Commands: `npm run verify`,
+`npm run characterize`, later `cargo test --workspace`.
 
 ## Entry format
 
@@ -26,4 +26,14 @@ Copy this block for each regression:
 
 ## Entries
 
-_None yet — phase 02 scaffolding._
+### REG-001 — corrupt golden must fail characterization
+
+| Field | Value |
+|-------|-------|
+| Date | 2026-08-03 |
+| Status | verified |
+| Symptom | Characterization could silently pass if expected paths were wrong |
+| Root cause | Need a negative control that the oracle asserts FS/actions strictly |
+| Fix | `scripts/run_characterization.py --selftest-corrupt` |
+| Test | `npm run characterize` (corrupt self-test step) |
+| ADR / catalog | B-12; `docs/CHARACTERIZATION.md` |

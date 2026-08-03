@@ -82,7 +82,8 @@ Clear via `.local/tasks/01-baseline-quality-debt/`. Never expand exemptions.
 
 Accepted ADRs: [`docs/adr/`](docs/adr/README.md) (Rust, iced, Fluent, XDG, file times).  
 Regression registry: [`docs/REGRESSION-LOG.md`](docs/REGRESSION-LOG.md).  
-Fixture drafts: `tests/fixtures/`. ADR gate: `npm run check:adr` (also in `verify`).
+Characterization: [`docs/CHARACTERIZATION.md`](docs/CHARACTERIZATION.md), `tests/fixtures/`.  
+Gates: `npm run check:adr`, `npm run characterize` (also in `verify`).
 
 ---
 

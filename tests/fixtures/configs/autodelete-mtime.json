@@ -1,0 +1,17 @@
+{
+  "documentos": {
+    ".txt": true
+  },
+  "timeverification": "5",
+  "Startup": false,
+  "Folder": "PLACEHOLDER",
+  "AutoDelete": true,
+  "Enviar Para Lixeira": false,
+  "Excluir permanentemente": true,
+  "AdvancedOrganize": false,
+  "AutoDeleteConfig": {
+    "Por Data de Criação": false,
+    "Por Data de Modificação": true,
+    "Dias para Auto Deletar": "15"
+  }
+}

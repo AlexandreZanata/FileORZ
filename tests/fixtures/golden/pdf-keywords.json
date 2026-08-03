@@ -1,0 +1,43 @@
+{
+  "case": "pdf-keywords",
+  "tree": "trees/pdf-keywords",
+  "config": "configs/organize-advanced.json",
+  "keywords": "configs/keywords-fixture.json",
+  "pipeline": ["advanced_pdf", "extension"],
+  "expected_actions": [
+    {
+      "action": "move",
+      "from": "invoice.pdf",
+      "to": "Nota Fiscal/invoice.pdf"
+    },
+    {
+      "action": "move",
+      "from": "contract.pdf",
+      "to": "Contratos/contract.pdf"
+    },
+    {
+      "action": "skip",
+      "from": "dup.pdf",
+      "to": "Nota Fiscal/dup.pdf",
+      "reason": "destination_exists"
+    },
+    {
+      "action": "move",
+      "from": "plain.pdf",
+      "to": "Documentos/PDF/plain.pdf"
+    },
+    {
+      "action": "move",
+      "from": "dup.pdf",
+      "to": "Documentos/PDF/dup.pdf"
+    }
+  ],
+  "expected_present": [
+    "Nota Fiscal/invoice.pdf",
+    "Nota Fiscal/dup.pdf",
+    "Contratos/contract.pdf",
+    "Documentos/PDF/plain.pdf",
+    "Documentos/PDF/dup.pdf"
+  ],
+  "expected_root_remaining": []
+}

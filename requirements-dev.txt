@@ -1,2 +1,3 @@
 # Dev / CI only — quality gates (Lefthook / npm run verify).
 ruff>=0.8,<1
+pypdf>=5,<7

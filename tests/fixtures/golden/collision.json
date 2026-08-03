@@ -1,0 +1,18 @@
+{
+  "case": "collision",
+  "tree": "trees/collision",
+  "config": "configs/organize-basic.json",
+  "pipeline": ["extension"],
+  "expected_actions": [
+    {
+      "action": "move",
+      "from": "notes.txt",
+      "to": "Documentos/TXT/notes_1.txt"
+    }
+  ],
+  "expected_root_remaining": [],
+  "expected_present": [
+    "Documentos/TXT/notes.txt",
+    "Documentos/TXT/notes_1.txt"
+  ]
+}

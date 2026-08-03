@@ -1,0 +1,34 @@
+{
+  "case": "tiny-mixed",
+  "tree": "trees/tiny-mixed",
+  "config": "configs/organize-basic.json",
+  "pipeline": ["extension"],
+  "expected_actions": [
+    {
+      "action": "move",
+      "from": "notes.txt",
+      "to": "Documentos/TXT/notes.txt"
+    },
+    {
+      "action": "move",
+      "from": "photo.png",
+      "to": "Imagens/PNG/photo.png"
+    },
+    {
+      "action": "move",
+      "from": "song.mp3",
+      "to": "Audios/MP3/song.mp3"
+    },
+    {
+      "action": "move",
+      "from": "archive.zip",
+      "to": "Compactos/ZIP/archive.zip"
+    },
+    {
+      "action": "move",
+      "from": "weird.xyz",
+      "to": "OUTROS/XYZ/weird.xyz"
+    }
+  ],
+  "expected_root_remaining": [".hidden"]
+}

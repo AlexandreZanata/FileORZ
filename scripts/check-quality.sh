@@ -15,7 +15,7 @@ step() {
   local started ended elapsed
   started=$(date +%s)
   echo ""
-  echo "${num}/4 ${label}"
+  echo "${num}/5 ${label}"
   "$@"
   ended=$(date +%s)
   elapsed=$((ended - started))
@@ -35,6 +35,9 @@ step 3 "System / compile (0 errors)" \
 
 step 4 "ADR contracts (Status/Context/Decision/Consequences + URL)" \
   python3 "$ROOT/scripts/check_adr.py"
+
+step 5 "Characterization goldens + corrupt self-test" \
+  bash "$ROOT/scripts/characterize-python.sh"
 
 GATE_END=$(date +%s)
 GATE_ELAPSED=$((GATE_END - GATE_START))

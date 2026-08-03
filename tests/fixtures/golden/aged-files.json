@@ -1,0 +1,20 @@
+{
+  "case": "aged-files",
+  "tree": "trees/aged-files",
+  "config": "configs/autodelete-mtime.json",
+  "pipeline": ["auto_delete"],
+  "mtime": {
+    "Documentos/TXT/old.txt": {"days_ago": 30},
+    "Documentos/TXT/fresh.txt": {"days_ago": 1}
+  },
+  "expected_actions": [
+    {
+      "action": "delete",
+      "from": "Documentos/TXT/old.txt",
+      "mode": "permanent"
+    }
+  ],
+  "expected_present": ["Documentos/TXT/fresh.txt"],
+  "expected_absent": ["Documentos/TXT/old.txt"],
+  "expected_root_remaining": []
+}
