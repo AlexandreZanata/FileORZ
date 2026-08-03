@@ -12,7 +12,7 @@ workspace = true
 
 [dependencies]
 fileorz-core = { path = "../fileorz-core" }
-fileorz-i18n = { version = "0.1.0", path = "../fileorz-i18n" }
+fileorz-i18n = { path = "../fileorz-i18n" }
 fileorz-linux = { path = "../fileorz-linux" }
 iced = { version = "0.13.1", features = ["tokio"] }
 open = "5"

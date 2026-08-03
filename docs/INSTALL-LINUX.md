@@ -18,16 +18,18 @@ Requirements: Rust **1.85+** (`rust-toolchain.toml`), Linux desktop libs for ice
 #   RUSTFLAGS="-C strip=symbols" cargo build -p fileorz --release
 
 cargo build -p fileorz --release
-./target/release/fileorz --version   # → fileorz 0.1.0
+./target/release/fileorz --version   # → fileorz 1.0.0
 ./target/release/fileorz --help
 ```
 
 | Item | Value |
 |------|--------|
 | Artifact | `target/release/fileorz` |
+| Latest tag | `linux-v1.0.0` — [RELEASE-NOTES-LINUX-v1.md](RELEASE-NOTES-LINUX-v1.md) |
 | Default features | GUI included (no `--features gui`) |
 | Strip | `strip = "symbols"` on release profile |
 | Optional RUSTFLAGS | `-C strip=symbols` (redundant if profile applies) |
+| Checksums | `dist/linux/SHA256SUMS` after `package-linux.sh` |
 
 Do **not** distribute unstripped debug binaries as “release” builds.
 

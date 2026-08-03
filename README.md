@@ -13,17 +13,26 @@
 ## Linux product (this fork)
 
 The **supported Linux ship path** is the Rust binary (iced + Fluent), not the
-Python CustomTkinter UI. Install guide: [`docs/INSTALL-LINUX.md`](docs/INSTALL-LINUX.md).
-Parity / regression gate: [`docs/PARITY-REPORT.md`](docs/PARITY-REPORT.md).
+Python CustomTkinter UI.
+
+| Doc | Purpose |
+|-----|---------|
+| [docs/INSTALL-LINUX.md](docs/INSTALL-LINUX.md) | Build, `.deb`, GPL notes |
+| [docs/RELEASE-NOTES-LINUX-v1.md](docs/RELEASE-NOTES-LINUX-v1.md) | Linux v1.0.0 notes (`linux-v1.0.0`) |
+| [docs/HANDOVER-LINUX.md](docs/HANDOVER-LINUX.md) | Add languages, tests, release cut |
+| [docs/PARITY-REPORT.md](docs/PARITY-REPORT.md) | Behavior ↔ test matrix |
 
 ```bash
 cargo build -p fileorz --release
-./target/release/fileorz --version
-./target/release/fileorz            # iced main shell
+./target/release/fileorz --version   # fileorz 1.0.0
+./target/release/fileorz             # iced main shell
 # or package:
 bash scripts/package-linux.sh
 sudo apt install ./dist/linux/fileorz_*_amd64.deb
 ```
+
+GitHub release assets (origin fork only): tag **`linux-v1.0.0`** — binary, `.deb`,
+`SHA256SUMS`.
 
 Python sources (`ui/`, `FileORZ.py`, `utils/`, …) remain **legacy upstream
 reference / characterization oracle** (ADR-0001). They are **not** launched by

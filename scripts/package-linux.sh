@@ -102,5 +102,15 @@ dpkg-deb --root-owner-group --build "$STAGE" "$OUT/${PKG_NAME}.deb"
 # Keep stage for inspection; also expose a stable symlink name for CI.
 ln -sfn "${PKG_NAME}.deb" "$OUT/fileorz_latest.deb"
 
+# Standalone stripped binary + checksums for GitHub release assets.
+install -m 0755 "$BIN_SRC" "$OUT/fileorz"
+(
+  cd "$OUT"
+  sha256sum "fileorz" "${PKG_NAME}.deb" >SHA256SUMS
+)
+
 echo "[package-linux] OK → $OUT/${PKG_NAME}.deb"
-ls -lh "$OUT/${PKG_NAME}.deb"
+echo "[package-linux] binary → $OUT/fileorz"
+echo "[package-linux] checksums → $OUT/SHA256SUMS"
+ls -lh "$OUT/${PKG_NAME}.deb" "$OUT/fileorz" "$OUT/SHA256SUMS"
+cat "$OUT/SHA256SUMS"

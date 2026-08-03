@@ -58,12 +58,16 @@ def check_script() -> None:
         fail("package-linux.sh must invoke dpkg-deb")
     if "fileorz.desktop" not in text:
         fail("package-linux.sh must install desktop file")
+    if "SHA256SUMS" not in text:
+        fail("package-linux.sh must write SHA256SUMS")
 
 
 def check_docs() -> None:
     for rel in (
         "docs/INSTALL-LINUX.md",
         "docs/THIRD_PARTY_RUST.md",
+        "docs/RELEASE-NOTES-LINUX-v1.md",
+        "docs/HANDOVER-LINUX.md",
         "LICENSE",
     ):
         path = ROOT / rel
