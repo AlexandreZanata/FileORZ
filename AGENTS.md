@@ -83,7 +83,9 @@ Clear via `.local/tasks/01-baseline-quality-debt/`. Never expand exemptions.
 Accepted ADRs: [`docs/adr/`](docs/adr/README.md) (Rust, iced, Fluent, XDG, file times).  
 Regression registry: [`docs/REGRESSION-LOG.md`](docs/REGRESSION-LOG.md).  
 Characterization: [`docs/CHARACTERIZATION.md`](docs/CHARACTERIZATION.md), `tests/fixtures/`.  
-Gates: `npm run check:adr`, `npm run characterize` (also in `verify`).
+i18n catalog: [`docs/I18N-CATALOG.md`](docs/I18N-CATALOG.md), locales in [`i18n/`](i18n/) (move to crates in phase 05/10).  
+Config keys: [`docs/CONFIG-KEY-MAP.md`](docs/CONFIG-KEY-MAP.md).  
+Gates: `check:adr`, `characterize`, `check:i18n`, `check:config-keys` (also in `verify`).
 
 ---
 

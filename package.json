@@ -11,6 +11,8 @@
     "check:system": "bash scripts/check-system.sh",
     "check:adr": "python3 scripts/check_adr.py",
     "characterize": "bash scripts/characterize-python.sh",
+    "check:i18n": "python3 scripts/check_i18n_ids.py",
+    "check:config-keys": "python3 scripts/check_config_key_map.py",
     "hooks:install": "bash scripts/install-hooks.sh"
   },
   "engines": {
