@@ -1,8 +1,12 @@
-//! iced UI — theme tokens + main shell + settings (ADR-0002, phases 13–15).
+//! iced UI — theme tokens + main shell + settings + a11y polish (phases 13–16).
 
+pub mod about;
 pub mod app;
+pub mod contrast;
 pub mod links;
+pub mod locale_pick;
 pub mod message;
+pub mod motion;
 pub mod organizer;
 pub mod persist;
 pub mod settings;
@@ -17,6 +21,7 @@ pub mod update;
 pub mod view;
 pub mod view_body;
 pub mod view_header;
+pub mod window_ops;
 
 pub use app::{run, run_tray, run_with, window_size};
 pub use shell::{LaunchOptions, ShellApp};

@@ -7,6 +7,7 @@ app-window-title = File ORZ - Organize seus arquivos
 header-changelog = Changelog
 header-github = GitHub
 header-autostart = Iniciar com o sistema
+header-language = Idioma
 
 # Main actions
 main-btn-settings = Configurações

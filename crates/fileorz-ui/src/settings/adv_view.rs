@@ -34,7 +34,7 @@ pub fn view<'a>(app: &'a ShellApp) -> Element<'a, Message> {
             text(&s.adv_help).size(FONT_BODY_SM).color(TEXT_MUTED),
             button(text(&s.adv_add).size(FONT_BODY_SM))
                 .padding([6, 12])
-                .style(|_, _| secondary_button())
+                .style(|_, status| secondary_button(status))
                 .on_press(Message::Settings(SettingsMsg::AdvAddGroup)),
         ]
         .spacing(SPACE_1)
@@ -66,12 +66,12 @@ fn group_card<'a>(
             row![
                 button(text(&s.adv_save).size(FONT_BODY_SM))
                     .padding([6, 12])
-                    .style(|_, _| accent_button())
+                    .style(|_, status| accent_button(status))
                     .on_press(Message::Settings(SettingsMsg::AdvSaveGroup(index))),
                 Space::with_width(SPACE_1),
                 button(text(&s.adv_delete).size(FONT_BODY_SM))
                     .padding([6, 12])
-                    .style(|_, _| danger_button())
+                    .style(|_, status| danger_button(status))
                     .on_press(Message::Settings(SettingsMsg::AdvDeleteGroup(index))),
             ],
         ]

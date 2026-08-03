@@ -24,7 +24,7 @@ pub fn header<'a>(
     row![
         button(text(&s.back).size(FONT_BODY))
             .padding([8, 14])
-            .style(|_, _| secondary_button())
+            .style(|_, status| secondary_button(status))
             .on_press(Message::SettingsBack),
         Space::with_width(SPACE_2),
         title_col,

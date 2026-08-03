@@ -1,5 +1,7 @@
 //! Shell application state (config, phase, tray, organizer, settings).
 
+use crate::locale_pick;
+use crate::motion::Motion;
 use crate::organizer;
 use crate::persist::{self, clamp_interval};
 use crate::settings::keywords_logic::KeywordRow;
@@ -35,8 +37,10 @@ pub struct ShellApp {
     pub organizer: Option<OrganizerHandle>,
     pub tray: Option<TrayService>,
     pub start_hidden: bool,
-    /// When set, first smoke tick writes a capture and quits.
     pub smoke_path: Option<std::path::PathBuf>,
+    pub motion: Motion,
+    /// Last known window scale factor (HiDPI).
+    pub scale_factor: f32,
 }
 
 impl ShellApp {
@@ -66,11 +70,25 @@ impl ShellApp {
             tray,
             start_hidden: opts.start_hidden,
             smoke_path: std::env::var_os("FILEORZ_UI_SMOKE").map(std::path::PathBuf::from),
+            motion: Motion::default(),
+            scale_factor: 1.0,
         };
         if opts.autostart_organizer {
             app.try_autostart_organizer();
         }
         app
+    }
+
+    /// Reload Fluent strings and persist `config.locale`.
+    pub fn apply_locale(&mut self, tag: &str) {
+        let tag = locale_pick::normalize_pick(tag);
+        let loc = Localization::embed(tag)
+            .unwrap_or_else(|_| Localization::embed("en").expect("en catalog"));
+        self.strings = UiStrings::from_localization(&loc);
+        self.settings_strings = SettingsStrings::from_localization(&loc);
+        self.locale = loc.locale().to_string();
+        self.config.locale = self.locale.clone();
+        let _ = persist::save(&self.config);
     }
 
     #[must_use]
@@ -82,6 +100,7 @@ impl ShellApp {
             SettingsScreen::Extensions => &s.ext_title,
             SettingsScreen::Advanced => &s.adv_window,
             SettingsScreen::AutoDelete => &s.ad_window,
+            SettingsScreen::About => &self.strings.about,
         }
     }
 

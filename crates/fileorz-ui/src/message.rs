@@ -15,20 +15,30 @@ pub enum Message {
     IntervalChanged(u32),
     /// Primary CTA (start when idle/error, stop when running).
     ToggleOrganizer,
+    /// Enter key (main screen → ToggleOrganizer).
+    EnterKey,
     /// Open settings hub.
     OpenSettings,
-    /// Esc / Back within settings.
+    /// Esc / Back within settings / About.
     SettingsBack,
     /// Settings hub / editor events.
     Settings(SettingsMsg),
     /// Autostart switch.
     AutostartToggled(bool),
+    /// Language picker (`en` / `pt-BR`).
+    LocaleChanged(String),
     /// Open GitHub in browser.
     OpenGithub,
     /// Open changelog in browser.
     OpenChangelog,
-    /// Show about blurb in feedback.
+    /// Open About dialog.
     ShowAbout,
+    /// About: open upstream URL.
+    OpenUpstream,
+    /// About: open fork URL.
+    OpenFork,
+    /// About: open notices context.
+    OpenNotices,
     /// Window close → hide when tray is active.
     CloseRequested(window::Id),
     /// Poll tray channel.
@@ -37,6 +47,10 @@ pub enum Message {
     ShowWindow,
     /// Tray Quit → exit.
     Quit,
+    /// Advance fade clocks.
+    MotionTick,
+    /// Window scale factor sample (HiDPI).
+    ScaleFactor(f32),
     /// Smoke helper: capture window then exit.
     SmokeTick,
     /// Smoke helper: write capture.

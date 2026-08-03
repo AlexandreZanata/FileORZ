@@ -1,10 +1,11 @@
-//! Header: brand, autostart, about / links.
+//! Header: brand, autostart, language, about / links.
 
+use crate::locale_pick::LOCALE_CHOICES;
 use crate::message::Message;
 use crate::shell::ShellApp;
 use crate::style::{header_style, secondary_button};
 use crate::tokens::{FONT_BODY_SM, FONT_TITLE, SPACE_1, SPACE_2, SPACE_3, TEXT, TEXT_MUTED};
-use iced::widget::{button, column, container, row, text, toggler, Space};
+use iced::widget::{button, column, container, pick_list, row, text, toggler, Space};
 use iced::{Element, Length};
 
 /// Top strip matching upstream header jobs.
@@ -22,6 +23,15 @@ pub fn view_header(app: &ShellApp) -> Element<'_, Message> {
             .label(app.strings.autostart.clone())
             .text_size(FONT_BODY_SM)
             .on_toggle(Message::AutostartToggled),
+        Space::with_width(SPACE_2),
+        text(&app.strings.language)
+            .size(FONT_BODY_SM)
+            .color(TEXT_MUTED),
+        pick_list(LOCALE_CHOICES, Some(app.locale.as_str()), |tag| {
+            Message::LocaleChanged(tag.to_string())
+        },)
+        .text_size(FONT_BODY_SM)
+        .padding([4, 8]),
         Space::with_width(SPACE_2),
         link_btn(&app.strings.github, Message::OpenGithub),
         Space::with_width(SPACE_1),
@@ -44,14 +54,7 @@ pub fn view_header(app: &ShellApp) -> Element<'_, Message> {
 fn link_btn<'a>(label: &'a str, msg: Message) -> Element<'a, Message> {
     button(text(label).size(FONT_BODY_SM))
         .padding([6, 12])
-        .style(|_, status| match status {
-            iced::widget::button::Status::Pressed => {
-                let mut s = secondary_button();
-                s.background = Some(iced::Background::Color(crate::tokens::SURFACE));
-                s
-            }
-            _ => secondary_button(),
-        })
+        .style(|_, status| secondary_button(status))
         .on_press(msg)
         .into()
 }

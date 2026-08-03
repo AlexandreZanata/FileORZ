@@ -24,7 +24,7 @@ pub fn view<'a>(app: &'a ShellApp) -> Element<'a, Message> {
             Space::with_width(Length::Fill),
             button(text(&s.ext_save).size(FONT_BODY))
                 .padding([10, 18])
-                .style(|_, _| accent_button())
+                .style(|_, status| accent_button(status))
                 .on_press(Message::Settings(SettingsMsg::ExtSave)),
         ]
         .padding(SPACE_3),
@@ -66,14 +66,14 @@ fn category_block<'a>(app: &'a ShellApp, cat: &str) -> Element<'a, Message> {
                 Space::with_width(Length::Fill),
                 button(text(&s.ext_all).size(FONT_BODY_SM))
                     .padding([4, 10])
-                    .style(|_, _| secondary_button())
+                    .style(|_, status| secondary_button(status))
                     .on_press(Message::Settings(SettingsMsg::ExtSetAll {
                         category: cat_owned.clone(),
                         enabled: true,
                     })),
                 button(text(&s.ext_none).size(FONT_BODY_SM))
                     .padding([4, 10])
-                    .style(|_, _| secondary_button())
+                    .style(|_, status| secondary_button(status))
                     .on_press(Message::Settings(SettingsMsg::ExtSetAll {
                         category: cat_owned,
                         enabled: false,

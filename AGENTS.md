@@ -92,6 +92,7 @@ Linux desktop: [`docs/LINUX-DESKTOP.md`](docs/LINUX-DESKTOP.md).
 UI tokens: [`docs/UI-TOKENS.md`](docs/UI-TOKENS.md).  
 UI main shell: [`docs/UI-SHELL.md`](docs/UI-SHELL.md).  
 UI settings: [`docs/UI-SETTINGS.md`](docs/UI-SETTINGS.md).  
+UI a11y / polish: [`docs/UI-A11Y.md`](docs/UI-A11Y.md).  
 Gates: `check:adr`, `characterize`, `check:i18n`, `check:config-keys`, `check:rust` (also in `verify`).  
 Rust workspace: [`crates/`](crates/README.md) (`cargo test --workspace`).
 

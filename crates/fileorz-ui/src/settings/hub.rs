@@ -4,7 +4,7 @@ use crate::message::Message;
 use crate::settings::chrome;
 use crate::settings::msg::SettingsMsg;
 use crate::settings::strings::SettingsStrings;
-use crate::style::{accent_button, panel_style, secondary_button};
+use crate::style::{accent_button, panel_style};
 use crate::tokens::{FONT_BODY, FONT_BODY_SM, SPACE_2, SPACE_3, TEXT, TEXT_MUTED};
 use iced::widget::{button, column, container, row, text, Space};
 use iced::{Element, Length};
@@ -58,13 +58,7 @@ fn card<'a>(
             Space::with_height(SPACE_2),
             button(text(configure).size(FONT_BODY_SM))
                 .padding([8, 14])
-                .style(|_, status| {
-                    if matches!(status, iced::widget::button::Status::Pressed) {
-                        secondary_button()
-                    } else {
-                        accent_button()
-                    }
-                })
+                .style(|_, status| accent_button(status))
                 .on_press(Message::Settings(msg)),
         ]
         .spacing(SPACE_2 / 2.0)

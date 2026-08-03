@@ -40,7 +40,7 @@ fn folder_row(app: &ShellApp) -> Element<'_, Message> {
                 Space::with_width(Length::Fill),
                 button(text(&app.strings.folder_button).size(FONT_BODY_SM))
                     .padding([6, 14])
-                    .style(|_, _| secondary_button())
+                    .style(|_, status| secondary_button(status))
                     .on_press(Message::PickFolder),
             ]
             .align_y(iced::Alignment::Center),
@@ -93,11 +93,11 @@ fn actions_row(app: &ShellApp) -> Element<'_, Message> {
         .padding([12, 20])
         .style(move |_, status| {
             if app.phase == RunPhase::Running {
-                danger_button()
+                danger_button(status)
             } else if matches!(status, iced::widget::button::Status::Pressed) {
                 accent_button_pressed()
             } else {
-                accent_button()
+                accent_button(status)
             }
         })
         .on_press(Message::ToggleOrganizer);
@@ -105,7 +105,7 @@ fn actions_row(app: &ShellApp) -> Element<'_, Message> {
     row![
         button(text(&app.strings.settings).size(FONT_BODY))
             .padding([12, 16])
-            .style(|_, _| secondary_button())
+            .style(|_, status| secondary_button(status))
             .on_press(Message::OpenSettings),
         Space::with_width(Length::Fill),
         primary,
@@ -118,10 +118,11 @@ fn feedback_row(app: &ShellApp) -> Element<'_, Message> {
     let Some(msg) = app.feedback.as_deref() else {
         return Space::with_height(SPACE_1).into();
     };
-    let color = match app.phase {
+    let mut color = match app.phase {
         RunPhase::Error => DANGER,
         RunPhase::Running => SUCCESS,
         RunPhase::Idle => TEXT_MUTED,
     };
+    color.a = app.motion.feedback_t;
     text(msg).size(FONT_BODY_SM).color(color).into()
 }

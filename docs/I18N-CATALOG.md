@@ -21,6 +21,7 @@ Icons/emoji in upstream CustomTkinter are decorative — Fluent strings are plai
 | `header-changelog` | Main | Changelog | Link button |
 | `header-github` | Main | GitHub | Link button |
 | `header-autostart` | Main | Iniciar com Windows | Linux: login / system |
+| `header-language` | Main | Idioma | Locale picker |
 | `main-btn-settings` | Main | Configurações | Was emoji + label |
 | `main-btn-start` | Main | Iniciar Organização | Was emoji + label |
 | `main-btn-stop` | Main | Parar Organização | Start/Stop CTA |
@@ -116,6 +117,9 @@ Icons/emoji in upstream CustomTkinter are decorative — Fluent strings are plai
 | `about-license` | About | Licensed under GNU GPL-3.0 |
 | `about-upstream` | About | Upstream project |
 | `about-notices` | About | Third-party notices |
+| `about-version-label` | About | Version |
+| `about-fork` | About | This fork |
+| `about-close` | About | Close |
 
 ## Category display names (folder ids stay Portuguese)
 

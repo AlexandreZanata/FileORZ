@@ -21,6 +21,7 @@ use crate::message::Message;
 pub fn open_hub(app: &mut ShellApp) -> Task<Message> {
     app.settings = SettingsScreen::Hub;
     app.settings_feedback = None;
+    app.motion.kick_screen();
     resize(SETTINGS_WIDTH, SETTINGS_HEIGHT)
 }
 
@@ -28,6 +29,9 @@ pub fn open_hub(app: &mut ShellApp) -> Task<Message> {
 pub fn go_back(app: &mut ShellApp) -> Task<Message> {
     app.settings = app.settings.back();
     app.settings_feedback = None;
+    if app.settings != SettingsScreen::Main {
+        app.motion.kick_screen();
+    }
     if app.settings == SettingsScreen::Main {
         resize(WINDOW_WIDTH, WINDOW_HEIGHT)
     } else {
@@ -41,14 +45,17 @@ pub fn handle(app: &mut ShellApp, msg: SettingsMsg) -> Task<Message> {
         SettingsMsg::OpenExtensions => {
             app.settings = SettingsScreen::Extensions;
             app.settings_feedback = None;
+            app.motion.kick_screen();
         }
         SettingsMsg::OpenAdvanced => {
             app.settings = SettingsScreen::Advanced;
             load_keyword_rows(app);
+            app.motion.kick_screen();
         }
         SettingsMsg::OpenAutoDelete => {
             app.settings = SettingsScreen::AutoDelete;
             app.config.auto_delete.max_age_days = clamp_days(app.config.auto_delete.max_age_days);
+            app.motion.kick_screen();
         }
         SettingsMsg::ExtToggle {
             category,

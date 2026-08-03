@@ -1,7 +1,10 @@
-//! External links for header actions (parity with CustomTkinter header).
+//! External links for header / About actions.
 
 /// Upstream GitHub repository.
 pub const GITHUB_URL: &str = "https://github.com/ThainanViniciusKatchan/FileORZ";
+
+/// This fork (push target).
+pub const FORK_URL: &str = "https://github.com/AlexandreZanata/FileORZ";
 
 /// Upstream changelog page.
 pub const CHANGELOG_URL: &str = "https://thainanviniciuskatchan.github.io/FileORZ/changelog.html";
@@ -20,6 +23,7 @@ mod tests {
     #[test]
     fn urls_are_https() {
         assert!(GITHUB_URL.starts_with("https://"));
+        assert!(FORK_URL.starts_with("https://"));
         assert!(CHANGELOG_URL.starts_with("https://"));
     }
 }

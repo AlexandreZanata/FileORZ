@@ -14,6 +14,8 @@ pub enum SettingsScreen {
     Advanced,
     /// Auto-delete editor.
     AutoDelete,
+    /// About / license dialog.
+    About,
 }
 
 impl SettingsScreen {
@@ -22,7 +24,7 @@ impl SettingsScreen {
     pub fn back(self) -> Self {
         match self {
             Self::Main => Self::Main,
-            Self::Hub => Self::Main,
+            Self::Hub | Self::About => Self::Main,
             Self::Extensions | Self::Advanced | Self::AutoDelete => Self::Hub,
         }
     }
@@ -46,6 +48,7 @@ mod tests {
     fn back_from_editor_to_hub_to_main() {
         assert_eq!(SettingsScreen::Extensions.back(), SettingsScreen::Hub);
         assert_eq!(SettingsScreen::Hub.back(), SettingsScreen::Main);
+        assert_eq!(SettingsScreen::About.back(), SettingsScreen::Main);
         assert_eq!(SettingsScreen::Main.back(), SettingsScreen::Main);
     }
 }

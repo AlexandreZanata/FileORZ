@@ -81,11 +81,11 @@ fn section<'a>(title: &'a str, body: impl Into<Element<'a, Message>>) -> Element
 fn choice<'a>(label: &'a str, selected: bool, msg: SettingsMsg) -> Element<'a, Message> {
     button(text(label).size(FONT_BODY_SM))
         .padding([8, 14])
-        .style(move |_, _| {
+        .style(move |_, status| {
             if selected {
-                accent_button()
+                accent_button(status)
             } else {
-                secondary_button()
+                secondary_button(status)
             }
         })
         .on_press(Message::Settings(msg))

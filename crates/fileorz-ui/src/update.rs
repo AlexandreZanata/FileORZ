@@ -1,15 +1,15 @@
 //! Message handling for the main shell.
 
-use crate::links::{self, CHANGELOG_URL, GITHUB_URL};
+use crate::links::{self, CHANGELOG_URL, FORK_URL, GITHUB_URL};
 use crate::message::Message;
 use crate::organizer::{self, StartOutcome, StartReject};
 use crate::persist;
+use crate::settings::SettingsScreen;
 use crate::shell::ShellApp;
 use crate::smoke;
 use crate::state::{transition, PhaseEvent, RunPhase};
+use crate::window_ops::{self, on_quit};
 use fileorz_linux::autostart;
-use fileorz_linux::tray::TrayCommand;
-use iced::window::{self, Mode};
 use iced::Task;
 use std::path::PathBuf;
 
@@ -29,6 +29,7 @@ pub fn update(app: &mut ShellApp, message: Message) -> Task<Message> {
             on_toggle(app);
             Task::none()
         }
+        Message::EnterKey => on_enter(app),
         Message::OpenSettings => crate::settings::update::open_hub(app),
         Message::SettingsBack => crate::settings::update::go_back(app),
         Message::Settings(msg) => crate::settings::update::handle(app, msg),
@@ -36,42 +37,73 @@ pub fn update(app: &mut ShellApp, message: Message) -> Task<Message> {
             on_autostart(app, enabled);
             Task::none()
         }
-        Message::OpenGithub => {
-            links::open_url(GITHUB_URL);
+        Message::LocaleChanged(tag) => {
+            app.apply_locale(&tag);
             Task::none()
         }
-        Message::OpenChangelog => {
-            links::open_url(CHANGELOG_URL);
-            Task::none()
-        }
+        Message::OpenGithub | Message::OpenUpstream => open(GITHUB_URL),
+        Message::OpenChangelog => open(CHANGELOG_URL),
+        Message::OpenFork | Message::OpenNotices => open(FORK_URL),
         Message::ShowAbout => {
-            app.feedback = Some(app.strings.about_body.clone());
+            app.settings = SettingsScreen::About;
+            app.motion.kick_screen();
             Task::none()
         }
-        Message::CloseRequested(id) => on_close(app, id),
-        Message::TrayPoll => on_tray_poll(app),
-        Message::ShowWindow => show_window(),
-        Message::Quit => on_quit(app),
-        Message::SmokeTick => {
-            let Some(path) = app.smoke_path.take() else {
-                return Task::none();
-            };
-            smoke::capture(path)
+        Message::MotionTick => {
+            let _ = app.motion.tick();
+            Task::none()
         }
+        Message::ScaleFactor(scale) => {
+            app.scale_factor = scale;
+            eprintln!("ui scale_factor={scale:.3}");
+            Task::none()
+        }
+        Message::CloseRequested(id) => window_ops::on_close(app, id),
+        Message::TrayPoll => window_ops::on_tray_poll(app),
+        Message::ShowWindow => window_ops::show_window(),
+        Message::Quit => on_quit(app),
+        Message::SmokeTick => smoke_tick(app),
         Message::SmokeSave {
             path,
             bytes,
             width,
             height,
-        } => {
-            if let Err(err) = smoke::write_ppm(&path, width, height, &bytes) {
-                eprintln!("smoke write failed: {err}");
-            } else {
-                eprintln!("smoke wrote {}", path.display());
-            }
-            on_quit(app)
-        }
+        } => smoke_save(app, path, bytes, width, height),
     }
+}
+
+fn open(url: &str) -> Task<Message> {
+    links::open_url(url);
+    Task::none()
+}
+
+fn on_enter(app: &mut ShellApp) -> Task<Message> {
+    if app.settings == SettingsScreen::Main {
+        on_toggle(app);
+    }
+    Task::none()
+}
+
+fn smoke_tick(app: &mut ShellApp) -> Task<Message> {
+    let Some(path) = app.smoke_path.take() else {
+        return Task::none();
+    };
+    smoke::capture(path)
+}
+
+fn smoke_save(
+    app: &mut ShellApp,
+    path: PathBuf,
+    bytes: Vec<u8>,
+    width: u32,
+    height: u32,
+) -> Task<Message> {
+    if let Err(err) = smoke::write_ppm(&path, width, height, &bytes) {
+        eprintln!("smoke write failed: {err}");
+    } else {
+        eprintln!("smoke wrote {}", path.display());
+    }
+    on_quit(app)
 }
 
 fn pick_folder(app: &ShellApp) -> Task<Message> {
@@ -125,14 +157,17 @@ fn on_toggle(app: &mut ShellApp) {
             app.organizer = Some(handle);
             app.phase = transition(app.phase, PhaseEvent::StartAttempt { folder_ok: true });
             app.feedback = Some(app.strings.feedback_started.clone());
+            app.motion.kick_feedback();
         }
         StartOutcome::Rejected(StartReject::MissingFolder) => {
             app.phase = transition(app.phase, PhaseEvent::StartAttempt { folder_ok: false });
             app.feedback = Some(app.strings.err_folder_missing.clone());
+            app.motion.kick_feedback();
         }
         StartOutcome::Rejected(StartReject::InvalidFolder) => {
             app.phase = transition(app.phase, PhaseEvent::StartFailed);
             app.feedback = Some(app.strings.err_folder_invalid.clone());
+            app.motion.kick_feedback();
         }
     }
 }
@@ -149,43 +184,4 @@ fn on_autostart(app: &mut ShellApp, enabled: bool) {
     }
     app.config.autostart = enabled;
     let _ = persist::save(&app.config);
-}
-
-fn on_close(app: &mut ShellApp, id: window::Id) -> Task<Message> {
-    if app.tray.is_some() {
-        window::change_mode(id, Mode::Hidden)
-    } else {
-        on_quit(app)
-    }
-}
-
-fn on_tray_poll(app: &mut ShellApp) -> Task<Message> {
-    let Some(tray) = app.tray.as_ref() else {
-        return Task::none();
-    };
-    match tray.try_recv() {
-        Some(TrayCommand::Open) => Task::done(Message::ShowWindow),
-        Some(TrayCommand::Quit) => Task::done(Message::Quit),
-        None => Task::none(),
-    }
-}
-
-fn show_window() -> Task<Message> {
-    window::get_oldest().then(|id| match id {
-        Some(id) => Task::batch([
-            window::change_mode(id, Mode::Windowed),
-            window::gain_focus(id),
-        ]),
-        None => Task::none(),
-    })
-}
-
-fn on_quit(app: &mut ShellApp) -> Task<Message> {
-    if let Some(handle) = app.organizer.take() {
-        organizer::stop(handle);
-    }
-    if let Some(tray) = app.tray.take() {
-        tray.shutdown();
-    }
-    iced::exit()
 }

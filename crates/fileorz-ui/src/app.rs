@@ -1,6 +1,7 @@
 //! iced application entry — subscriptions + window lifecycle.
 
 use crate::message::Message;
+use crate::settings::SettingsScreen;
 use crate::shell::{LaunchOptions, ShellApp};
 use crate::theme::fileorz_theme;
 use crate::tokens::{WINDOW_HEIGHT, WINDOW_WIDTH};
@@ -58,29 +59,40 @@ pub fn run_with(locale_tag: &str, opts: LaunchOptions) -> iced::Result {
         .run_with(move || {
             let mut app = ShellApp::new(&locale, opts);
             if std::env::var_os("FILEORZ_UI_OPEN_SETTINGS").is_some() {
-                app.settings = crate::settings::SettingsScreen::Hub;
+                app.settings = SettingsScreen::Hub;
             }
-            let boot = if start_hidden {
-                window::get_oldest().then(|id| match id {
-                    Some(id) => window::change_mode(id, Mode::Hidden),
-                    None => Task::none(),
-                })
-            } else if app.settings == crate::settings::SettingsScreen::Hub {
-                window::get_oldest().then(|id| match id {
-                    Some(id) => window::resize(
-                        id,
-                        Size::new(
-                            crate::settings::screen::SETTINGS_WIDTH,
-                            crate::settings::screen::SETTINGS_HEIGHT,
-                        ),
-                    ),
-                    None => Task::none(),
-                })
-            } else {
-                Task::none()
-            };
-            (app, boot)
+            if std::env::var_os("FILEORZ_UI_OPEN_ABOUT").is_some() {
+                app.settings = SettingsScreen::About;
+            }
+            (app, boot_tasks(start_hidden))
         })
+}
+
+fn boot_tasks(start_hidden: bool) -> Task<Message> {
+    let scale = window::get_oldest().then(|id| match id {
+        Some(id) => window::get_scale_factor(id).map(Message::ScaleFactor),
+        None => Task::none(),
+    });
+    let mode = if start_hidden {
+        window::get_oldest().then(|id| match id {
+            Some(id) => window::change_mode(id, Mode::Hidden),
+            None => Task::none(),
+        })
+    } else if std::env::var_os("FILEORZ_UI_OPEN_SETTINGS").is_some() {
+        window::get_oldest().then(|id| match id {
+            Some(id) => window::resize(
+                id,
+                Size::new(
+                    crate::settings::screen::SETTINGS_WIDTH,
+                    crate::settings::screen::SETTINGS_HEIGHT,
+                ),
+            ),
+            None => Task::none(),
+        })
+    } else {
+        Task::none()
+    };
+    Task::batch([scale, mode])
 }
 
 fn title(app: &ShellApp) -> String {
@@ -99,13 +111,19 @@ fn subscription(app: &ShellApp) -> Subscription<Message> {
     } else {
         Subscription::none()
     };
+    let motion = if app.motion.needs_tick() {
+        iced::time::every(Duration::from_millis(32)).map(|_| Message::MotionTick)
+    } else {
+        Subscription::none()
+    };
     let keys = iced::keyboard::on_key_press(|key, _mods| match key {
         iced::keyboard::Key::Named(iced::keyboard::key::Named::Escape) => {
             Some(Message::SettingsBack)
         }
+        iced::keyboard::Key::Named(iced::keyboard::key::Named::Enter) => Some(Message::EnterKey),
         _ => None,
     });
-    Subscription::batch([close, tray, smoke, keys])
+    Subscription::batch([close, tray, smoke, motion, keys])
 }
 
 /// Expose window size tokens for tests / docs.
@@ -126,7 +144,15 @@ mod tests {
         assert_eq!(en.locale(), "en");
         assert_eq!(pt.locale(), "pt-BR");
         assert_ne!(en.window_title(), pt.window_title());
-        assert!(en.window_title().contains("Organize"));
+    }
+
+    #[test]
+    fn apply_locale_persists_tag() {
+        let mut app = ShellApp::new("en", LaunchOptions::default());
+        app.apply_locale("pt-BR");
+        assert_eq!(app.locale(), "pt-BR");
+        assert_eq!(app.config.locale, "pt-BR");
+        assert!(app.strings.settings.contains('ç') || app.strings.settings == "Configurações");
     }
 
     #[test]
@@ -134,8 +160,6 @@ mod tests {
         let app = ShellApp::new("en", LaunchOptions::default());
         assert_eq!(app.window_title(), "FileORZ — Organize your files");
         assert_eq!(app.phase, RunPhase::Idle);
-        assert!(!app.strings.start.is_empty());
-        assert!(!app.strings.stop.is_empty());
     }
 
     #[test]

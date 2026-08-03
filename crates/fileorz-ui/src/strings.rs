@@ -9,6 +9,7 @@ pub struct UiStrings {
     pub brand: String,
     pub tagline: String,
     pub autostart: String,
+    pub language: String,
     pub changelog: String,
     pub github: String,
     pub about: String,
@@ -25,7 +26,12 @@ pub struct UiStrings {
     pub err_folder_invalid: String,
     pub err_start_failed: String,
     pub feedback_started: String,
-    pub about_body: String,
+    pub about_license: String,
+    pub about_upstream: String,
+    pub about_notices: String,
+    pub about_version_label: String,
+    pub about_fork: String,
+    pub about_close: String,
 }
 
 impl UiStrings {
@@ -37,6 +43,7 @@ impl UiStrings {
             brand: loc.message("app-title"),
             tagline: loc.message("app-tagline"),
             autostart: loc.message("header-autostart"),
+            language: loc.message("header-language"),
             changelog: loc.message("header-changelog"),
             github: loc.message("header-github"),
             about: loc.message("about-title"),
@@ -53,12 +60,12 @@ impl UiStrings {
             err_folder_invalid: loc.message("error-folder-invalid"),
             err_start_failed: loc.message("error-organizer-start-failed"),
             feedback_started: loc.message("feedback-organize-started"),
-            about_body: format!(
-                "{} — {} · {}",
-                loc.message("about-title"),
-                loc.message("about-license"),
-                loc.message("about-upstream")
-            ),
+            about_license: loc.message("about-license"),
+            about_upstream: loc.message("about-upstream"),
+            about_notices: loc.message("about-notices"),
+            about_version_label: loc.message("about-version-label"),
+            about_fork: loc.message("about-fork"),
+            about_close: loc.message("about-close"),
         }
     }
 }

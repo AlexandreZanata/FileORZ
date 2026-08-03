@@ -62,3 +62,6 @@ about-title = About FileORZ
 about-license = Licensed under GNU GPL-3.0
 about-upstream = Upstream project
 about-notices = Third-party notices
+about-version-label = Version
+about-fork = This fork
+about-close = Close

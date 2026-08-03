@@ -7,6 +7,7 @@ app-window-title = FileORZ — Organize your files
 header-changelog = Changelog
 header-github = GitHub
 header-autostart = Start on login
+header-language = Language
 
 # Main actions
 main-btn-settings = Settings
