@@ -55,10 +55,21 @@ jobs:
         with:
           components: rustfmt, clippy
       - uses: Swatinem/rust-cache@v2
-      - name: Install Xvfb + screenshot tools
+      - name: Install Xvfb + iced runtime deps
         run: |
           sudo apt-get update -qq
-          sudo apt-get install -y -qq xvfb imagemagick
+          sudo apt-get install -y -qq \
+            xvfb \
+            imagemagick \
+            libxkbcommon0 \
+            libxkbcommon-x11-0 \
+            libxcb1 \
+            libxcb-render0 \
+            libxcb-shape0 \
+            libxcb-xfixes0 \
+            libegl1 \
+            libgl1 \
+            libfontconfig1
       - name: E2E under Xvfb
         run: bash scripts/e2e-linux.sh
       - name: Upload e2e artifacts on failure

@@ -22,6 +22,14 @@ if ! command -v timeout >/dev/null; then
   echo "[e2e] FAIL — timeout not found (coreutils)" >&2
   exit 1
 fi
+# iced/winit loads this at runtime under X11 (CI must apt-install libxkbcommon-x11-0).
+if ! ldconfig -p 2>/dev/null | grep -q 'libxkbcommon-x11\.so'; then
+  if [[ ! -e /usr/lib/x86_64-linux-gnu/libxkbcommon-x11.so.0 ]] \
+    && [[ ! -e /usr/lib/libxkbcommon-x11.so.0 ]]; then
+    echo "[e2e] FAIL — libxkbcommon-x11.so missing (apt install libxkbcommon-x11-0)" >&2
+    exit 1
+  fi
+fi
 
 ARTIFACT_DIR="${FILEORZ_E2E_ARTIFACT_DIR:-$ROOT/.local/tmp/e2e}"
 rm -rf "$ARTIFACT_DIR"

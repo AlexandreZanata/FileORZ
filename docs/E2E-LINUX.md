@@ -8,6 +8,8 @@ https://www.x.org/releases/X11R7.7/doc/man/man1/Xvfb.1.xhtml
 
 ```bash
 # Requires: xvfb (`xvfb-run`), coreutils `timeout`, optional ImageMagick `import`
+# Ubuntu iced UI deps (CI installs these):
+#   libxkbcommon0 libxkbcommon-x11-0 libxcb* libegl1 libgl1 libfontconfig1
 ./scripts/e2e-linux.sh
 # or
 npm run e2e:linux
