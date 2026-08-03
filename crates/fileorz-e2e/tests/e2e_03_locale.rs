@@ -14,7 +14,7 @@ fn e2e_03_locale_switch_en_to_pt_br() {
     en.assert_ok("E2E-03 en");
     assert!(en.stdout.contains("locale=en"), "{}", en.stdout);
     assert!(
-        en.stdout.contains("main-btn-start=Start organizing"),
+        en.stdout.contains("main-btn-start=Start organization"),
         "en labels: {}",
         en.stdout
     );
