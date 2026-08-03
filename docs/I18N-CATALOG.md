@@ -23,9 +23,11 @@ Icons/emoji in upstream CustomTkinter are decorative — Fluent strings are plai
 | `header-autostart` | Main | Iniciar com Windows | Linux: login / system |
 | `main-btn-settings` | Main | Configurações | Was emoji + label |
 | `main-btn-start` | Main | Iniciar Organização | Was emoji + label |
+| `main-btn-stop` | Main | Parar Organização | Start/Stop CTA |
 | `folder-pick-label` | Main | Selecionar Pasta para Organizar | |
 | `folder-pick-button` | Main | Selecionar | |
 | `folder-pick-dialog` | Main | Selecione a pasta | filedialog title |
+| `folder-pick-empty` | Main | Nenhuma pasta selecionada | Empty path label |
 | `interval-label` | Main | Intervalo de Verificação (Minutos) | |
 | `interval-help` | Main | Tempo em minutos entre cada verificação… | |
 

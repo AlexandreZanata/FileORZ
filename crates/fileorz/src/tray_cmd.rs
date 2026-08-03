@@ -1,4 +1,4 @@
-//! `fileorz --tray` — StatusNotifier + optional organizer (B-02 / B-04).
+//! `fileorz --tray` — StatusNotifier + iced shell (hide/show).
 
 use crate::exit_code;
 use fileorz_core::advanced_pdf::{load_keywords, KeywordGroups};
@@ -13,9 +13,58 @@ use std::process::ExitCode;
 use std::sync::Arc;
 use std::time::Duration;
 
-/// Run tray loop until Quit. Open is a stub until UI phase 14.
+/// Prefer iced shell (hidden); fall back to tray-only if UI cannot start.
 pub fn run(locale_cli: Option<&str>) -> ExitCode {
-    let loc = match Localization::embed(&resolve_locale_from_env(locale_cli, None)) {
+    let config_locale = load_config_locale();
+    let tag = resolve_locale_from_env(locale_cli, config_locale.as_deref());
+
+    if std::env::var_os("FILEORZ_TRAY_SMOKE").is_some() {
+        return smoke_tray(&tag);
+    }
+
+    match fileorz_ui::run_tray(&tag) {
+        Ok(()) => ExitCode::from(exit_code::OK),
+        Err(e) => {
+            eprintln!("ui unavailable ({e}); tray-only fallback");
+            run_tray_only(&tag)
+        }
+    }
+}
+
+fn load_config_locale() -> Option<String> {
+    let path = config_json_path();
+    load_config_file(&path).ok().map(|o| o.config.locale)
+}
+
+fn smoke_tray(tag: &str) -> ExitCode {
+    let loc = match Localization::embed(tag) {
+        Ok(l) => l,
+        Err(e) => {
+            eprintln!("i18n error: {e}");
+            return ExitCode::from(exit_code::ERROR);
+        }
+    };
+    let labels = TrayLabels::from_messages(
+        &loc.message("tray-tooltip"),
+        &loc.message("tray-open"),
+        &loc.message("tray-quit"),
+    );
+    let tray = match TrayService::spawn(labels) {
+        Ok(t) => t,
+        Err(e) => {
+            eprintln!("tray error: {e}");
+            return ExitCode::from(exit_code::ERROR);
+        }
+    };
+    let mut organizer = maybe_start_organizer();
+    std::thread::sleep(Duration::from_millis(200));
+    stop_organizer(&mut organizer);
+    tray.shutdown();
+    ExitCode::from(exit_code::OK)
+}
+
+fn run_tray_only(tag: &str) -> ExitCode {
+    let loc = match Localization::embed(tag) {
         Ok(l) => l,
         Err(e) => {
             eprintln!("i18n error: {e}");
@@ -39,19 +88,10 @@ pub fn run(locale_cli: Option<&str>) -> ExitCode {
     };
 
     let mut organizer = maybe_start_organizer();
-    let smoke = std::env::var_os("FILEORZ_TRAY_SMOKE").is_some();
-    if smoke {
-        std::thread::sleep(Duration::from_millis(200));
-        stop_organizer(&mut organizer);
-        tray.shutdown();
-        return ExitCode::from(exit_code::OK);
-    }
-
     loop {
         match tray.recv() {
             Ok(TrayCommand::Open) => {
-                // Stub until iced main window (phase 14).
-                println!("tray: open (window stub)");
+                eprintln!("tray: open (no UI process available)");
             }
             Ok(TrayCommand::Quit) => {
                 stop_organizer(&mut organizer);

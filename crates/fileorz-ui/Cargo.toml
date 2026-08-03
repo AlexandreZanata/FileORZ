@@ -11,5 +11,12 @@ description = "FileORZ iced UI screens and widgets"
 workspace = true
 
 [dependencies]
+fileorz-core = { path = "../fileorz-core" }
 fileorz-i18n = { version = "0.1.0", path = "../fileorz-i18n" }
-iced = "0.13.1"
+fileorz-linux = { path = "../fileorz-linux" }
+iced = { version = "0.13.1", features = ["tokio"] }
+open = "5"
+rfd = "0.15"
+
+[dev-dependencies]
+tempfile = "3"

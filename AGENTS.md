@@ -90,6 +90,7 @@ Auto-delete: [`docs/AUTODELETE.md`](docs/AUTODELETE.md).
 Scheduler: [`docs/SCHEDULER.md`](docs/SCHEDULER.md).  
 Linux desktop: [`docs/LINUX-DESKTOP.md`](docs/LINUX-DESKTOP.md).  
 UI tokens: [`docs/UI-TOKENS.md`](docs/UI-TOKENS.md).  
+UI main shell: [`docs/UI-SHELL.md`](docs/UI-SHELL.md).  
 Gates: `check:adr`, `characterize`, `check:i18n`, `check:config-keys`, `check:rust` (also in `verify`).  
 Rust workspace: [`crates/`](crates/README.md) (`cargo test --workspace`).
 

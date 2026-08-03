@@ -19,9 +19,13 @@ API: `fileorz_linux::autostart::{enable, disable, is_enabled, desktop_entry}`.
 
 StatusNotifierItem via **ksni** (menu: Open / Quit, i18n `tray-*`).
 
+Prefers the iced main shell started **hidden** (`fileorz_ui::run_tray`). Close
+hides the window; tray **Open** shows it again; **Quit** stops the organizer and
+exits. If the UI cannot start (no display), falls back to tray-only mode.
+
 | Action | Behavior |
 |--------|----------|
-| Open | Stub until iced UI (phase 14); prints `tray: open` |
+| Open | Show iced main window (or log stub in tray-only fallback) |
 | Quit | Stops `OrganizerHandle` (if running) then shuts tray and exits |
 | Left-click | Same as Open |
 
@@ -33,6 +37,7 @@ Smoke without blocking forever:
 FILEORZ_TRAY_SMOKE=1 fileorz --tray
 ```
 
+Main shell details: [`docs/UI-SHELL.md`](UI-SHELL.md).
 ## GNOME / desktop caveats
 
 | Environment | Notes |

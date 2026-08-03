@@ -1,153 +1,125 @@
-//! Blank main window skeleton — i18n title, token-styled shell.
+//! iced application entry — subscriptions + window lifecycle.
 
+use crate::message::Message;
+use crate::shell::{LaunchOptions, ShellApp};
 use crate::theme::fileorz_theme;
-use crate::tokens::{
-    self, ACCENT, BORDER, FONT_BODY, FONT_TITLE, SPACE_2, SPACE_3, SURFACE, TEXT, TEXT_MUTED,
-    WINDOW_HEIGHT, WINDOW_WIDTH,
-};
-use fileorz_i18n::{normalize_locale, Localization};
-use iced::widget::{column, container, horizontal_rule, text, Space};
-use iced::{Background, Border, Color, Element, Length, Size, Task};
+use crate::tokens::{WINDOW_HEIGHT, WINDOW_WIDTH};
+use crate::update::update;
+use crate::view::view;
+use iced::window::{self, Mode};
+use iced::{Size, Subscription, Task};
+use std::time::Duration;
 
-#[derive(Debug, Clone)]
-pub enum Message {}
-
-/// Minimal shell state (phase 13 — no settings yet).
-pub struct ShellApp {
-    window_title: String,
-    brand: String,
-    tagline: String,
-    locale: String,
-}
-
-impl ShellApp {
-    /// Build shell from locale tag (`en`, `pt-BR`, …).
-    #[must_use]
-    pub fn new(locale_tag: &str) -> Self {
-        let locale = normalize_locale(locale_tag);
-        let loc = Localization::embed(&locale)
-            .unwrap_or_else(|_| Localization::embed("en").expect("en catalog must embed"));
-        Self {
-            window_title: loc.message("app-window-title"),
-            brand: loc.message("app-title"),
-            tagline: loc.message("app-tagline"),
-            locale: loc.locale().to_string(),
-        }
-    }
-
-    #[must_use]
-    pub fn window_title(&self) -> &str {
-        &self.window_title
-    }
-
-    #[must_use]
-    pub fn locale(&self) -> &str {
-        &self.locale
-    }
-}
-
-fn title(app: &ShellApp) -> String {
-    app.window_title.clone()
-}
-
-fn update(_app: &mut ShellApp, _message: Message) -> Task<Message> {
-    Task::none()
-}
-
-fn view(app: &ShellApp) -> Element<'_, Message> {
-    let header = column![
-        text(&app.brand).size(FONT_TITLE).color(TEXT),
-        text(&app.tagline).size(FONT_BODY).color(TEXT_MUTED),
-    ]
-    .spacing(SPACE_2 / 2.0);
-
-    let body = column![
-        header,
-        horizontal_rule(1).style(|_| iced::widget::rule::Style {
-            color: BORDER,
-            width: 1,
-            radius: 0.0.into(),
-            fill_mode: iced::widget::rule::FillMode::Full,
-        }),
-        Space::with_height(SPACE_3),
-        text(format!("locale · {}", app.locale))
-            .size(FONT_BODY)
-            .color(TEXT_MUTED),
-        Space::with_height(SPACE_2),
-        text("Main shell — settings & organizer in later phases")
-            .size(FONT_BODY)
-            .color(TEXT),
-        Space::with_height(SPACE_3),
-        container(text("Start organizing").size(FONT_BODY).color(Color::WHITE))
-            .padding([SPACE_2 / 2.0, SPACE_2])
-            .style(|_| iced::widget::container::Style {
-                background: Some(Background::Color(ACCENT)),
-                border: Border {
-                    radius: 4.0.into(),
-                    ..Border::default()
-                },
-                ..Default::default()
-            }),
-    ]
-    .spacing(SPACE_2)
-    .padding(SPACE_3)
-    .width(Length::Fill);
-
-    container(body)
-        .width(Length::Fill)
-        .height(Length::Fill)
-        .style(|_| iced::widget::container::Style {
-            background: Some(Background::Color(SURFACE)),
-            ..Default::default()
-        })
-        .into()
-}
-
-/// Run the iced shell on Wayland/X11.
+/// Run visible main shell (default / `--ui`).
 ///
 /// # Errors
 /// Returns iced graphics / window errors.
 pub fn run(locale_tag: &str) -> iced::Result {
+    run_with(locale_tag, LaunchOptions::default())
+}
+
+/// Run shell hidden (for `--tray` parity: organizer may autostart).
+///
+/// # Errors
+/// Returns iced graphics / window errors.
+pub fn run_tray(locale_tag: &str) -> iced::Result {
+    run_with(
+        locale_tag,
+        LaunchOptions {
+            start_hidden: true,
+            autostart_organizer: true,
+        },
+    )
+}
+
+/// Shared iced bootstrap.
+///
+/// # Errors
+/// Returns iced graphics / window errors.
+pub fn run_with(locale_tag: &str, opts: LaunchOptions) -> iced::Result {
     let locale = locale_tag.to_string();
     let position = if std::env::var_os("FILEORZ_UI_POS").is_some() {
         iced::window::Position::Specific(iced::Point::new(64.0, 64.0))
     } else {
         iced::window::Position::Centered
     };
+    let start_hidden = opts.start_hidden;
     iced::application(title, update, view)
         .theme(|_| fileorz_theme())
+        .subscription(subscription)
+        .exit_on_close_request(false)
         .window(iced::window::Settings {
             size: Size::new(WINDOW_WIDTH, WINDOW_HEIGHT),
             position,
+            visible: !start_hidden,
+            exit_on_close_request: false,
             ..iced::window::Settings::default()
         })
-        .run_with(move || (ShellApp::new(&locale), Task::none()))
+        .run_with(move || {
+            let app = ShellApp::new(&locale, opts);
+            let boot = if start_hidden {
+                window::get_oldest().then(|id| match id {
+                    Some(id) => window::change_mode(id, Mode::Hidden),
+                    None => Task::none(),
+                })
+            } else {
+                Task::none()
+            };
+            (app, boot)
+        })
+}
+
+fn title(app: &ShellApp) -> String {
+    app.window_title().to_string()
+}
+
+fn subscription(app: &ShellApp) -> Subscription<Message> {
+    let close = window::close_requests().map(Message::CloseRequested);
+    let tray = if app.tray.is_some() {
+        iced::time::every(Duration::from_millis(100)).map(|_| Message::TrayPoll)
+    } else {
+        Subscription::none()
+    };
+    let smoke = if app.smoke_path.is_some() {
+        iced::time::every(Duration::from_millis(700)).map(|_| Message::SmokeTick)
+    } else {
+        Subscription::none()
+    };
+    Subscription::batch([close, tray, smoke])
 }
 
 /// Expose window size tokens for tests / docs.
 #[must_use]
 pub fn window_size() -> (f32, f32) {
-    (tokens::WINDOW_WIDTH, tokens::WINDOW_HEIGHT)
+    (WINDOW_WIDTH, WINDOW_HEIGHT)
 }
 
 #[cfg(test)]
 mod tests {
     use super::*;
+    use crate::state::RunPhase;
 
     #[test]
     fn locale_changes_window_title() {
-        let en = ShellApp::new("en");
-        let pt = ShellApp::new("pt-BR");
+        let en = ShellApp::new("en", LaunchOptions::default());
+        let pt = ShellApp::new("pt-BR", LaunchOptions::default());
         assert_eq!(en.locale(), "en");
         assert_eq!(pt.locale(), "pt-BR");
         assert_ne!(en.window_title(), pt.window_title());
         assert!(en.window_title().contains("Organize"));
-        assert!(pt.window_title().contains("arquivos") || pt.window_title().contains("Organize"));
     }
 
     #[test]
     fn en_title_matches_catalog() {
-        let app = ShellApp::new("en");
+        let app = ShellApp::new("en", LaunchOptions::default());
         assert_eq!(app.window_title(), "FileORZ — Organize your files");
+        assert_eq!(app.phase, RunPhase::Idle);
+        assert!(!app.strings.start.is_empty());
+        assert!(!app.strings.stop.is_empty());
+    }
+
+    #[test]
+    fn window_size_parity() {
+        assert_eq!(window_size(), (700.0, 420.0));
     }
 }

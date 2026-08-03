@@ -1,10 +1,25 @@
-//! iced UI — theme tokens + main shell (ADR-0002, phase 13).
+//! iced UI — theme tokens + main shell (ADR-0002, phases 13–14).
 
 pub mod app;
+pub mod links;
+pub mod message;
+pub mod organizer;
+pub mod persist;
+pub mod shell;
+pub mod smoke;
+pub mod state;
+pub mod strings;
+pub mod style;
 pub mod theme;
 pub mod tokens;
+pub mod update;
+pub mod view;
+pub mod view_body;
+pub mod view_header;
 
-pub use app::{run, window_size, ShellApp};
+pub use app::{run, run_tray, run_with, window_size};
+pub use shell::{LaunchOptions, ShellApp};
+pub use state::RunPhase;
 pub use theme::{fileorz_theme, palette, THEME_NAME};
 pub use tokens::{ACCENT, BG, DANGER, SURFACE, TEXT, TEXT_MUTED, WINDOW_HEIGHT, WINDOW_WIDTH};
 

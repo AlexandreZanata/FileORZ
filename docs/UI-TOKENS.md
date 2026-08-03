@@ -39,3 +39,5 @@ Gitignored captures: `.local/tmp/ui-reference/` (see phase 13 validation).
 cargo test -p fileorz-ui
 cargo run -p fileorz -- --locale en
 ```
+
+Main shell behavior (folder / interval / Start / tray hide): [`UI-SHELL.md`](UI-SHELL.md).
