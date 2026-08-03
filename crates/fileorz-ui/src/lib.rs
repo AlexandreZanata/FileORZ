@@ -1,10 +1,11 @@
-//! iced UI — theme tokens + main shell (ADR-0002, phases 13–14).
+//! iced UI — theme tokens + main shell + settings (ADR-0002, phases 13–15).
 
 pub mod app;
 pub mod links;
 pub mod message;
 pub mod organizer;
 pub mod persist;
+pub mod settings;
 pub mod shell;
 pub mod smoke;
 pub mod state;

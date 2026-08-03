@@ -56,10 +56,24 @@ pub fn run_with(locale_tag: &str, opts: LaunchOptions) -> iced::Result {
             ..iced::window::Settings::default()
         })
         .run_with(move || {
-            let app = ShellApp::new(&locale, opts);
+            let mut app = ShellApp::new(&locale, opts);
+            if std::env::var_os("FILEORZ_UI_OPEN_SETTINGS").is_some() {
+                app.settings = crate::settings::SettingsScreen::Hub;
+            }
             let boot = if start_hidden {
                 window::get_oldest().then(|id| match id {
                     Some(id) => window::change_mode(id, Mode::Hidden),
+                    None => Task::none(),
+                })
+            } else if app.settings == crate::settings::SettingsScreen::Hub {
+                window::get_oldest().then(|id| match id {
+                    Some(id) => window::resize(
+                        id,
+                        Size::new(
+                            crate::settings::screen::SETTINGS_WIDTH,
+                            crate::settings::screen::SETTINGS_HEIGHT,
+                        ),
+                    ),
                     None => Task::none(),
                 })
             } else {
@@ -85,7 +99,13 @@ fn subscription(app: &ShellApp) -> Subscription<Message> {
     } else {
         Subscription::none()
     };
-    Subscription::batch([close, tray, smoke])
+    let keys = iced::keyboard::on_key_press(|key, _mods| match key {
+        iced::keyboard::Key::Named(iced::keyboard::key::Named::Escape) => {
+            Some(Message::SettingsBack)
+        }
+        _ => None,
+    });
+    Subscription::batch([close, tray, smoke, keys])
 }
 
 /// Expose window size tokens for tests / docs.

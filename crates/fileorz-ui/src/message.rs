@@ -1,5 +1,6 @@
-//! iced messages for the main shell.
+//! iced messages for the main shell + settings.
 
+use crate::settings::SettingsMsg;
 use iced::window;
 use std::path::PathBuf;
 
@@ -14,8 +15,12 @@ pub enum Message {
     IntervalChanged(u32),
     /// Primary CTA (start when idle/error, stop when running).
     ToggleOrganizer,
-    /// Settings stub (phase 15+).
-    SettingsStub,
+    /// Open settings hub.
+    OpenSettings,
+    /// Esc / Back within settings.
+    SettingsBack,
+    /// Settings hub / editor events.
+    Settings(SettingsMsg),
     /// Autostart switch.
     AutostartToggled(bool),
     /// Open GitHub in browser.

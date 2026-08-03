@@ -29,7 +29,9 @@ pub fn update(app: &mut ShellApp, message: Message) -> Task<Message> {
             on_toggle(app);
             Task::none()
         }
-        Message::SettingsStub => Task::none(),
+        Message::OpenSettings => crate::settings::update::open_hub(app),
+        Message::SettingsBack => crate::settings::update::go_back(app),
+        Message::Settings(msg) => crate::settings::update::handle(app, msg),
         Message::AutostartToggled(enabled) => {
             on_autostart(app, enabled);
             Task::none()

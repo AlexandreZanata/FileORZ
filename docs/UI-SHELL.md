@@ -7,7 +7,7 @@ iced main window for phase 14 — folder, interval, Start/Stop, header controls.
 | Region | Jobs |
 |--------|------|
 | Header | Brand + tagline, autostart toggle, GitHub / Changelog / About |
-| Body | Folder picker (rfd / portal), interval 1–10 min, Settings stub, Start/Stop |
+| Body | Folder picker (rfd / portal), interval 1–10 min, Settings → hub, Start/Stop |
 | Feedback | i18n success / error line under actions |
 
 Window size stays **700×420** (tokens). Theme: `docs/UI-TOKENS.md`.
@@ -39,3 +39,4 @@ FILEORZ_UI_SMOKE=.local/tmp/ui-reference/phase-14-shell-en.ppm \
 ```
 
 `FILEORZ_UI_SMOKE=<ppm-path>` captures the iced window then exits (manual gate).
+`FILEORZ_UI_OPEN_SETTINGS=1` opens the settings hub on launch (for smoke).

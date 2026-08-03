@@ -22,6 +22,24 @@ pub fn load_keywords(path: &Path) -> Result<KeywordGroups, KeywordsError> {
     Ok(serde_json::from_str(&raw)?)
 }
 
+/// Atomic write of keyword groups (temp + rename).
+pub fn save_keywords(path: &Path, groups: &KeywordGroups) -> Result<(), KeywordsError> {
+    if let Some(parent) = path.parent() {
+        fs::create_dir_all(parent)?;
+    }
+    let tmp = path.with_extension("json.tmp");
+    {
+        let body = serde_json::to_vec_pretty(groups)?;
+        let mut file = fs::File::create(&tmp)?;
+        use std::io::Write;
+        file.write_all(&body)?;
+        file.write_all(b"\n")?;
+        file.sync_all()?;
+    }
+    fs::rename(&tmp, path)?;
+    Ok(())
+}
+
 /// First group whose phrase is an uppercase substring of `haystack`.
 #[must_use]
 pub fn find_first_group<'a>(haystack: &str, groups: &'a KeywordGroups) -> Option<&'a str> {
@@ -55,5 +73,16 @@ mod match_tests {
             find_first_group("NOTA FISCAL\n", &groups),
             Some("Nota Fiscal")
         );
+    }
+
+    #[test]
+    fn save_keywords_roundtrip() {
+        let dir = tempfile::tempdir().expect("temp");
+        let path = dir.path().join("keywords.json");
+        let mut groups = KeywordGroups::new();
+        groups.insert("Invoices".into(), vec!["invoice".into(), "receipt".into()]);
+        save_keywords(&path, &groups).expect("save");
+        let loaded = load_keywords(&path).expect("load");
+        assert_eq!(loaded, groups);
     }
 }

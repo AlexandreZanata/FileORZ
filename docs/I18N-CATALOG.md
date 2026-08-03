@@ -45,6 +45,7 @@ Icons/emoji in upstream CustomTkinter are decorative — Fluent strings are plai
 | `settings-card-autodelete-title` | Hub | Auto Deletar |
 | `settings-card-autodelete-body` | Hub | Defina intervalos e regras automáticas… |
 | `settings-card-configure` | Hub | Configurar |
+| `settings-back` | Hub/editors | Voltar / Esc |
 
 ## Extensions (`ui/ext_config.py`)
 
@@ -71,6 +72,7 @@ Icons/emoji in upstream CustomTkinter are decorative — Fluent strings are plai
 | `settings-advanced-group-name-placeholder` | Adv | Nome do Grupo (ex: Boletos) |
 | `settings-advanced-keywords-placeholder` | Adv | Palavras ou frases separadas por vírgula… |
 | `settings-advanced-save-group` | Adv | Salvar |
+| `settings-advanced-delete-group` | Adv | Excluir |
 
 ## Auto-delete (`ui/Config_AutoDell.py`)
 

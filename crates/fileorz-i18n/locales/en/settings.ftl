@@ -9,6 +9,7 @@ settings-card-advanced-body = Keyword rules to group and organize PDFs.
 settings-card-autodelete-title = Auto-delete
 settings-card-autodelete-body = Set intervals and automatic deletion rules for periodic cleanup.
 settings-card-configure = Configure
+settings-back = Back
 
 # Extensions
 settings-ext-title = Categories and extensions
@@ -29,6 +30,7 @@ settings-advanced-empty = No groups yet. Click Add group.
 settings-advanced-group-name-placeholder = Group name (e.g. Invoices)
 settings-advanced-keywords-placeholder = Words or phrases, comma-separated…
 settings-advanced-save-group = Save
+settings-advanced-delete-group = Delete
 
 # Auto-delete
 settings-autodelete-window-title = Auto-delete settings

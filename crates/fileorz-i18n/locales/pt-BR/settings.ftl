@@ -9,6 +9,7 @@ settings-card-advanced-body = Regras inteligentes com palavras-chave para agrupa
 settings-card-autodelete-title = Auto Deletar
 settings-card-autodelete-body = Defina intervalos e regras automáticas de exclusão para limpeza periódica.
 settings-card-configure = Configurar
+settings-back = Voltar
 
 # Extensions
 settings-ext-title = Categorias e Extensões
@@ -29,6 +30,7 @@ settings-advanced-empty = Nenhum grupo cadastrado. Clique em + Adicionar Grupo.
 settings-advanced-group-name-placeholder = Nome do Grupo (ex: Boletos)
 settings-advanced-keywords-placeholder = Palavras ou frases separadas por vírgula...
 settings-advanced-save-group = Salvar
+settings-advanced-delete-group = Excluir
 
 # Auto-delete
 settings-autodelete-window-title = Configurações Auto Deletar

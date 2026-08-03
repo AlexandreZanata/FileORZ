@@ -106,7 +106,7 @@ fn actions_row(app: &ShellApp) -> Element<'_, Message> {
         button(text(&app.strings.settings).size(FONT_BODY))
             .padding([12, 16])
             .style(|_, _| secondary_button())
-            .on_press(Message::SettingsStub),
+            .on_press(Message::OpenSettings),
         Space::with_width(Length::Fill),
         primary,
     ]

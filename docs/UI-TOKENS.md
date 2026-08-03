@@ -41,3 +41,4 @@ cargo run -p fileorz -- --locale en
 ```
 
 Main shell behavior (folder / interval / Start / tray hide): [`UI-SHELL.md`](UI-SHELL.md).
+Settings hub + editors: [`UI-SETTINGS.md`](UI-SETTINGS.md).
