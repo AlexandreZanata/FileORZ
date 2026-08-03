@@ -15,5 +15,7 @@ Workspace members match `.local/ARCHITECTURE-LINUX-RUST.md`.
 ```bash
 cargo test --workspace
 cargo run -p fileorz -- --help
+cargo build -p fileorz --release   # → target/release/fileorz (strip=symbols)
 bash scripts/check-rust.sh
+bash scripts/package-linux.sh      # → dist/linux/*.deb (see docs/INSTALL-LINUX.md)
 ```

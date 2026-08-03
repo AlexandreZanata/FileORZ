@@ -19,3 +19,8 @@ rust-version = "1.85"
 
 [workspace.lints.rust]
 unsafe_code = "forbid"
+
+# Release binaries for packaging (phase 17): strip symbols by default.
+# Reinforced in docs/INSTALL-LINUX.md; override with RUSTFLAGS if needed.
+[profile.release]
+strip = "symbols"

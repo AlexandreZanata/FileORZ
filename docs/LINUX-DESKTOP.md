@@ -57,3 +57,5 @@ Official specs:
 cargo test -p fileorz-linux
 npm run verify
 ```
+
+Install / `.deb` packaging: [`INSTALL-LINUX.md`](INSTALL-LINUX.md).

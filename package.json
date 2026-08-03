@@ -14,6 +14,8 @@
     "check:i18n": "bash scripts/check-i18n.sh",
     "check:config-keys": "python3 scripts/check_config_key_map.py",
     "check:rust": "bash scripts/check-rust.sh",
+    "check:package": "python3 scripts/check_package_linux.py",
+    "package:linux": "bash scripts/package-linux.sh",
     "hooks:install": "bash scripts/install-hooks.sh"
   },
   "engines": {

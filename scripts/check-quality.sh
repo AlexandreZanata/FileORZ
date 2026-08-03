@@ -15,7 +15,7 @@ step() {
   local started ended elapsed
   started=$(date +%s)
   echo ""
-  echo "${num}/8 ${label}"
+  echo "${num}/9 ${label}"
   "$@"
   ended=$(date +%s)
   elapsed=$((ended - started))
@@ -47,6 +47,9 @@ step 7 "Config key map vs utils/*.py" \
 
 step 8 "Rust fmt + clippy + test" \
   bash "$ROOT/scripts/check-rust.sh"
+
+step 9 "Linux packaging assets (desktop + icons + docs)" \
+  python3 "$ROOT/scripts/check_package_linux.py"
 
 GATE_END=$(date +%s)
 GATE_ELAPSED=$((GATE_END - GATE_START))

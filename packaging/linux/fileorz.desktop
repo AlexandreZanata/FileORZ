@@ -1,0 +1,12 @@
+[Desktop Entry]
+Type=Application
+Version=1.5
+Name=FileORZ
+GenericName=File organizer
+Comment=Automatic file organizer for Linux
+Exec=fileorz
+Icon=fileorz
+Terminal=false
+Categories=Utility;Filesystem;
+Keywords=organize;files;folders;
+StartupNotify=true

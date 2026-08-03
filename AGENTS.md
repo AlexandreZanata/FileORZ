@@ -88,12 +88,16 @@ Config keys: [`docs/CONFIG-KEY-MAP.md`](docs/CONFIG-KEY-MAP.md), domain notes [`
 Organize API: [`docs/ORGANIZE.md`](docs/ORGANIZE.md).  
 Auto-delete: [`docs/AUTODELETE.md`](docs/AUTODELETE.md).  
 Scheduler: [`docs/SCHEDULER.md`](docs/SCHEDULER.md).  
-Linux desktop: [`docs/LINUX-DESKTOP.md`](docs/LINUX-DESKTOP.md).  
-UI tokens: [`docs/UI-TOKENS.md`](docs/UI-TOKENS.md).  
-UI main shell: [`docs/UI-SHELL.md`](docs/UI-SHELL.md).  
-UI settings: [`docs/UI-SETTINGS.md`](docs/UI-SETTINGS.md).  
-UI a11y / polish: [`docs/UI-A11Y.md`](docs/UI-A11Y.md).  
-Gates: `check:adr`, `characterize`, `check:i18n`, `check:config-keys`, `check:rust` (also in `verify`).  
+Linux desktop: [`docs/LINUX-DESKTOP.md`](docs/LINUX-DESKTOP.md). 
+Linux install / `.deb`: [`docs/INSTALL-LINUX.md`](docs/INSTALL-LINUX.md),
+`scripts/package-linux.sh`, `packaging/linux/`. 
+Rust crate licenses: [`docs/THIRD_PARTY_RUST.md`](docs/THIRD_PARTY_RUST.md). 
+UI tokens: [`docs/UI-TOKENS.md`](docs/UI-TOKENS.md). 
+UI main shell: [`docs/UI-SHELL.md`](docs/UI-SHELL.md). 
+UI settings: [`docs/UI-SETTINGS.md`](docs/UI-SETTINGS.md). 
+UI a11y / polish: [`docs/UI-A11Y.md`](docs/UI-A11Y.md). 
+Gates: `check:adr`, `characterize`, `check:i18n`, `check:config-keys`, `check:rust`,
+`check:package` (also in `verify`). 
 Rust workspace: [`crates/`](crates/README.md) (`cargo test --workspace`).
 
 ---
