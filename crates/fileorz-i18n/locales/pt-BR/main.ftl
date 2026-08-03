@@ -15,7 +15,7 @@ main-btn-start = Iniciar Organização
 main-btn-stop = Parar Organização
 
 # Folder + interval
-folder-pick-label = Selecionar Pasta para Organizar
+folder-pick-label = Pasta para Organizar
 folder-pick-button = Selecionar
 folder-pick-dialog = Selecione a pasta
 folder-pick-empty = Nenhuma pasta selecionada

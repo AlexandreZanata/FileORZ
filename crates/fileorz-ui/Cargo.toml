@@ -14,7 +14,7 @@ workspace = true
 fileorz-core = { path = "../fileorz-core" }
 fileorz-i18n = { path = "../fileorz-i18n" }
 fileorz-linux = { path = "../fileorz-linux" }
-iced = { version = "0.13.1", features = ["tokio"] }
+iced = { version = "0.13.1", features = ["tokio", "image"] }
 open = "5"
 rfd = "0.15"
 

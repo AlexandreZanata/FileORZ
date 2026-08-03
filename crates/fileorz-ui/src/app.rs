@@ -1,5 +1,6 @@
 //! iced application entry — subscriptions + window lifecycle.
 
+use crate::brand_icon;
 use crate::message::Message;
 use crate::settings::SettingsScreen;
 use crate::shell::{LaunchOptions, ShellApp};
@@ -54,6 +55,7 @@ pub fn run_with(locale_tag: &str, opts: LaunchOptions) -> iced::Result {
             position,
             visible: !start_hidden,
             exit_on_close_request: false,
+            icon: brand_icon::window_icon(),
             ..iced::window::Settings::default()
         })
         .run_with(move || {
@@ -164,6 +166,6 @@ mod tests {
 
     #[test]
     fn window_size_parity() {
-        assert_eq!(window_size(), (700.0, 420.0));
+        assert_eq!(window_size(), (720.0, 460.0));
     }
 }

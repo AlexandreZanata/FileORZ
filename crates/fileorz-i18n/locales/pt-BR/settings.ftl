@@ -9,6 +9,8 @@ settings-card-advanced-body = Regras inteligentes com palavras-chave para agrupa
 settings-card-autodelete-title = Auto Deletar
 settings-card-autodelete-body = Defina intervalos e regras automáticas de exclusão para limpeza periódica.
 settings-card-configure = Configurar
+settings-card-language-title = Idioma
+settings-card-language-body = Escolha o idioma da interface (en ou pt-BR).
 settings-back = Voltar
 
 # Extensions

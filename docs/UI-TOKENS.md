@@ -24,7 +24,7 @@ Rust: `fileorz_ui::tokens`. iced theme: `fileorz_ui::fileorz_theme()` (`FileORZ 
 
 - Grid: 8 / 16 / 24 / 32 (`SPACE_1`…`SPACE_4`)
 - Body: 12 / 14 / 16; title: 22
-- Window start size: **700×420**
+- Window start size: **720×460**
 
 ## Fonts
 

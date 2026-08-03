@@ -20,8 +20,10 @@ API: `fileorz_linux::autostart::{enable, disable, is_enabled, desktop_entry}`.
 StatusNotifierItem via **ksni** (menu: Open / Quit, i18n `tray-*`).
 
 Prefers the iced main shell started **hidden** (`fileorz_ui::run_tray`). Close
-hides the window; tray **Open** shows it again; **Quit** stops the organizer and
-exits. If the UI cannot start (no display), falls back to tray-only mode.
+hides the window in **`--tray` mode only**; a normal desktop launch **quits** on
+close (tray icons are often invisible on GNOME without an extension). Tray
+**Open** shows the window again; **Quit** stops the organizer and exits. If the
+UI cannot start (no display), falls back to tray-only mode.
 
 | Action | Behavior |
 |--------|----------|

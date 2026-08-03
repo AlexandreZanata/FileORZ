@@ -15,7 +15,7 @@ use iced::{Background, Color, Element, Length};
 pub fn view(app: &ShellApp) -> Element<'_, Message> {
     let content = match app.settings {
         SettingsScreen::Main => column![view_header(app), view_body(app)].width(Length::Fill),
-        SettingsScreen::Hub => column![hub::view(&app.settings_strings)].width(Length::Fill),
+        SettingsScreen::Hub => column![hub::view(app)].width(Length::Fill),
         SettingsScreen::Extensions => column![ext_view::view(app)].width(Length::Fill),
         SettingsScreen::Advanced => column![adv_view::view(app)].width(Length::Fill),
         SettingsScreen::AutoDelete => column![ad_view::view(app)].width(Length::Fill),

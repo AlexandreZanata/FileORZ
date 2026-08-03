@@ -2,6 +2,7 @@
 
 pub mod about;
 pub mod app;
+pub mod brand_icon;
 pub mod contrast;
 pub mod links;
 pub mod locale_pick;

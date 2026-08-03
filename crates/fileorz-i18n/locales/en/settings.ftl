@@ -9,6 +9,8 @@ settings-card-advanced-body = Keyword rules to group and organize PDFs.
 settings-card-autodelete-title = Auto-delete
 settings-card-autodelete-body = Set intervals and automatic deletion rules for periodic cleanup.
 settings-card-configure = Configure
+settings-card-language-title = Language
+settings-card-language-body = Choose the interface language (en or pt-BR).
 settings-back = Back
 
 # Extensions

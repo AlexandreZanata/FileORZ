@@ -1,40 +1,40 @@
-//! Locale tag normalize + selection order (CLI → config → env → en).
+//! Locale tag normalize + selection order (CLI → config → en).
 
 /// Map common tags onto catalog directories (`en`, `pt-BR`).
 #[must_use]
 pub fn normalize_locale(tag: &str) -> String {
-    let cleaned = tag.split('.').next().unwrap_or(tag).trim();
-    let lower = cleaned.replace('_', "-").to_ascii_lowercase();
-    if lower == "en" || lower.starts_with("en-") {
+    let lower = tag.to_ascii_lowercase();
+    let base = lower.split(['.', '@']).next().unwrap_or(&lower);
+    if base == "en" || base.starts_with("en-") || base.starts_with("en_") {
         return "en".into();
     }
-    if lower == "pt" || lower == "pt-br" || lower.starts_with("pt-br") {
+    if base == "pt" || base.starts_with("pt-") || base.starts_with("pt_") {
         return "pt-BR".into();
     }
-    cleaned.replace('_', "-")
+    "en".into()
 }
 
-/// Resolve locale: `--locale` → config → `LANG`/`LC_MESSAGES` → `en`.
+/// Resolve locale: `--locale` → config `locale` → default `en`.
+///
+/// System `LANG` / `LC_MESSAGES` are **not** used for the Linux product default
+/// (always English until the user picks another language in Settings).
 #[must_use]
 pub fn resolve_locale(
     cli: Option<&str>,
     config: Option<&str>,
-    lang: Option<&str>,
-    lc_messages: Option<&str>,
+    _lang: Option<&str>,
+    _lc_messages: Option<&str>,
 ) -> String {
-    if let Some(tag) = first_nonempty(cli) {
+    if let Some(tag) = cli.filter(|t| !t.is_empty()) {
         return normalize_locale(tag);
     }
-    if let Some(tag) = first_nonempty(config) {
-        return normalize_locale(tag);
-    }
-    if let Some(tag) = first_nonempty(lang).or_else(|| first_nonempty(lc_messages)) {
+    if let Some(tag) = config.filter(|t| !t.is_empty()) {
         return normalize_locale(tag);
     }
     "en".into()
 }
 
-/// Read process env for locale resolution (`LANG`, then `LC_MESSAGES`).
+/// Read process env for locale resolution (CLI / config only; env ignored).
 #[must_use]
 pub fn resolve_locale_from_env(cli: Option<&str>, config: Option<&str>) -> String {
     resolve_locale(
@@ -43,10 +43,6 @@ pub fn resolve_locale_from_env(cli: Option<&str>, config: Option<&str>) -> Strin
         std::env::var("LANG").ok().as_deref(),
         std::env::var("LC_MESSAGES").ok().as_deref(),
     )
-}
-
-fn first_nonempty(value: Option<&str>) -> Option<&str> {
-    value.map(str::trim).filter(|s| !s.is_empty())
 }
 
 #[cfg(test)]
@@ -70,10 +66,8 @@ mod locale_tests {
             resolve_locale(None, Some("pt-BR"), Some("en_US"), None),
             "pt-BR"
         );
-        assert_eq!(
-            resolve_locale(None, None, Some("pt_BR.UTF-8"), None),
-            "pt-BR"
-        );
+        // LANG must not override product default English.
+        assert_eq!(resolve_locale(None, None, Some("pt_BR.UTF-8"), None), "en");
         assert_eq!(resolve_locale(None, None, None, None), "en");
     }
 }

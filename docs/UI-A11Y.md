@@ -32,7 +32,9 @@ cargo test -p fileorz-ui contrast
 
 ## Language picker
 
-Header pick list `en` / `pt-BR` → `ShellApp::apply_locale` → persists `config.locale` to XDG `config.json` and reloads Fluent strings without restart.
+Header / Settings language pick list `en` / `pt-BR` → `ShellApp::apply_locale`
+→ persists `config.locale` to XDG `config.json` and reloads Fluent strings
+without restart. Product default is **en** (Settings hub picker; not `LANG`).
 
 ## About
 

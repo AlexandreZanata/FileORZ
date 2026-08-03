@@ -44,9 +44,9 @@ pub const FONT_BODY_SM: f32 = 12.0;
 pub const FONT_BODY_LG: f32 = 16.0;
 pub const FONT_TITLE: f32 = 22.0;
 
-/// Parity starting window size (CustomTkinter-ish).
-pub const WINDOW_WIDTH: f32 = 700.0;
-pub const WINDOW_HEIGHT: f32 = 420.0;
+/// Parity starting window size (CustomTkinter / Windows shell).
+pub const WINDOW_WIDTH: f32 = 720.0;
+pub const WINDOW_HEIGHT: f32 = 460.0;
 
 /// Hex helpers for docs / tests.
 #[must_use]
@@ -83,7 +83,7 @@ mod tests {
 
     #[test]
     fn window_parity_size() {
-        assert!((WINDOW_WIDTH - 700.0).abs() < f32::EPSILON);
-        assert!((WINDOW_HEIGHT - 420.0).abs() < f32::EPSILON);
+        assert!((WINDOW_WIDTH - 720.0).abs() < f32::EPSILON);
+        assert!((WINDOW_HEIGHT - 460.0).abs() < f32::EPSILON);
     }
 }

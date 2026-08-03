@@ -27,8 +27,9 @@ crates/fileorz-i18n/locales/{en,pt-BR}/*.ftl
 **Fallback chain:** requested locale → `en` → message-id literal (debug builds
 only; release logs missing IDs).
 
-**Locale selection order:** `--locale` → config `locale` → `LANG`/`LC_MESSAGES`
-→ default `en`.
+**Locale selection order:** `--locale` → config `locale` → default `en`.
+System `LANG` / `LC_MESSAGES` do **not** auto-select the UI (Linux product
+starts in English; user changes language in Settings).
 
 **CI ID check (phase 10+):** every ID referenced in Rust UI/core errors must
 exist in **both** `en` and `pt-BR` catalogs; deleting an ID fails CI.

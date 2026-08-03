@@ -50,7 +50,7 @@ cargo test -p fileorz-parity -- --include-ignored   # optional matrix lock
 |----|------------------|----------|
 | B-01 | GUI default unless `--tray` | `fileorz` default → `ui_cmd`; e2e UI smoke in `e2e_01_organize` |
 | B-02 | `--tray` starts organizer; window hidden | `tray_cmd` + `fileorz_ui::run_tray`; **E2E-04** `e2e_04_tray` |
-| B-03 | Close hides to tray (no quit) | `fileorz_ui::run_tray` close→hide; [UI-SHELL.md](UI-SHELL.md) |
+| B-03 | Close hides to tray (no quit) | **`--tray` / start_hidden only**; normal GUI close quits (GNOME tray gap) |
 | B-04 | Tray Open / Quit | `fileorz_linux::tray::menu_order_open_then_quit`; tray labels i18n |
 | B-05 | Interval loop from config minutes | `scheduler::tests::wait_interruptible_*`; `OrganizerHandle` |
 | B-10 | Tick: validate → autodelete → PDF → extension | `scheduler::tests::run_tick_once_moves_extensions`; [SCHEDULER.md](SCHEDULER.md) |

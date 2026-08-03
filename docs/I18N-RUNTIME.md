@@ -12,7 +12,7 @@ crates/fileorz-i18n/locales/{en,pt-BR}/{main,settings,errors,tray}.ftl
 
 | Item | Role |
 |------|------|
-| `resolve_locale` / `resolve_locale_from_env` | CLI → config → `LANG`/`LC_MESSAGES` → `en` |
+| `resolve_locale` / `resolve_locale_from_env` | CLI → config → `en` (ignores `LANG`) |
 | `normalize_locale` | Map `pt_BR.UTF-8` → `pt-BR`, `en_US` → `en` |
 | `Localization::embed` | Compile-time catalogs |
 | `Localization::from_dir` | Filesystem load (tests / tools) |

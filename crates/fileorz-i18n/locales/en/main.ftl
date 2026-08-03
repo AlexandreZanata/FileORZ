@@ -11,12 +11,12 @@ header-language = Language
 
 # Main actions
 main-btn-settings = Settings
-main-btn-start = Start organizing
-main-btn-stop = Stop organizing
+main-btn-start = Start organization
+main-btn-stop = Stop organization
 
 # Folder + interval
-folder-pick-label = Choose folder to organize
-folder-pick-button = Choose
+folder-pick-label = Folder to organize
+folder-pick-button = Select
 folder-pick-dialog = Select folder
 folder-pick-empty = No folder selected
 interval-label = Check interval (minutes)

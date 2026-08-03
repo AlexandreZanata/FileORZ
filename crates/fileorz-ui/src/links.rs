@@ -1,5 +1,9 @@
 //! External links for header / About actions.
 
+use std::io;
+use std::process::{Command, Stdio};
+use std::thread;
+
 /// Upstream GitHub repository (original FileORZ).
 pub const UPSTREAM_URL: &str = "https://github.com/ThainanViniciusKatchan/FileORZ";
 
@@ -17,11 +21,42 @@ pub const CHANGELOG_URL: &str =
 pub const NOTICES_URL: &str =
     "https://github.com/AlexandreZanata/FileORZ/blob/main/THIRD_PARTY_NOTICES.md";
 
-/// Open a URL in the desktop browser; ignore failures (no UI crash).
+/// Open a URL in the desktop browser (non-blocking).
 pub fn open_url(url: &str) {
-    if let Err(err) = open::that(url) {
-        eprintln!("open url failed: {err}");
+    let url = url.to_string();
+    thread::spawn(move || {
+        if let Err(err) = open_in_browser(&url) {
+            eprintln!("open url failed ({url}): {err}");
+        }
+    });
+}
+
+/// Prefer `xdg-open` so the real default browser gets focus (not IDE helpers).
+fn open_in_browser(url: &str) -> io::Result<()> {
+    let mut cmd = Command::new("xdg-open");
+    cmd.arg(url)
+        .stdin(Stdio::null())
+        .stdout(Stdio::null())
+        .stderr(Stdio::null());
+    // Cursor/VS Code often set BROWSER to a helper that "opens" without navigating.
+    if browser_env_is_ide_helper() {
+        cmd.env_remove("BROWSER");
     }
+    match cmd.spawn() {
+        Ok(_) => Ok(()),
+        Err(_) => open::that_detached(url),
+    }
+}
+
+fn browser_env_is_ide_helper() -> bool {
+    let Ok(browser) = std::env::var("BROWSER") else {
+        return false;
+    };
+    let lower = browser.to_ascii_lowercase();
+    lower.contains("cursor")
+        || lower.contains("code")
+        || lower.contains("electron")
+        || lower.contains("vscode")
 }
 
 #[cfg(test)]

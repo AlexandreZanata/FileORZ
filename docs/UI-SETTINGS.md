@@ -13,8 +13,9 @@ button as in-app subviews (not separate OS windows).
 | Keyword groups | **Apply** per card | Writes XDG `keywords.json` via `save_keywords` |
 | Auto-delete | **Autosave** | Every toggle / day / destination |
 
-Esc or **Back** pops editor → hub → main and restores the 700×420 window.
-Hub/editors use **900×520**.
+Esc or **Back** pops editor → hub → main and restores the 720×460 window.
+Hub/editors use **900×520**. The hub includes a **language** pick list
+(`en` / `pt-BR`); default product locale is **English** (not `LANG`).
 
 ## Mutual exclusion (auto-delete)
 

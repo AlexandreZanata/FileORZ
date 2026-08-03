@@ -1,4 +1,4 @@
-//! Folder, interval, actions, feedback.
+//! Folder, interval, actions, feedback — card layout (Windows-parity).
 
 use crate::message::Message;
 use crate::persist::INTERVAL_CHOICES;
@@ -8,7 +8,8 @@ use crate::style::{
     accent_button, accent_button_pressed, danger_button, panel_style, secondary_button,
 };
 use crate::tokens::{
-    DANGER, FONT_BODY, FONT_BODY_SM, SPACE_1, SPACE_2, SPACE_3, SUCCESS, TEXT, TEXT_MUTED,
+    DANGER, FONT_BODY, FONT_BODY_LG, FONT_BODY_SM, SPACE_1, SPACE_2, SPACE_3, SUCCESS, TEXT,
+    TEXT_MUTED,
 };
 use iced::widget::{button, column, container, pick_list, row, text, Space};
 use iced::{Element, Length};
@@ -16,8 +17,8 @@ use iced::{Element, Length};
 /// Main body under the header.
 pub fn view_body(app: &ShellApp) -> Element<'_, Message> {
     column![
-        folder_row(app),
-        interval_row(app),
+        folder_card(app),
+        interval_card(app),
         actions_row(app),
         feedback_row(app),
     ]
@@ -27,56 +28,60 @@ pub fn view_body(app: &ShellApp) -> Element<'_, Message> {
     .into()
 }
 
-fn folder_row(app: &ShellApp) -> Element<'_, Message> {
+fn folder_card(app: &ShellApp) -> Element<'_, Message> {
     let path = app
         .config
         .folder
         .as_deref()
         .unwrap_or(app.strings.folder_empty.as_str());
     container(
-        column![
-            row![
-                text(&app.strings.folder_label).size(FONT_BODY).color(TEXT),
-                Space::with_width(Length::Fill),
-                button(text(&app.strings.folder_button).size(FONT_BODY_SM))
-                    .padding([6, 14])
-                    .style(|_, status| secondary_button(status))
-                    .on_press(Message::PickFolder),
+        row![
+            column![
+                text(&app.strings.folder_label)
+                    .size(FONT_BODY_LG)
+                    .color(TEXT),
+                Space::with_height(SPACE_1),
+                text(path).size(FONT_BODY_SM).color(TEXT_MUTED),
             ]
-            .align_y(iced::Alignment::Center),
-            text(path).size(FONT_BODY_SM).color(TEXT_MUTED),
+            .width(Length::Fill),
+            button(text(&app.strings.folder_button).size(FONT_BODY))
+                .padding([10, 18])
+                .style(|_, status| secondary_button(status))
+                .on_press(Message::PickFolder),
         ]
-        .spacing(SPACE_1)
-        .padding(SPACE_2),
+        .align_y(iced::Alignment::Center)
+        .spacing(SPACE_2)
+        .padding(SPACE_3),
     )
     .width(Length::Fill)
     .style(|_| panel_style())
     .into()
 }
 
-fn interval_row(app: &ShellApp) -> Element<'_, Message> {
+fn interval_card(app: &ShellApp) -> Element<'_, Message> {
     container(
-        column![
-            row![
+        row![
+            column![
                 text(&app.strings.interval_label)
-                    .size(FONT_BODY)
+                    .size(FONT_BODY_LG)
                     .color(TEXT),
-                Space::with_width(Length::Fill),
-                pick_list(
-                    INTERVAL_CHOICES,
-                    Some(app.config.interval_minutes),
-                    Message::IntervalChanged,
-                )
-                .text_size(FONT_BODY_SM)
-                .padding([4, 10]),
+                Space::with_height(SPACE_1),
+                text(&app.strings.interval_help)
+                    .size(FONT_BODY_SM)
+                    .color(TEXT_MUTED),
             ]
-            .align_y(iced::Alignment::Center),
-            text(&app.strings.interval_help)
-                .size(FONT_BODY_SM)
-                .color(TEXT_MUTED),
+            .width(Length::Fill),
+            pick_list(
+                INTERVAL_CHOICES,
+                Some(app.config.interval_minutes),
+                Message::IntervalChanged,
+            )
+            .text_size(FONT_BODY)
+            .padding([8, 14]),
         ]
-        .spacing(SPACE_1)
-        .padding(SPACE_2),
+        .align_y(iced::Alignment::Center)
+        .spacing(SPACE_2)
+        .padding(SPACE_3),
     )
     .width(Length::Fill)
     .style(|_| panel_style())
@@ -89,8 +94,8 @@ fn actions_row(app: &ShellApp) -> Element<'_, Message> {
     } else {
         &app.strings.start
     };
-    let primary = button(text(primary_label).size(FONT_BODY))
-        .padding([12, 20])
+    let primary = button(text(primary_label).size(FONT_BODY_LG))
+        .padding([14, 28])
         .style(move |_, status| {
             if app.phase == RunPhase::Running {
                 danger_button(status)
@@ -104,13 +109,17 @@ fn actions_row(app: &ShellApp) -> Element<'_, Message> {
 
     row![
         button(text(&app.strings.settings).size(FONT_BODY))
-            .padding([12, 16])
+            .padding([14, 20])
             .style(|_, status| secondary_button(status))
             .on_press(Message::OpenSettings),
         Space::with_width(Length::Fill),
         primary,
     ]
     .align_y(iced::Alignment::Center)
+    .padding(iced::Padding {
+        top: SPACE_1,
+        ..iced::Padding::ZERO
+    })
     .into()
 }
 

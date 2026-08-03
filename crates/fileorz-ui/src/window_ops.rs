@@ -8,7 +8,9 @@ use iced::window::{self, Mode};
 use iced::Task;
 
 pub fn on_close(app: &mut ShellApp, id: window::Id) -> Task<Message> {
-    if app.tray.is_some() {
+    // Normal GUI launch: close = quit (Pop!_OS / GNOME often hide the tray icon).
+    // `--tray` / start_hidden: close hides; Quit from the tray menu exits.
+    if app.start_hidden && app.tray.is_some() {
         window::change_mode(id, Mode::Hidden)
     } else {
         on_quit(app)

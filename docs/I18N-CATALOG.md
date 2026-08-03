@@ -21,7 +21,7 @@ Icons/emoji in upstream CustomTkinter are decorative — Fluent strings are plai
 | `header-changelog` | Main | Changelog | Link button |
 | `header-github` | Main | GitHub | Link button |
 | `header-autostart` | Main | Iniciar com Windows | Linux: login / system |
-| `header-language` | Main | Idioma | Locale picker |
+| `header-language` | Settings hub | Idioma | Kept for About/legacy; picker on hub |
 | `main-btn-settings` | Main | Configurações | Was emoji + label |
 | `main-btn-start` | Main | Iniciar Organização | Was emoji + label |
 | `main-btn-stop` | Main | Parar Organização | Start/Stop CTA |
@@ -46,6 +46,8 @@ Icons/emoji in upstream CustomTkinter are decorative — Fluent strings are plai
 | `settings-card-autodelete-title` | Hub | Auto Deletar |
 | `settings-card-autodelete-body` | Hub | Defina intervalos e regras automáticas… |
 | `settings-card-configure` | Hub | Configurar |
+| `settings-card-language-title` | Hub | Idioma / Language |
+| `settings-card-language-body` | Hub | Choose interface language… |
 | `settings-back` | Hub/editors | Voltar / Esc |
 
 ## Extensions (`ui/ext_config.py`)

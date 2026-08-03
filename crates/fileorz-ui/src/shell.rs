@@ -1,5 +1,6 @@
 //! Shell application state (config, phase, tray, organizer, settings).
 
+use crate::brand_icon;
 use crate::locale_pick;
 use crate::motion::Motion;
 use crate::organizer;
@@ -13,6 +14,7 @@ use fileorz_core::scheduler::OrganizerHandle;
 use fileorz_i18n::{normalize_locale, Localization};
 use fileorz_linux::autostart;
 use fileorz_linux::tray::{TrayLabels, TrayService};
+use iced::widget::image::Handle;
 
 /// Launch mode for the iced shell.
 #[derive(Debug, Clone, Copy, Default)]
@@ -41,6 +43,8 @@ pub struct ShellApp {
     pub motion: Motion,
     /// Last known window scale factor (HiDPI).
     pub scale_factor: f32,
+    /// Product icon for the header brand mark.
+    pub brand_icon: Handle,
 }
 
 impl ShellApp {
@@ -72,6 +76,7 @@ impl ShellApp {
             smoke_path: std::env::var_os("FILEORZ_UI_SMOKE").map(std::path::PathBuf::from),
             motion: Motion::default(),
             scale_factor: 1.0,
+            brand_icon: brand_icon::header_handle(),
         };
         if opts.autostart_organizer {
             app.try_autostart_organizer();

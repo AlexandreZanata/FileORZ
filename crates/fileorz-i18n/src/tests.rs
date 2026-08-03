@@ -11,7 +11,7 @@ fn crate_name_matches() {
 fn en_critical_ids() {
     let loc = Localization::embed("en").unwrap();
     assert_eq!(loc.message("app-title"), "FileORZ");
-    assert_eq!(loc.message("main-btn-start"), "Start organizing");
+    assert_eq!(loc.message("main-btn-start"), "Start organization");
     assert_eq!(
         loc.message("error-folder-missing"),
         "Choose a valid folder first."

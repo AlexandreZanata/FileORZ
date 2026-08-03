@@ -10,7 +10,8 @@ iced main window for phase 14 — folder, interval, Start/Stop, header controls.
 | Body | Folder picker (rfd / portal), interval 1–10 min, Settings → hub, Start/Stop |
 | Feedback | i18n success / error line under actions |
 
-Window size stays **700×420** (tokens). Theme: `docs/UI-TOKENS.md`.
+Window size stays **720×460** (tokens). Theme: `docs/UI-TOKENS.md`.
+Language is chosen on the **Settings** hub (default **en**).
 
 ## Behavior
 
@@ -20,12 +21,13 @@ Window size stays **700×420** (tokens). Theme: `docs/UI-TOKENS.md`.
 | Start | `validate_root` then `OrganizerHandle::start`; errors via Fluent |
 | Stop | Cooperative `OrganizerHandle::stop` |
 | Autostart | Sync XDG `.desktop` + `AppConfig.autostart` |
-| Close | Hide window when tray is available (else quit) |
+| Close | Quit (stop organizer + tray). With `--tray` / hidden start: hide to tray |
 | Tray Open | Show + focus window |
 | Tray Quit | Stop organizer, shutdown tray, exit |
 
 `--tray` launches the same shell hidden with optional organizer autostart
-(`fileorz_ui::run_tray`). `FILEORZ_TRAY_SMOKE=1` keeps the headless tray smoke path.
+(`fileorz_ui::run_tray`). Close then hides; use tray **Quit** to exit.
+`FILEORZ_TRAY_SMOKE=1` keeps the headless tray smoke path.
 
 ## State machine
 
